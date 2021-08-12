@@ -2,6 +2,9 @@
 #define RENDERER_H
 #include "export.h"
 
+//forward declaration of GLFWwindow
+class GLFWwindow;
+
 namespace Engine {
 	class ENGINE_API Renderer {
 	private:
@@ -9,6 +12,10 @@ namespace Engine {
 	public:
 		Renderer();
 		~Renderer();
+
+		bool InitializeGlew();
+		void SwapBuffers(GLFWwindow* window);
+
 	};
 }
 
