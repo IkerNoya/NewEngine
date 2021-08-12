@@ -26,6 +26,11 @@ bool Renderer::InitializeGlew(){
     return true;
 }
 
-void Renderer::SwapBuffers(GLFWwindow* window){
+void Renderer::BeginFrame(float r, float g, float b){
+    glClearColor(r, g, b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+void Renderer::EndFrame(GLFWwindow* window){
     glfwSwapBuffers(window);
+    glfwPollEvents();
 }

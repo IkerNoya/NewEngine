@@ -14,8 +14,8 @@ namespace Engine {
 		~Renderer();
 
 		bool InitializeGlew();
-		void SwapBuffers(GLFWwindow* window);
-
+		void BeginFrame(float r, float g, float b);
+		void EndFrame(GLFWwindow* window);
 	};
 }
 
