@@ -9,14 +9,14 @@ Base::~Base(){
 
 }
 
-int Base::initEngine(){
+int Base::InitEngine(){
 	return 0;
 }
 
-void Base::updateEngine(){
+void Base::UpdateEngine(){
 
 }
 
-void Base::unloadEngine(){
+void Base::UnloadEngine(){
 
 }
