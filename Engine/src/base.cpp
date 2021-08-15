@@ -15,14 +15,13 @@ Base::~Base(){
 	}
 }
 
-int Base::InitEngine(){
+int Base::initEngine(){
 	if (!_renderer->InitializeGlew()) {
 		return 0;
 	}
-
 }
 
-void Base::UpdateEngine(){
+void Base::updateEngine(){
 	while (!glfwWindowShouldClose(_window)){
 		_renderer->BeginFrame(1.0f,1.0f,1.0f);
 
@@ -30,6 +29,6 @@ void Base::UpdateEngine(){
 	}
 }
 
-void Base::UnloadEngine(){
+void Base::unloadEngine(){
 
 }
