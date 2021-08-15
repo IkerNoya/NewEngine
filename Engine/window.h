@@ -11,6 +11,7 @@ namespace Engine {
 		int _height;
 	public:
 		Window();
+		Window(int width, int height);
 		~Window();
 		int CreateWindow(const char* name);
 		GLFWindow* GetWindow();
