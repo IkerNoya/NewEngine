@@ -2,14 +2,13 @@
 #define BASE_H
 #include "export.h"
 #include "renderer.h"
-
-GLFWwindow* Window;
+#include "window.h"
 
 namespace Engine {
 	class ENGINE_API Base {
 	private:
 		Renderer* _renderer;
-		GLFWwindow* _window;
+		Window* _window;
 	public:
 		Base();
 		~Base();

@@ -3,7 +3,7 @@
 #include "export.h"
 
 //forward declaration of GLFWwindow
-class GLFWwindow;
+struct GLFWwindow;
 
 namespace Engine {
 	class ENGINE_API Renderer {
