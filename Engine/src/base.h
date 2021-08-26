@@ -3,13 +3,14 @@
 #include "export.h"
 #include "renderer.h"
 #include "window.h"
-#include "MyMath(Hernan)/My.h"
+#include "shader.h"
 
 namespace Engine {
 	class ENGINE_API Base {
 	private:
 		Renderer* _renderer;
 		Window* _window;
+		Shader basicShader;
 	public:
 		Base();
 		~Base();

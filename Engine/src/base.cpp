@@ -27,6 +27,8 @@ int Base::initEngine(){
 	if (!_renderer->InitializeGlew()) {
 		return 0;
 	}
+
+	basicShader.Create("..//Engine//src//Shaders//vertex.shader", "..//Engine//src//Shaders//fragment.shader");
 }
 
 void Base::updateEngine(){
