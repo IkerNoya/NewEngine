@@ -22,7 +22,7 @@ Base::~Base() {
 }
 
 int Base::initEngine(){
-	_window->CreateWindow("Unreal Engine pero bueno");
+	_window->CreateWindow("Unreal Engine pero con Intellisense");
 
 	if (!_renderer->InitializeGlew()) {
 		return 0;
