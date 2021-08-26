@@ -22,10 +22,11 @@ Base::~Base() {
 }
 
 int Base::initEngine(){
+	_window->CreateWindow("Unreal Engine pero bueno");
+
 	if (!_renderer->InitializeGlew()) {
 		return 0;
 	}
-	_window->CreateWindow("Unreal Engine pero bueno");
 }
 
 void Base::updateEngine(){

@@ -34,3 +34,4 @@ void Renderer::EndFrame(GLFWwindow* window){
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
+
