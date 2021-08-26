@@ -29,16 +29,26 @@ int Base::initEngine(){
 	}
 
 	basicShader.Create("..//Engine//src//Shaders//vertex.shader", "..//Engine//src//Shaders//fragment.shader");
+
+	unsigned int vao, vbo, ebo; //temporal hasta tener shape
+	float* vertices = { 0 };
+	unsigned int* indices = { 0 };
+	_renderer->BindVAO(vao);
+	_renderer->BindVBO(vbo, vertices, 18);
+	_renderer->BindEBO(ebo, indices, 3);
+
+
 }
 
 void Base::updateEngine(){
 	while (!glfwWindowShouldClose(_window->GetWindow())){
 		_renderer->BeginFrame(1.0f,1.0f,1.0f);
-
+		_renderer->Draw();
 		_renderer->EndFrame(_window->GetWindow());
 	}
 }
 
 void Base::unloadEngine(){
-
+	unsigned int vao, vbo, ebo; //temporal hasta tener shape
+	_renderer->DeleteBuffers(vao, vbo, ebo);
 }
