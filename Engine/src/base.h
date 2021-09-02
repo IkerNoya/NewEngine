@@ -22,8 +22,6 @@ namespace Engine {
 		virtual void init() = 0;
 		virtual void update() = 0;
 		virtual void unload() = 0;
-
-
 	};
 }
 

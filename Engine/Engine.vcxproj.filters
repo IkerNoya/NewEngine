@@ -31,6 +31,9 @@
     <Filter Include="MyMath%28Hernan%29\MathEx">
       <UniqueIdentifier>{3c6f06f9-d342-44fa-b61b-0ff04decabbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyMath%28Hernan%29\Transform">
+      <UniqueIdentifier>{3ba45e38-f432-4789-9e4c-46e2789b1cc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="src\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\MyMath(Hernan)\Transform\Transform.h">
+      <Filter>MyMath%28Hernan%29\Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -94,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="src\shader.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath(Hernan)\Transform\Transform.cpp">
+      <Filter>MyMath%28Hernan%29\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
