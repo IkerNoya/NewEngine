@@ -2,6 +2,7 @@
 #include "GLFW/glfw3.h"
 
 #include "renderer.h"
+#include "shader.h"
 
 #include <iostream>
 
@@ -34,21 +35,21 @@ void Renderer::EndFrame(GLFWwindow* window) {
 	glfwPollEvents();
 }
 void Renderer::GenerateVAO(unsigned int& vao) {
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 }
 void Renderer::BindVAO(unsigned int& vao) {
-	glBindVertexArray(VAO);
+	glBindVertexArray(vao);
 }
 void Renderer::BindVBO(unsigned int& vbo, float* vertices, int verticesAmmount) {
-	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices) * 18, _vertices, GL_STATIC_DRAW);
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices) * verticesAmmount, vertices, GL_STATIC_DRAW);
 }
 void Renderer::BindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount) {
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices) * 3, _indices, GL_STATIC_DRAW);
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices) * indicesAmmount, indices, GL_STATIC_DRAW);
 }
 void Renderer::UnbindBuffers() {
 	glBindVertexArray(0);
@@ -57,15 +58,17 @@ void Renderer::UnbindBuffers() {
 	glUseProgram(0);
 }
 void Renderer::DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo) {
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &vao);
+	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ebo);
 }
-void Renderer::Draw() {
-	//BindVAO(VAO);
-	//BindVBO(VBO, _vertices, 18);
+
+void Renderer::Draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount){
+	BindVAO(vao);
+	BindVBO(vbo, vertices, verticesAmount);
+	shader.SetVertexAttributes("position");
+	shader.SetColorAttributes("color");
+	shader.Use();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	UnbindBuffers();
 }
-//void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount) {
-//
-//}

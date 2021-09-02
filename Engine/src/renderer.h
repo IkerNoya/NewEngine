@@ -1,22 +1,13 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 #include "export.h"
+#include "shader.h"
 
 //forward declaration of GLFWwindow
 struct GLFWwindow;
 
 namespace Engine {
 	class ENGINE_API Renderer {
-	private:
-		float _vertices[18] = {
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.5f, 0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
-		};
-		unsigned int _indices[3] = {
-			0,1,2
-		};
-		unsigned int VBO, VAO, EBO;
 	public:
 		Renderer();
 		~Renderer();
@@ -30,8 +21,7 @@ namespace Engine {
 		void BindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);
 		void UnbindBuffers();
 		void DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo);
-		//void draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount);
-		void Draw();
+		void Draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount);
 	};
 }
 

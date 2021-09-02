@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream> // para leer y escribir strings en archivos
 
+using namespace Engine;
 
 Shader::Shader() {
 	_id = 0;

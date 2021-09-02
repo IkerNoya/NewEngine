@@ -1,8 +1,10 @@
 #include "base.h"
 
-class Game : public Engine::Base {
-private:
+using namespace Engine;
 
+class Game : public Base {
+private:
+	Shape* shape = NULL;
 public:
 	Game();
 	~Game();
@@ -12,22 +14,29 @@ public:
 };
 
 Game::Game() {
-
 }
 
 Game::~Game() {
-
+	if (shape != NULL) {
+		delete shape;
+		shape = NULL;
+	}
 }
 
 void Game::Init() {
-
+	shape = new Engine::Shape(Type::triangle, _renderer, basicShader);
+	shape->Init();
 }
 
 void Game::Update() {
+	shape->Draw();
 }
 
 void Game::Unload() {
-
+	if (shape != NULL) {
+		delete shape;
+		shape = NULL;
+	}
 }
 
 int main() {
