@@ -89,11 +89,11 @@ void Shader::Use() {
 }
 void Shader::SetVertexAttributes(const char* name) {
 	unsigned int attribute = glGetAttribLocation(_id, name);
-	CreateAttribPointer(attribute, 3, 7, 0);
+	CreateAttribPointer(attribute, 3, 6, 0);
 }
 void Shader::SetColorAttributes(const char* name) {
 	unsigned int attribute = glGetAttribLocation(_id, name);
-	CreateAttribPointer(attribute, 4, 7, 3);
+	CreateAttribPointer(attribute, 3, 6, 3);
 }
 unsigned int Shader::GetMatrixAttributes(const char* name) {
 	unsigned int matrixLoc = glGetUniformLocation(_id, name);

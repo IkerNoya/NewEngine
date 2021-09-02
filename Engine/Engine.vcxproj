@@ -21,25 +21,12 @@
   <ItemGroup>
     <ClInclude Include="src\base.h" />
     <ClInclude Include="src\export.h" />
-    <ClInclude Include="src\MyMath(Hernan)\MathEx\MathEx.h" />
-    <ClInclude Include="src\MyMath(Hernan)\Matrix4x4\Matrix4x4.h" />
-    <ClInclude Include="src\MyMath(Hernan)\My.h" />
-    <ClInclude Include="src\MyMath(Hernan)\Quaternion\Quaternion.h" />
-    <ClInclude Include="src\MyMath(Hernan)\Transform\Transform.h" />
-    <ClInclude Include="src\MyMath(Hernan)\Vector3\vector3.h" />
-    <ClInclude Include="src\MyMath(Hernan)\Vector4\Vector4.h" />
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp" />
-    <ClCompile Include="src\MyMath(Hernan)\MathEx\MathEx.cpp" />
-    <ClCompile Include="src\MyMath(Hernan)\Matrix4x4\Matrix4x4.cpp" />
-    <ClCompile Include="src\MyMath(Hernan)\Quaternion\Quaternion.cpp" />
-    <ClCompile Include="src\MyMath(Hernan)\Transform\Transform.cpp" />
-    <ClCompile Include="src\MyMath(Hernan)\Vector3\vector3.cpp" />
-    <ClCompile Include="src\MyMath(Hernan)\Vector4\Vector4.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\window.cpp" />
