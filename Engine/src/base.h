@@ -15,13 +15,15 @@ namespace Engine {
 		Base();
 		~Base();
 
-		int initEngine();
-		void updateEngine();
-		void unloadEngine();
+		int InitEngine();
+		void UpdateEngine();
+		void UnloadEngine();
 
-		virtual void init() = 0;
-		virtual void update() = 0;
-		virtual void unload() = 0;
+		void Draw();
+
+		virtual void Init() = 0;
+		virtual void Update() = 0;
+		virtual void Unload() = 0;
 	};
 }
 

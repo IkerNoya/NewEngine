@@ -25,7 +25,6 @@ namespace Engine {
 		void BeginFrame(float r, float g, float b);
 		void EndFrame(GLFWwindow* window);
 		void GenerateVAO(unsigned int& vao);
-		void GenerateVAO();
 		void BindVAO(unsigned int& vao);
 		void BindVBO(unsigned int& vbo, float* vertices, int verticesAmmount);
 		void BindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);

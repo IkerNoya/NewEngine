@@ -62,7 +62,8 @@ void Renderer::DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int&
 	glDeleteBuffers(1, &EBO);
 }
 void Renderer::Draw() {
-	glBindVertexArray(VAO);
+	//BindVAO(VAO);
+	//BindVBO(VBO, _vertices, 18);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 //void Renderer::draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount) {

@@ -40,15 +40,15 @@ int Window::CreateWindow(const char* name) {
 	}
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(_width, _height, "NewEngine", NULL, NULL);
-	if (window == NULL)
+	_window = glfwCreateWindow(_width, _height, "NewEngine", NULL, NULL);
+	if (_window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwMakeContextCurrent(_window);
+	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 }
 
 GLFWwindow* Window::GetWindow() {
