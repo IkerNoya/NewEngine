@@ -16,6 +16,27 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{720f7a07-d7dc-4d1d-8284-58f01f9496d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyMath">
+      <UniqueIdentifier>{998c158d-fe1f-442f-8714-4f66f3ebad39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyMath\Vector3">
+      <UniqueIdentifier>{9ed17ee7-df31-4c53-a98a-ab9304832e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyMath\MathEx">
+      <UniqueIdentifier>{c6d13084-e814-4dcc-ac66-d97c459301ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyMath\Quaternion">
+      <UniqueIdentifier>{34ad8865-2e34-4c9e-a553-599604b30950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyMath\Matrix4x4">
+      <UniqueIdentifier>{5fae70d9-fd29-4625-81af-be60bdf15243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyMath\Vector4">
+      <UniqueIdentifier>{2b75cb75-9eb3-42a6-be84-92a8c7c981fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyMath\Transform">
+      <UniqueIdentifier>{85681ec2-3897-46e8-ac16-f25ce2cba72b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base.h">
@@ -39,6 +60,27 @@
     <ClInclude Include="src\entity2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\Vector3\vector3.h">
+      <Filter>MyMath\Vector3</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\Quaternion\Quaternion.h">
+      <Filter>MyMath\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\Vector4\Vector4.h">
+      <Filter>MyMath\Vector4</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\Transform\Transform.h">
+      <Filter>MyMath\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\Matrix4x4\Matrix4x4.h">
+      <Filter>MyMath\Matrix4x4</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\MathEx\MathEx.h">
+      <Filter>MyMath\MathEx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MyMath-Hernan\My.h">
+      <Filter>MyMath</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -58,6 +100,24 @@
     </ClCompile>
     <ClCompile Include="src\entity2D.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath-Hernan\Vector3\vector3.cpp">
+      <Filter>MyMath\Vector3</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath-Hernan\Quaternion\Quaternion.cpp">
+      <Filter>MyMath\Quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath-Hernan\Vector4\Vector4.cpp">
+      <Filter>MyMath\Vector4</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath-Hernan\Transform\Transform.cpp">
+      <Filter>MyMath\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath-Hernan\Matrix4x4\Matrix4x4.cpp">
+      <Filter>MyMath\Matrix4x4</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MyMath-Hernan\MathEx\MathEx.cpp">
+      <Filter>MyMath\MathEx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

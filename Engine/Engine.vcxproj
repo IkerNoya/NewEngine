@@ -22,6 +22,13 @@
     <ClInclude Include="src\base.h" />
     <ClInclude Include="src\entity2D.h" />
     <ClInclude Include="src\export.h" />
+    <ClInclude Include="src\MyMath-Hernan\MathEx\MathEx.h" />
+    <ClInclude Include="src\MyMath-Hernan\Matrix4x4\Matrix4x4.h" />
+    <ClInclude Include="src\MyMath-Hernan\My.h" />
+    <ClInclude Include="src\MyMath-Hernan\Quaternion\Quaternion.h" />
+    <ClInclude Include="src\MyMath-Hernan\Transform\Transform.h" />
+    <ClInclude Include="src\MyMath-Hernan\Vector3\vector3.h" />
+    <ClInclude Include="src\MyMath-Hernan\Vector4\Vector4.h" />
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\shape.h" />
@@ -30,6 +37,12 @@
   <ItemGroup>
     <ClCompile Include="src\base.cpp" />
     <ClCompile Include="src\entity2D.cpp" />
+    <ClCompile Include="src\MyMath-Hernan\MathEx\MathEx.cpp" />
+    <ClCompile Include="src\MyMath-Hernan\Matrix4x4\Matrix4x4.cpp" />
+    <ClCompile Include="src\MyMath-Hernan\Quaternion\Quaternion.cpp" />
+    <ClCompile Include="src\MyMath-Hernan\Transform\Transform.cpp" />
+    <ClCompile Include="src\MyMath-Hernan\Vector3\vector3.cpp" />
+    <ClCompile Include="src\MyMath-Hernan\Vector4\Vector4.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\shape.cpp" />
@@ -117,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\lib\glew-2.1.0\include;$(SolutionDir)Engine\lib\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Iker\Desktop\NewEngine\Engine\lib\glm;$(SolutionDir)Engine\lib\glew-2.1.0\include;$(SolutionDir)Engine\lib\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,7 +167,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine\lib\glew-2.1.0\include;$(SolutionDir)Engine\lib\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Iker\Desktop\NewEngine\Engine\lib\glm;$(SolutionDir)Engine\lib\glew-2.1.0\include;$(SolutionDir)Engine\lib\glfw-3.3.2.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
