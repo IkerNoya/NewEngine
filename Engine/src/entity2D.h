@@ -1,32 +1,39 @@
 #ifndef ENTITY2D_H
 #define ENTITY2D_H
 #include "export.h"
-#include "MyMath-Hernan/My.h"
+#include "mat4x4.hpp"
+#include "vec3.hpp"
 
 namespace Engine {
 
 	struct ENGINE_API Transform {
-		My::Vector3 position;
-		My::Quaternion rotation;
-		My::Vector3 localScale;
+		glm::vec3 position;
+		glm::vec3 rotation;
+		glm::vec3 scale;
+	};
+
+	struct ENGINE_API Model {
+		glm::mat4 translate;
+		glm::mat4 rotation;
+		glm::mat4 scale;
+		glm::mat4 trs;
 	};
 
 	class ENGINE_API Entity2D {
 	private:
-		My::Matrix4x4 model;
-		My::Matrix4x4 translate;
-		My::Matrix4x4 rotate;
-		My::Matrix4x4 scale;
 	protected:
+		Model model;
 		void UpdateModel();
 	public:
 		Transform transform;
 		Entity2D();
 		~Entity2D();
-		void Rotate(float x, float y, float z);
+		void RotateX(float angle);
+		void RotateY(float angle);
+		void RotateZ(float angle);
 		void Translate(float x, float y, float z);
 		void Scale(float x, float y, float z);
-		My::Matrix4x4 GetModel();
+		glm::mat4 GetModel();
 	};
 
 }

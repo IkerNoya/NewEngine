@@ -28,7 +28,7 @@ int Base::InitEngine(){
 		return 0;
 	}
 
-	basicShader.Create("..//Engine//src//Shaders//vertex.shader", "..//Engine//src//Shaders//fragment.shader");
+	basicShader.Create("..//Engine//src//Shaders//vertex.vert", "..//Engine//src//Shaders//fragment.frag");
 
 }
 
