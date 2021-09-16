@@ -1,6 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 #include "export.h"
+#include "entity2D.h"
 #include "shader.h"
 #include "renderer.h"
 namespace Engine {
@@ -10,7 +11,7 @@ namespace Engine {
 		triangle, quad
 	};
 
-	class ENGINE_API Shape {
+	class ENGINE_API Shape : public Entity2D{
 	private:
 		unsigned int _vao = 0;
 		unsigned int _vbo = 0;

@@ -1,6 +1,11 @@
 #ifndef SHADER_H
 #define SHADER_H
 #include "export.h"
+
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+
 #include <iostream>
 namespace Engine {
 
@@ -14,7 +19,7 @@ namespace Engine {
 		Shader();
 		~Shader();
 		void Create(const char* vertexPath, const char* fragmentPath);
-		void Use();
+		void Use(glm::mat4 model);
 		void SetVertexAttributes(const char* name);
 		void SetColorAttributes(const char* name);
 		unsigned int GetMatrixAttributes(const char* name);

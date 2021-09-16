@@ -6,6 +6,8 @@
 #include <fstream>
 #include <sstream> // para leer y escribir strings en archivos
 
+
+
 using namespace Engine;
 
 Shader::Shader() {
@@ -85,8 +87,10 @@ void Shader::CreateAttribPointer(unsigned int shaderAttribIndex, int dataAmmount
 	glVertexAttribPointer(shaderAttribIndex, dataAmmount, GL_FLOAT, GL_FALSE, sizeof(float) * dataSize, (void*)(sizeof(float) * dataPosition));
 	glEnableVertexAttribArray(shaderAttribIndex);
 }
-void Shader::Use() {
+void Shader::Use(glm::mat4 model) {
+	unsigned int matrixLoc = glGetUniformLocation(_id, "model");
 	glUseProgram(_id);
+	glUniformMatrix4fv(matrixLoc, 1, GL_FALSE, glm::value_ptr(model));
 }
 void Shader::SetVertexAttributes(const char* name) {
 	unsigned int attribute = glGetAttribLocation(_id, name);

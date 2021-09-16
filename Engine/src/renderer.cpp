@@ -63,12 +63,12 @@ void Renderer::DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int&
 	glDeleteBuffers(1, &ebo);
 }
 
-void Renderer::Draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount){
+void Renderer::Draw(Shader& shader, glm::mat4 model, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount){
 	BindVAO(vao);
 	BindVBO(vbo, vertices, verticesAmount);
 	shader.SetVertexAttributes("position");
 	shader.SetColorAttributes("color");
-	shader.Use();
+	shader.Use(model);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	UnbindBuffers();
 }

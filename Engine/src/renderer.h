@@ -2,6 +2,7 @@
 #define RENDERER_H
 #include "export.h"
 #include "shader.h"
+#include <mat4x4.hpp>
 
 //forward declaration of GLFWwindow
 struct GLFWwindow;
@@ -21,7 +22,7 @@ namespace Engine {
 		void BindEBO(unsigned int& ebo, unsigned int* indices, int indicesAmmount);
 		void UnbindBuffers();
 		void DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo);
-		void Draw(Shader& shader, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount);
+		void Draw(Shader& shader, glm::mat4 model, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount);
 	};
 }
 

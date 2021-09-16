@@ -7,6 +7,7 @@ using namespace Engine;
 
 class Game: public Base {
 private:
+	float angle = 0;
 	Shape* _shape = NULL;
 public:
 	Game();

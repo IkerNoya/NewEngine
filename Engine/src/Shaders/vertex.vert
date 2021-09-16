@@ -4,8 +4,10 @@ in vec3 color;
 
 out vec3 vertexColor;
 
+uniform mat4 model;
+
 void main()
 {
     vertexColor = color;
-    gl_Position = vec4(position, 1.0);
+    gl_Position = model * vec4(position, 1.0);
 }

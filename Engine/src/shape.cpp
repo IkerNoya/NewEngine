@@ -4,9 +4,9 @@
 
 using namespace Engine;
 
-Shape::Shape(){}
+Shape::Shape() : Entity2D(){}
 
-Shape::Shape(Type type, Renderer* renderer, Shader shader){
+Shape::Shape(Type type, Renderer* renderer, Shader shader) : Entity2D(){
 	_type = type;
 	_renderer = renderer;
 	_shader = shader;
@@ -75,10 +75,10 @@ void Shape::Draw() {
 	switch (_type)
 	{
 	case Engine::Type::triangle:
-		_renderer->Draw(_shader, _vao, _vbo, _triVertices, 18);
+		_renderer->Draw(_shader, GetModel(), _vao, _vbo, _triVertices, 18);
 		break;
 	case Engine::Type::quad:
-		_renderer->Draw(_shader, _vao, _vbo, _quadVertices, 24);
+		_renderer->Draw(_shader, GetModel(), _vao, _vbo, _quadVertices, 24);
 		break;
 	}
 }

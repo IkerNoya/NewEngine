@@ -6,6 +6,12 @@
 
 namespace Engine {
 
+	struct ENGINE_API Rotation {
+		glm::mat4 x;
+		glm::mat4 y;
+		glm::mat4 z;
+	};
+
 	struct ENGINE_API Transform {
 		glm::vec3 position;
 		glm::vec3 rotation;
@@ -14,7 +20,7 @@ namespace Engine {
 
 	struct ENGINE_API Model {
 		glm::mat4 translate;
-		glm::mat4 rotation;
+		Rotation rotation;
 		glm::mat4 scale;
 		glm::mat4 trs;
 	};
