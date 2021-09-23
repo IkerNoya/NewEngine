@@ -40,6 +40,9 @@ int Base::InitEngine(){
 	_camera->SetProjection(ProjectionType::orthographic);
 	_camera->Init(basicShader);
 
+
+	input.SetWindow(_window->GetWindow());
+
 }
 
 void Base::UpdateEngine(){

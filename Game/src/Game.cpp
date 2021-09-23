@@ -38,8 +38,9 @@ void Game::Init() {
 	shapes[2]->transform.position = glm::vec3(400.0f, 500.0f, 0.0f);
 }
 void Game::Update() {
-	angle -= 0.1f;
-	_shape->RotateZ(angle);
+	angle -= 0.01f;
+	if(input.GetKey(KeyCode::D))
+		_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]){
 			shapes[i]->RotateZ(angle);
