@@ -5,11 +5,18 @@
 
 using namespace Engine;
 
-void Entity2D::UpdateModel(){
+void Engine::Entity2D::UpdateMatrices() {
+	model.translate = glm::translate(glm::mat4(1.0f), transform.position);
+	model.scale = glm::scale(glm::mat4(1.0f), transform.scale);
+
+	UpdateModel();
+}
+
+void Entity2D::UpdateModel() {
 	model.trs = model.translate * model.rotation.x * model.rotation.y * model.rotation.z * model.scale;
 }
 
-Entity2D::Entity2D(){
+Entity2D::Entity2D() {
 	model.translate = glm::mat4(1.0);
 	model.rotation.x = glm::mat4(1.0);
 	model.rotation.y = glm::mat4(1.0);
@@ -23,11 +30,11 @@ Entity2D::Entity2D(){
 	Scale(1.0f, 1.0f, 1.0f);
 }
 
-Entity2D::~Entity2D(){
+Entity2D::~Entity2D() {
 
 }
 
-void Engine::Entity2D::RotateX(float angle){
+void Engine::Entity2D::RotateX(float angle) {
 	transform.rotation.x = angle;
 	glm::vec3 axis = glm::vec3(1.0);
 	axis[0] = 1.0f;
@@ -37,7 +44,7 @@ void Engine::Entity2D::RotateX(float angle){
 	UpdateModel();
 }
 
-void Engine::Entity2D::RotateY(float angle){
+void Engine::Entity2D::RotateY(float angle) {
 	transform.rotation.x = angle;
 	glm::vec3 axis = glm::vec3(1.0);
 	axis[0] = 0.0f;
@@ -47,7 +54,7 @@ void Engine::Entity2D::RotateY(float angle){
 	UpdateModel();
 }
 
-void Engine::Entity2D::RotateZ(float angle){
+void Engine::Entity2D::RotateZ(float angle) {
 	transform.rotation.x = angle;
 	glm::vec3 axis = glm::vec3(1.0);
 	axis[0] = 0.0f;
@@ -59,7 +66,7 @@ void Engine::Entity2D::RotateZ(float angle){
 
 
 
-void Entity2D::Translate(float x, float y, float z){
+void Entity2D::Translate(float x, float y, float z) {
 	transform.position.x = x;
 	transform.position.y = y;
 	transform.position.z = z;
@@ -69,11 +76,11 @@ void Entity2D::Translate(float x, float y, float z){
 }
 
 
-void Entity2D::Scale(float x, float y, float z){
+void Entity2D::Scale(float x, float y, float z) {
 	transform.scale.x = x;
 	transform.scale.y = y;
 	transform.scale.z = z;
-	
+
 	model.scale = glm::scale(glm::mat4(1.0), transform.scale);
 	UpdateModel();
 }

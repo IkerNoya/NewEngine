@@ -29,6 +29,7 @@ namespace Engine {
 	private:
 	protected:
 		Model model;
+		void UpdateMatrices();
 		void UpdateModel();
 	public:
 		Transform transform;

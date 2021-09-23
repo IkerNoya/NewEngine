@@ -72,6 +72,7 @@ void Shape::Color(float r, float g, float b) {
 }
 
 void Shape::Draw() {
+	UpdateMatrices();
 	switch (_type)
 	{
 	case Engine::Type::triangle:

@@ -19,7 +19,7 @@ Camera::~Camera(){
 }
 
 void Camera::SetView(glm::vec3 direction, glm::vec3 up){
-	_view = glm::lookAt(direction, glm::vec3(0, 0, -1), up);
+	_view = glm::lookAt(direction, transform.position, up);
 }
 
 void Camera::SetProjection(ProjectionType type){
@@ -41,6 +41,7 @@ void Camera::Init(Shader& shader){
 	unsigned int transformLoc = glGetUniformLocation(shader.GetID(), "model");
 	unsigned int viewLoc = glGetUniformLocation(shader.GetID(), "view");
 	unsigned int projLoc = glGetUniformLocation(shader.GetID(), "projection");
+	shader.Use();
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(GetModel()));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(GetView()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(GetProjection()));
@@ -59,5 +60,7 @@ ProjectionType Camera::GetProjectionType(){
 }
 
 void Camera::Draw(Shader& shader){
-	_renderer->DrawCamera(shader, GetModel(), GetView(), GetProjection());
+	//SetView(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	//UpdateMatrices();
+	_renderer->DrawCamera(shader, GetModel(), GetView());
 }
