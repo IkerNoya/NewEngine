@@ -23,6 +23,7 @@ namespace Engine {
 		void UnbindBuffers();
 		void DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int& ebo);
 		void Draw(Shader& shader, glm::mat4 model, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount);
+		void DrawCamera(Shader& shader, glm::mat4 model, glm::mat4 view);
 	};
 }
 

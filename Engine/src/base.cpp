@@ -7,6 +7,7 @@ using namespace Engine;
 Base::Base(){
 	_renderer = new Renderer();
 	_window = new Window(800, 600);
+	_camera = new Camera(_renderer, ProjectionType::orthographic);
 }
 
 Base::~Base() {
@@ -19,6 +20,10 @@ Base::~Base() {
 		delete _window;
 		_window = NULL;
 	}
+	if (_camera != NULL) {
+		delete _camera;
+		_camera = NULL;
+	}
 }
 
 int Base::InitEngine(){
@@ -29,17 +34,34 @@ int Base::InitEngine(){
 	}
 
 	basicShader.Create("..//Engine//src//Shaders//vertex.vert", "..//Engine//src//Shaders//fragment.frag");
+	glEnable(GL_DEPTH_TEST);
+	_camera->transform.position = glm::vec3(0.0f, 0.0f, -1.0f);
+	_camera->SetView(glm::vec3(0.0f,0.0f,1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	_camera->SetProjection(ProjectionType::orthographic);
+	_camera->Init(basicShader);
 
 }
 
 void Base::UpdateEngine(){
+	float speed = 0.01f;
 	while (!glfwWindowShouldClose(_window->GetWindow())){
 		_renderer->BeginFrame(0.0f,0.0f,0.0f);
+		//_camera->transform.position.x += speed;
+		//std::cout << _camera->transform.position.x << std::endl;
 		Update();
+		_camera->Draw(basicShader);
 		_renderer->EndFrame(_window->GetWindow());
 	}
 }
 
 void Base::UnloadEngine(){
 
+}
+
+Renderer* Base::GetRenderer(){
+	return _renderer;
+}
+
+Window* Base::GetWindow(){
+	return _window;
 }

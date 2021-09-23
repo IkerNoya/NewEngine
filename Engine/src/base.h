@@ -6,13 +6,18 @@
 #include "window.h"
 #include "shader.h"
 #include "shape.h"
+#include "camera.h"
 
 namespace Engine {
 	class ENGINE_API Base {
-	protected:
+	private:
 		Renderer* _renderer;
 		Window* _window;
+	protected:
+		Camera* _camera;
 		Shader basicShader;
+		Renderer* GetRenderer();
+		Window* GetWindow();
 	public:
 		Base();
 		~Base();
@@ -24,6 +29,7 @@ namespace Engine {
 		virtual void Init() = 0;
 		virtual void Update() = 0;
 		virtual void Unload() = 0;
+
 	};
 }
 
