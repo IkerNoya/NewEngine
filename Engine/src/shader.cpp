@@ -87,6 +87,9 @@ void Shader::CreateAttribPointer(unsigned int shaderAttribIndex, int dataAmmount
 	glVertexAttribPointer(shaderAttribIndex, dataAmmount, GL_FLOAT, GL_FALSE, sizeof(float) * dataSize, (void*)(sizeof(float) * dataPosition));
 	glEnableVertexAttribArray(shaderAttribIndex);
 }
+void Shader::Use() {
+	glUseProgram(_id);
+}
 void Shader::Use(glm::mat4 model) {
 	unsigned int matrixLoc = glGetUniformLocation(_id, "model");
 	glUseProgram(_id);

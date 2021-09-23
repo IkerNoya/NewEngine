@@ -19,6 +19,7 @@ namespace Engine {
 		Shader();
 		~Shader();
 		void Create(const char* vertexPath, const char* fragmentPath);
+		void Use();
 		void Use(glm::mat4 model);
 		void SetVertexAttributes(const char* name);
 		void SetColorAttributes(const char* name);
