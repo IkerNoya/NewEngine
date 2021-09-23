@@ -29,7 +29,7 @@ int Base::InitEngine(){
 	}
 
 	basicShader.Create("..//Engine//src//Shaders//vertex.vert", "..//Engine//src//Shaders//fragment.frag");
-
+	input.SetWindow(_window->GetWindow());
 }
 
 void Base::UpdateEngine(){

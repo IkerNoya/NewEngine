@@ -35,7 +35,8 @@ void Game::Init() {
 }
 void Game::Update() {
 	angle -= 0.01f;
-	_shape->RotateZ(angle);
+	if(input.GetKey(KeyCode::D))
+		_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]){
 			shapes[i]->RotateZ(angle);

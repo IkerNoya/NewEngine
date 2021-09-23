@@ -6,6 +6,7 @@
 #include "window.h"
 #include "shader.h"
 #include "shape.h"
+#include "input.h"
 
 namespace Engine {
 	class ENGINE_API Base {
@@ -13,6 +14,7 @@ namespace Engine {
 		Renderer* _renderer;
 		Window* _window;
 		Shader basicShader;
+		Input input;
 	public:
 		Base();
 		~Base();
