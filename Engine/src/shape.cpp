@@ -71,6 +71,23 @@ void Shape::Color(float r, float g, float b) {
 	}
 }
 
+void Shape::Color(glm::vec3 color) {
+	switch (_type)
+	{
+	case Engine::Type::triangle:
+		_triVertices[3] = color.x;  _triVertices[4] = color.y;  _triVertices[5] = color.z;
+		_triVertices[9] = color.x; _triVertices[10] = color.y; _triVertices[11] = color.z;
+		_triVertices[15] = color.x; _triVertices[16] = color.y; _triVertices[17] = color.z;
+		break;
+	case Engine::Type::quad:
+		_quadVertices[3] = color.x;  _quadVertices[4] = color.y;  _quadVertices[5] = color.z;
+		_quadVertices[9] = color.x; _quadVertices[10] = color.y; _quadVertices[11] = color.z;
+		_quadVertices[15] = color.x; _quadVertices[16] = color.y; _quadVertices[17] = color.z;
+		_quadVertices[21] = color.x; _quadVertices[22] = color.y; _quadVertices[23] = color.z;
+		break;
+	}
+}
+
 void Shape::Draw() {
 	UpdateMatrices();
 	switch (_type)
