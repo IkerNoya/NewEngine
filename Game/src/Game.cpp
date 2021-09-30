@@ -50,7 +50,14 @@ void Game::UpdateGame() {
 	
 	glm::vec2 newPos = _shape->Lerp(_shape->transform.position, shapePos, t);
 	_shape->transform.position = glm::vec3(newPos.x, newPos.y, 0);
-	
+	if (input.GetKey(KeyCode::UP)) {
+		_shape->transform.scale.x += 2;
+		_shape->transform.scale.y += 2;
+	}
+	if (input.GetKey(KeyCode::DOWN)) {
+		_shape->transform.scale.x -= 2;
+		_shape->transform.scale.y -= 2;
+	}
 	angle -= 0.01f;
 	t += 0.001f;
 	if (t >= 1) t = 0;

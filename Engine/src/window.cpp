@@ -40,7 +40,7 @@ int Window::CreateWindow(const char* name) {
 	}
 	// glfw window creation
 	// --------------------
-	_window = glfwCreateWindow(_width, _height, "NewEngine", NULL, NULL);
+	_window = glfwCreateWindow(_width, _height, name, NULL, NULL);
 	if (_window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
