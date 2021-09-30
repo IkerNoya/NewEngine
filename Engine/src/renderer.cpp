@@ -66,7 +66,7 @@ void Renderer::DeleteBuffers(unsigned int& vao, unsigned int& vbo, unsigned int&
 void Renderer::Draw(Shader& shader, glm::mat4 model, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount){
 	BindVAO(vao);
 	BindVBO(vbo, vertices, verticesAmount);
-	shader.SetVertexAttributes("position");
+	shader.SetVertexAttributes("position"); //especificamos como leer los datos del vertice y se lo pasamos al shader
 	shader.SetColorAttributes("color");
 	shader.Use(model);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

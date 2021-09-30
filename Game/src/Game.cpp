@@ -61,7 +61,7 @@ void Game::UpdateGame() {
 	angle -= 0.01f;
 	t += 0.001f;
 	if (t >= 1) t = 0;
-	_shape->RotateZ(angle);
+	//_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]){
 			shapes[i]->RotateZ(angle);
