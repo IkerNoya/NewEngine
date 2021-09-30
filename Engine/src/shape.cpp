@@ -4,9 +4,12 @@
 
 using namespace Engine;
 
-Shape::Shape() : Entity2D(){}
+Shape::Shape() : Entity2D() {
+	_type = Type::triangle;
+	_renderer = NULL;
+}
 
-Shape::Shape(Type type, Renderer* renderer, Shader shader) : Entity2D(){
+Shape::Shape(Type type, Renderer* renderer, Shader shader) : Entity2D() {
 	_type = type;
 	_renderer = renderer;
 	_shader = shader;
@@ -16,7 +19,7 @@ Shape::~Shape() {
 	DeleteBuffer();
 }
 
-void Shape::SetShader(Shader shader){
+void Shape::SetShader(Shader shader) {
 	_shader = shader;
 }
 
@@ -58,15 +61,36 @@ void Shape::Color(float r, float g, float b) {
 	switch (_type)
 	{
 	case Engine::Type::triangle:
-		 _triVertices[3] = r;  _triVertices[4] = g;  _triVertices[5] = b;
-		 _triVertices[9] = r; _triVertices[10] = g; _triVertices[11] = b;
+		_triVertices[3] = r;  _triVertices[4] = g;  _triVertices[5] = b;
+		_triVertices[9] = r; _triVertices[10] = g; _triVertices[11] = b;
 		_triVertices[15] = r; _triVertices[16] = g; _triVertices[17] = b;
 		break;
 	case Engine::Type::quad:
-		 _quadVertices[3] = r;  _quadVertices[4] = g;  _quadVertices[5] = b;
-		 _quadVertices[9] = r; _quadVertices[10] = g; _quadVertices[11] = b;
+		_quadVertices[3] = r;  _quadVertices[4] = g;  _quadVertices[5] = b;
+		_quadVertices[9] = r; _quadVertices[10] = g; _quadVertices[11] = b;
 		_quadVertices[15] = r; _quadVertices[16] = g; _quadVertices[17] = b;
 		_quadVertices[21] = r; _quadVertices[22] = g; _quadVertices[23] = b;
+		break;
+	}
+}
+
+void Shape::SetRenderer(Renderer* renderer){
+	_renderer = renderer;
+}
+
+void Shape::Color(glm::vec3 color) {
+	switch (_type)
+	{
+	case Engine::Type::triangle:
+		_triVertices[3] = color.x;  _triVertices[4] = color.y;  _triVertices[5] = color.z;
+		_triVertices[9] = color.x; _triVertices[10] = color.y; _triVertices[11] = color.z;
+		_triVertices[15] = color.x; _triVertices[16] = color.y; _triVertices[17] = color.z;
+		break;
+	case Engine::Type::quad:
+		_quadVertices[3] = color.x;  _quadVertices[4] = color.y;  _quadVertices[5] = color.z;
+		_quadVertices[9] = color.x; _quadVertices[10] = color.y; _quadVertices[11] = color.z;
+		_quadVertices[15] = color.x; _quadVertices[16] = color.y; _quadVertices[17] = color.z;
+		_quadVertices[21] = color.x; _quadVertices[22] = color.y; _quadVertices[23] = color.z;
 		break;
 	}
 }

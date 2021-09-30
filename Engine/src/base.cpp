@@ -26,7 +26,7 @@ Base::~Base() {
 	}
 }
 
-int Base::InitEngine(){
+int Base::Init(){
 	_window->CreateWindow("Unreal Engine pero con Intellisense");
 
 	if (!_renderer->InitializeGlew()) {
@@ -43,22 +43,23 @@ int Base::InitEngine(){
 
 	input.SetWindow(_window->GetWindow());
 
+	InitGame();
 }
 
-void Base::UpdateEngine(){
+void Base::Update(){
 	float speed = 0.01f;
 	while (!glfwWindowShouldClose(_window->GetWindow())){
 		_renderer->BeginFrame(0.0f,0.0f,0.0f);
 		//_camera->transform.position.x += speed;
 		//std::cout << _camera->transform.position.x << std::endl;
-		Update();
+		UpdateGame();
 		_camera->Draw(basicShader);
 		_renderer->EndFrame(_window->GetWindow());
 	}
 }
 
-void Base::UnloadEngine(){
-
+void Base::Unload(){
+	UnloadGame();
 }
 
 Renderer* Base::GetRenderer(){
