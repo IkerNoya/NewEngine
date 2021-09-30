@@ -6,11 +6,9 @@ int main() {
 	Game* game = new Game();
 	if (game)
 	{
-		game->InitEngine();
 		game->Init();
-		game->UpdateEngine();
+		game->Update();
 		game->Unload();
-		game->UnloadEngine();
 		delete game;
 		game = NULL;
 	}

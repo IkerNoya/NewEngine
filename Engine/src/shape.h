@@ -51,6 +51,7 @@ namespace Engine {
 		Shape();
 		Shape(Type type, Renderer* renderer, Shader shader);
 		~Shape();
+		void SetRenderer(Renderer* renderer);
 		void SetShader(Shader shader);
 		void Init();
 		void Color(float r, float g, float b);

@@ -39,6 +39,7 @@ namespace Engine {
 		void RotateY(float angle);
 		void RotateZ(float angle);
 		void Translate(float x, float y, float z);
+		glm::vec2 Lerp(glm::vec2 a, glm::vec2 b, float t);
 		void Scale(float x, float y, float z);
 		glm::mat4 GetModel();
 	};

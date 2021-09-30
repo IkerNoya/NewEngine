@@ -75,6 +75,17 @@ void Entity2D::Translate(float x, float y, float z) {
 	UpdateModel();
 }
 
+glm::vec2 Entity2D::Lerp(glm::vec2 a, glm::vec2 b, float t){
+	glm::vec2 auxVec = glm::vec2(1.0);
+
+	if (t < 1)
+		auxVec = glm::vec2((b - a) * t + a);
+	else
+		t = 1;
+	return auxVec;
+
+}
+
 
 void Entity2D::Scale(float x, float y, float z) {
 	transform.scale.x = x;

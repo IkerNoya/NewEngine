@@ -24,13 +24,13 @@ namespace Engine {
 		Base();
 		~Base();
 
-		int InitEngine();
-		void UpdateEngine();
-		void UnloadEngine();
+		int Init();
+		void Update();
+		void Unload();
 
-		virtual void Init() = 0;
-		virtual void Update() = 0;
-		virtual void Unload() = 0;
+		virtual void InitGame() = 0;
+		virtual void UpdateGame() = 0;
+		virtual void UnloadGame() = 0;
 
 	};
 }
