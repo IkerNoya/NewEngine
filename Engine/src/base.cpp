@@ -35,8 +35,8 @@ int Base::Init(){
 
 	basicShader.Create("..//Engine//src//Shaders//vertex.vert", "..//Engine//src//Shaders//fragment.frag");
 	glEnable(GL_DEPTH_TEST);
-	_camera->transform.position = glm::vec3(0.0f, 0.0f, -1.0f);
-	_camera->SetView(glm::vec3(0.0f,0.0f,1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	_camera->transform.position = glm::vec3(0.0f, 0.0f, -3.0f);
+	_camera->SetView(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	_camera->SetProjection(ProjectionType::orthographic);
 	_camera->Init(basicShader);
 

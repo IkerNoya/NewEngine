@@ -10,6 +10,7 @@ class Game: public Base {
 private:
 	float angle = 0;
 	float t = 0;
+	glm::vec2 shapePos;
 	Shape* _shape = NULL;
 	std::vector<Shape*> shapes;
 public:
