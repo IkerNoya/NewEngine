@@ -42,8 +42,11 @@ void Game::InitGame() {
 }
 void Game::UpdateGame() {
 
-	if(input.GetKey(KeyCode::SPACE))
+	if (input.GetKey(KeyCode::SPACE))
+	{
 		 shapePos = shapes[1]->transform.position;
+		 t = 0;
+	}
 	
 	glm::vec2 newPos = _shape->Lerp(_shape->transform.position, shapePos, t);
 	_shape->transform.position = glm::vec3(newPos.x, newPos.y, 0);
