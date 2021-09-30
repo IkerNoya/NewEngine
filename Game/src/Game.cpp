@@ -36,7 +36,7 @@ void Game::InitGame() {
 	shapes[0]->transform.position = glm::vec3(600.0f, 300.0f, 0.0f);
 	shapes[0]->Color(glm::vec3(0.5f,0.0f,1.0f));
 	shapes[1]->transform.position = glm::vec3(400.0f, 100.0f, 0.0f);
-	shapes[1]->Color(0.7f,0.3f,0.0f);
+	shapes[1]->Color(0.7f, 0.3f, 0.0f);
 	shapes[2]->transform.position = glm::vec3(400.0f, 500.0f, 0.0f);
 }
 void Game::UpdateGame() {
