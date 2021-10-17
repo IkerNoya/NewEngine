@@ -6,7 +6,7 @@
 #include"renderer.h"
 
 namespace Engine {
-	enum class ENGINE_API Type
+	enum class ENGINE_API TypeSprite
 	{
 		triangle, quad
 	};
@@ -45,7 +45,7 @@ namespace Engine {
 			1,2,3
 		};
 
-		Type _type;
+		TypeSprite _type;
 
 		void GenerateVAO();
 		void BindVAO();

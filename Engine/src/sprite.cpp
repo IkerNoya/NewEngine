@@ -78,11 +78,11 @@ namespace Engine {
 		GenerateVAO();
 		switch (_type)
 		{
-		case Type::quad:
+		case TypeSprite::quad:
 			BindVBO(texQuadVertices, quadVertexSize);
 			BindEBO(_quadIndices, 6);
 			break;
-		case Type::triangle:
+		case TypeSprite::triangle:
 			BindVBO(texTriVertices, triVertexSize);
 			BindEBO(_triIndices, 3);
 			break;
@@ -111,11 +111,11 @@ namespace Engine {
 			BindTexture();
 			switch (_type)
 			{
-			case Type::quad:
+			case TypeSprite::quad:
 				_renderer->DrawSprite(shader, _vao, _vbo, texQuadVertices, 36, GetModel());
 				break;
 
-			case Type::triangle:
+			case TypeSprite::triangle:
 				_renderer->DrawSprite(shader, _vao, _vbo, texTriVertices, 27, GetModel());
 				break;
 			}
@@ -126,11 +126,11 @@ namespace Engine {
 			BindTexture();
 			switch (_type)
 			{
-			case Type::quad:
+			case TypeSprite::quad:
 				_renderer->DrawSprite(shader, _vao, _vbo, texQuadVertices, 36, GetModel());
 				break;
 
-			case Type::triangle:
+			case TypeSprite::triangle:
 				_renderer->DrawSprite(shader, _vao, _vbo, texTriVertices, 27, GetModel());
 				break;
 			}
