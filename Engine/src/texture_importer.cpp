@@ -2,13 +2,15 @@
 #include "GLFW/glfw3.h"
 #include "texture_importer.h"
 
-#include "stb_image.h"
 #define STB_IMAGE_IMPLEMENTATION
+
+#include "stb_image.h"
+
+#include <iostream>	
 
 #define STBI_FAILURE_USERMSG 
 
-#include <iostream>
-
+using namespace Engine;
 
 TextureImporter::TextureImporter() {
 	_texture = 0;
@@ -29,7 +31,7 @@ TextureImporter::TextureImporter(int width, int height, const char* path, bool t
 TextureImporter::~TextureImporter() {
 }
 
-void TextureImporter::LoadImage(int width, int height, bool transparency) {
+void TextureImporter::LoadImage(int& width, int& height, bool transparency) {
 	glGenTextures(1, &_texture);
 	glBindTexture(GL_TEXTURE_2D, _texture);
 

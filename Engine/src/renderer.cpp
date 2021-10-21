@@ -69,20 +69,20 @@ void Renderer::CreateAtribPointers(unsigned int shaderAttribIndex, int dataAmmou
 }
 
 void Renderer::SetTexAttribPointer(unsigned int shaderID) {
-	unsigned int posAttrib = glGetAttribLocation(shaderID, "pos");
-	unsigned int colorAttrib = glGetAttribLocation(shaderID, "color");
-	unsigned int texAttrib = glGetAttribLocation(shaderID, "aTexCoord");
-	glUniform1i((glGetUniformLocation(shaderID, "ourTexture")), 0);
-	CreateAtribPointers(posAttrib, 4, 9, 0);
-	CreateAtribPointers(colorAttrib, 3, 9, 4);
-	CreateAtribPointers(texAttrib, 2, 9, 7);
+	GLuint posAttrib = glGetAttribLocation(shaderID, "aPos");
+	GLuint colorAttrib = glGetAttribLocation(shaderID, "aColor"); // no daba el valor correcto porque no usaba la variable en el main
+	GLuint texAttrib = glGetAttribLocation(shaderID, "aTexCoord");
+	glUniform1i((glGetUniformLocation(shaderID, "mainTexture")), 0);
+	CreateAtribPointers(posAttrib, 3, 8, 0);
+	CreateAtribPointers(colorAttrib, 3, 8, 3);
+	CreateAtribPointers(texAttrib, 2, 8, 6);
 }
 
 void Renderer::Draw(Shader& shader, glm::mat4 model, unsigned int& vao, unsigned int& vbo, float* vertices, int verticesAmount){
 	BindVAO(vao);
 	BindVBO(vbo, vertices, verticesAmount);
-	shader.SetVertexAttributes("position"); //especificamos como leer los datos del vertice y se lo pasamos al shader
-	shader.SetColorAttributes("color");
+	shader.SetVertexAttributes("position",6); //especificamos como leer los datos del vertice y se lo pasamos al shader
+	shader.SetColorAttributes("color",6);
 	shader.Use(model);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	UnbindBuffers();
@@ -91,12 +91,11 @@ void Renderer::DrawSprite(Shader& shader, unsigned int& vao, unsigned int& vbo, 
 	BindVAO(vao);
 	BindVBO(vbo, vertices, verticesAmmount);
 	SetTexAttribPointer(shader.GetID());
-	unsigned int transformLoc = glGetUniformLocation(shader.GetID(), "transform");
-	shader.Use();
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
+	shader.Use(model);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	UnbindBuffers();
 }
+
 void Renderer::DrawCamera(Shader& shader, glm::mat4 model, glm::mat4 view) {
 	//unsigned int projLoc = glGetUniformLocation(shader.GetID(), "projection");
 	shader.Use();

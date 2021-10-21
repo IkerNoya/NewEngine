@@ -21,8 +21,9 @@ namespace Engine {
 		void Create(const char* vertexPath, const char* fragmentPath);
 		void Use();
 		void Use(glm::mat4 model);
-		void SetVertexAttributes(const char* name);
-		void SetColorAttributes(const char* name);
+		void SetVertexAttributes(const char* name, int vertexSize);
+		void SetColorAttributes(const char* name, int vertexSize);
+		void SetTextureAttributes(const char* name, int vertexSize);
 		unsigned int GetMatrixAttributes(const char* name);
 		unsigned int GetID();
 	};

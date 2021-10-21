@@ -38,7 +38,7 @@ bool Input::GetMouseButtonUp(MouseButtons mb) {
 glm::vec2 Input::GetMousePosition2D() {
 	double xPos, yPos;
 	glfwGetCursorPos(_window, &xPos, &yPos);
-
+	
 	mousePosition = glm::vec3(xPos, yPos, 0.0f);
 
 	return mousePosition;

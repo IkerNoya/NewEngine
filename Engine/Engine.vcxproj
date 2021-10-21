@@ -28,6 +28,7 @@
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\shape.h" />
     <ClInclude Include="src\sprite.h" />
+    <ClInclude Include="src\stb_image.h" />
     <ClInclude Include="src\texture_importer.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>
@@ -45,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\fragment.frag" />
+    <None Include="src\Shaders\texture_frag.frag" />
+    <None Include="src\Shaders\texture_vert.vert" />
     <None Include="src\Shaders\vertex.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

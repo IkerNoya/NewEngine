@@ -18,6 +18,7 @@ namespace Engine {
 	protected:
 		Camera* _camera;
 		Shader basicShader;
+		Shader textureShader;
 		Renderer* GetRenderer();
 		Window* GetWindow();
 		Input input;

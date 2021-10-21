@@ -3,22 +3,25 @@
 #include"sprite.h"
 
 namespace Engine {
-	Sprite::Sprite(bool transparency, Type type, Renderer* renderer, std::string name) {
+	Sprite::Sprite(bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
 		_transparency = transparency;
 		_renderer = renderer;
+		this->shader = shader;
 		_texImporter = new TextureImporter();
 	}
 
-	Sprite::Sprite(bool transparency, const char* path, Type type, Renderer* renderer, std::string name) {
+	Sprite::Sprite(bool transparency, const char* path, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
 		_transparency = transparency;
 		_renderer = renderer;
 		_texImporter = new TextureImporter();
+		this->shader = shader;
 		_texImporter->SetPath(path);
 	}
 
-	Sprite::Sprite(int width, int height, const char* path, bool transparency, Type type, Renderer* renderer, std::string name) {
+	Sprite::Sprite(int width, int height, const char* path, bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
 		_transparency = transparency;
 		_renderer = renderer;
+		this->shader = shader;
 		_texImporter = new TextureImporter(width, height, path, transparency);
 	}
 
@@ -45,10 +48,10 @@ namespace Engine {
 		_renderer->BindEBO(_ebo, indices, AmmountOfVertices);
 	}
 
-	void Sprite::Init(Shader& shader) {
+	void Sprite::Init() {
 		LoadSprite();
 		_renderer->SetTexAttribPointer(shader.GetID());
-		BindBuffers(texQuadVertices, texTriVertices, 36, 27);
+		BindBuffers();
 	}
 
 	void Sprite::LoadSprite() {
@@ -74,21 +77,11 @@ namespace Engine {
 			std::cout << "Couldn't find image" << std::endl;
 	}
 
-	void Sprite::BindBuffers(float* quadVertex, float* triVertex, int quadVertexSize, int triVertexSize) {
+	void Sprite::BindBuffers() {
 		GenerateVAO();
-		switch (_type)
-		{
-		case TypeSprite::quad:
-			BindVBO(texQuadVertices, quadVertexSize);
-			BindEBO(_quadIndices, 6);
-			break;
-		case TypeSprite::triangle:
-			BindVBO(texTriVertices, triVertexSize);
-			BindEBO(_triIndices, 3);
-			break;
-		default:
-			break;
-		}
+		BindVAO();
+		BindVBO(_vertices, 32);
+		BindEBO(_quadIndices, 6);
 	}
 
 	void Sprite::BindTexture() {
@@ -105,35 +98,32 @@ namespace Engine {
 		glDisable(GL_BLEND);
 	}
 
-	void Sprite::DrawSprite(Shader& shader) {
+	void Sprite::Color(float r, float g, float b){
+		_vertices[3] = r;  _vertices[4] = g;  _vertices[5] = b;
+		_vertices[11] = r; _vertices[12] = g; _vertices[13] = b;
+		_vertices[19] = r; _vertices[20] = g; _vertices[21] = b;
+		_vertices[27] = r; _vertices[28] = g; _vertices[29] = b;
+	}
+
+	void Sprite::Color(glm::vec3 color){
+		   _vertices[3] = color.x;  _vertices[4] = color.y;  _vertices[5] = color.z;
+		  _vertices[11] = color.x; _vertices[12] = color.y; _vertices[13] = color.z;
+		  _vertices[19] = color.x; _vertices[20] = color.y; _vertices[21] = color.z;
+		  _vertices[27] = color.x; _vertices[28] = color.y; _vertices[29] = color.z;
+	}
+
+	void Sprite::DrawSprite() {
+		UpdateMatrices();
 		if (_transparency) {
 			BlendSprite();
 			BindTexture();
-			switch (_type)
-			{
-			case TypeSprite::quad:
-				_renderer->DrawSprite(shader, _vao, _vbo, texQuadVertices, 36, GetModel());
-				break;
-
-			case TypeSprite::triangle:
-				_renderer->DrawSprite(shader, _vao, _vbo, texTriVertices, 27, GetModel());
-				break;
-			}
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
 			UnBlendSprite();
 			glDisable(GL_TEXTURE_2D);
 		}
 		else {
 			BindTexture();
-			switch (_type)
-			{
-			case TypeSprite::quad:
-				_renderer->DrawSprite(shader, _vao, _vbo, texQuadVertices, 36, GetModel());
-				break;
-
-			case TypeSprite::triangle:
-				_renderer->DrawSprite(shader, _vao, _vbo, texTriVertices, 27, GetModel());
-				break;
-			}
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
 			glDisable(GL_TEXTURE_2D);
 		}
 	}
