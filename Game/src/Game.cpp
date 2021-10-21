@@ -17,14 +17,21 @@ Game::~Game() {
 		}
 		shapes.clear();
 	}
+	if (_sprite != NULL) {
+		delete _sprite;
+		_sprite = NULL;
+	}
 }
 void Game::InitGame() {
 	_shape = new Engine::Shape(Type::triangle, GetRenderer(), basicShader);
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::triangle, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
+	//_sprite = new Sprite(false, TypeSprite::quad, GetRenderer(), "holi");
+	_sprite->Init(basicShader);
 	_shape->Init();
 	_shape->Scale(100.0f,100.0f,1.0f);
+	_sprite->Scale(100.0f, 100.0f, 100.0f);
 	_shape->transform.position = glm::vec3(200.0f, 300.0f, 0);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]) {
@@ -61,7 +68,7 @@ void Game::UpdateGame() {
 	angle -= 0.01f;
 	t += 0.001f;
 	if (t >= 1) t = 0;
-	_shape->RotateZ(angle);
+	//_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]){
 			shapes[i]->RotateZ(angle);
@@ -69,6 +76,7 @@ void Game::UpdateGame() {
 		}
 	}
 	_shape->Draw();
+	_sprite->DrawSprite(basicShader);
 }
 void Game::UnloadGame() {
 	if (_shape != NULL) {
@@ -83,5 +91,9 @@ void Game::UnloadGame() {
 			}
 		}
 		shapes.clear();
+	}
+	if (_sprite != NULL) {
+		delete _sprite;
+		_sprite = NULL;
 	}
 }

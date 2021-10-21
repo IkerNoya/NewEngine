@@ -13,6 +13,7 @@ private:
 	glm::vec2 shapePos;
 	Shape* _shape = NULL;
 	std::vector<Shape*> shapes;
+	Sprite* _sprite = NULL;
 public:
 	Game();
 	~Game();

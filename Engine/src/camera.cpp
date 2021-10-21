@@ -37,6 +37,7 @@ void Camera::SetProjection(ProjectionType type){
 	}
 }
 
+//Le pasamos las matrices al shader y lo modificamos
 void Camera::Init(Shader& shader){
 	unsigned int transformLoc = glGetUniformLocation(shader.GetID(), "model");
 	unsigned int viewLoc = glGetUniformLocation(shader.GetID(), "view");
