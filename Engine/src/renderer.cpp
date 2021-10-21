@@ -73,10 +73,11 @@ void Renderer::Draw(Shader& shader, glm::mat4 model, unsigned int& vao, unsigned
 	UnbindBuffers();
 }
 void Renderer::DrawCamera(Shader& shader, glm::mat4 model, glm::mat4 view) {
-	unsigned int transformLoc = glGetUniformLocation(shader.GetID(), "model");
-	unsigned int viewLoc = glGetUniformLocation(shader.GetID(), "view");
 	//unsigned int projLoc = glGetUniformLocation(shader.GetID(), "projection");
 	shader.Use();
+
+	unsigned int transformLoc = glGetUniformLocation(shader.GetID(), "model");
+	unsigned int viewLoc = glGetUniformLocation(shader.GetID(), "view");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 	//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));

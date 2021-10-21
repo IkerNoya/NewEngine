@@ -19,7 +19,7 @@ Camera::~Camera(){
 }
 
 void Camera::SetView(glm::vec3 direction, glm::vec3 up){
-	_view = glm::lookAt(direction, transform.position, up);
+	_view = glm::translate(_view, transform.position);
 }
 
 void Camera::SetProjection(ProjectionType type){
@@ -60,7 +60,5 @@ ProjectionType Camera::GetProjectionType(){
 }
 
 void Camera::Draw(Shader& shader){
-	//SetView(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//UpdateMatrices();
 	_renderer->DrawCamera(shader, GetModel(), GetView());
 }
