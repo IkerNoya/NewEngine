@@ -14,6 +14,7 @@ private:
 	Shape* _shape = NULL;
 	std::vector<Shape*> shapes;
 	Sprite* _sprite = NULL;
+	Animation* player;
 public:
 	Game();
 	~Game();

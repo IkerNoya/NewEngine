@@ -84,6 +84,9 @@
     <ClInclude Include="src\stb_image.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\animation.h">
+      <Filter>Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="src\texture_importer.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\animation.cpp">
+      <Filter>Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

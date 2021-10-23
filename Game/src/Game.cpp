@@ -27,10 +27,12 @@ void Game::InitGame() {
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::triangle, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
-	_sprite = new Engine::Sprite(true, "res/textures/meme2.png", GetRenderer(), textureShader, "xd");
+	_sprite = new Engine::Sprite(true, "res/textures/samurai.png", GetRenderer(), textureShader, "xd");
+	player = new Animation();
 
 	_sprite->Init();
 	_shape->Init();
+	player->Init(_sprite, glm::ivec2(6,3));
 
 	_shape->Scale(100.0f,100.0f,1.0f);
 	_sprite->Scale(100.0f, 100.0f, 1.0f);
@@ -52,6 +54,7 @@ void Game::InitGame() {
 	_sprite->Color(1.0f, 1.0f, 1.0f);
 	_sprite->transform.position = glm::vec3(200,300,0);
 
+
 }
 void Game::UpdateGame() {
 
@@ -60,9 +63,6 @@ void Game::UpdateGame() {
 		 shapePos = glm::vec2(input.GetMousePosition2D());
 		 t = 0;
 	}
-	
-	std::cout << "mouse: " << input.GetMousePosition2D().y << std::endl;
-	std::cout << "sprite: " << _sprite->transform.position.y << std::endl;
 
 	glm::vec2 newPos = _sprite->Lerp(_sprite->transform.position, shapePos, t);
 	_sprite->transform.position = glm::vec3(newPos.x, newPos.y, 0);
@@ -85,7 +85,8 @@ void Game::UpdateGame() {
 		}
 	}
 	_shape->Draw();
-	_sprite->DrawSprite();
+	_sprite->DrawAnimation(player->GetUVs(12));
+	//_sprite->DrawSprite();
 }
 void Game::UnloadGame() {
 	if (_shape != NULL) {

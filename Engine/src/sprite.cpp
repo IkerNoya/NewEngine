@@ -8,6 +8,11 @@ namespace Engine {
 		_renderer = renderer;
 		this->shader = shader;
 		_texImporter = new TextureImporter();
+
+		uv[0].u = 1; uv[0].v = 1;
+		uv[1].u = 1; uv[1].v = 0;
+		uv[2].u = 0; uv[2].v = 0;
+		uv[3].u = 0; uv[3].v = 1;
 	}
 
 	Sprite::Sprite(bool transparency, const char* path, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
@@ -16,6 +21,11 @@ namespace Engine {
 		_texImporter = new TextureImporter();
 		this->shader = shader;
 		_texImporter->SetPath(path);
+
+		uv[0].u = 1; uv[0].v = 1;
+		uv[1].u = 1; uv[1].v = 0;
+		uv[2].u = 0; uv[2].v = 0;
+		uv[3].u = 0; uv[3].v = 1;
 	}
 
 	Sprite::Sprite(int width, int height, const char* path, bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
@@ -23,6 +33,11 @@ namespace Engine {
 		_renderer = renderer;
 		this->shader = shader;
 		_texImporter = new TextureImporter(width, height, path, transparency);
+
+		uv[0].u = 1; uv[0].v = 1;
+		uv[1].u = 1; uv[1].v = 0;
+		uv[2].u = 0; uv[2].v = 0;
+		uv[3].u = 0; uv[3].v = 1;
 	}
 
 	Sprite::~Sprite() {
@@ -112,8 +127,49 @@ namespace Engine {
 		  _vertices[27] = color.x; _vertices[28] = color.y; _vertices[29] = color.z;
 	}
 
+	void Sprite::SetUVs(glm::vec4 uvRect) {
+		uv[0].u = uvRect.x + uvRect.z; uv[0].v = uvRect.y + uvRect.w;    // top right
+		uv[1].u = uvRect.x + uvRect.z; uv[1].v = uvRect.y;    // bottom right
+		uv[2].u = uvRect.x; uv[2].v = uvRect.y;				 // bottom left
+		uv[3].u = uvRect.x; uv[3].v = uvRect.y + uvRect.w;  // top left
+
+		UpdateUVs();
+	}
+
+	void Sprite::UpdateUVs(){
+		 _vertices[6] = uv[0].u;  _vertices[7] = uv[0].v;   // top Right
+		_vertices[14] = uv[1].u; _vertices[15] = uv[1].v;   // bottom Right
+		_vertices[22] = uv[2].u; _vertices[23] = uv[2].v;   // bottom Left
+		_vertices[30] = uv[3].u; _vertices[31] = uv[3].v;   // top Left
+	}
+
 	void Sprite::DrawSprite() {
 		UpdateMatrices();
+		std::cout << "Top Right" << uv[0].u << " | " << uv[0].v << std::endl;
+		std::cout << "Bottom Right" << uv[1].u << " | " << uv[1].v << std::endl;
+		std::cout << "Bottom Left" << uv[2].u << " | " << uv[2].v << std::endl;
+		std::cout << "Top Left" << uv[3].u << " | " << uv[3].v << std::endl;
+		if (_transparency) {
+			BlendSprite();
+			BindTexture();
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			UnBlendSprite();
+			glDisable(GL_TEXTURE_2D);
+		}
+		else {
+			BindTexture();
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			glDisable(GL_TEXTURE_2D);
+		}
+	}
+
+	void Sprite::DrawAnimation(glm::vec4 uvRect){
+		std::cout << "Top Right" << uv[0].u << " | " << uv[0].v << std::endl;
+		std::cout << "Bottom Right" << uv[1].u << " | " << uv[1].v << std::endl;
+		std::cout << "Bottom Left" << uv[2].u << " | " << uv[2].v << std::endl;
+		std::cout << "Top Left" << uv[3].u << " | " << uv[3].v << std::endl;
+		UpdateMatrices();
+		SetUVs(uvRect);
 		if (_transparency) {
 			BlendSprite();
 			BindTexture();

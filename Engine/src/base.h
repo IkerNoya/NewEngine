@@ -9,6 +9,7 @@
 #include "sprite.h"
 #include "camera.h"
 #include "input.h"
+#include "animation.h"
 
 namespace Engine {
 	class ENGINE_API Base {

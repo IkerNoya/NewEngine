@@ -100,3 +100,4 @@ glm::mat4 Entity2D::GetModel() {
 	return model.trs;
 }
 
+

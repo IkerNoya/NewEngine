@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\animation.h" />
     <ClInclude Include="src\base.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\entity2D.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="src\window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\animation.cpp" />
     <ClCompile Include="src\base.cpp" />
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\entity2D.cpp" />

@@ -24,6 +24,7 @@ namespace Engine {
 		void Init(Shader& shader);
 		glm::mat4 GetView();
 		glm::mat4 GetProjection();
+		glm::mat4 GetMVP();
 		ProjectionType GetProjectionType();
 		void Draw(Shader& shader);
 	};

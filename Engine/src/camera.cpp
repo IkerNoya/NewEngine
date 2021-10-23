@@ -57,6 +57,10 @@ glm::mat4 Camera::GetProjection(){
 	return _projection;
 }
 
+glm::mat4 Engine::Camera::GetMVP(){
+	return GetProjection() * GetView() * GetProjection();
+}
+
 ProjectionType Camera::GetProjectionType(){
 	return _type;
 }

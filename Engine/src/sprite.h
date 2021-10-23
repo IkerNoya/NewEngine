@@ -7,6 +7,11 @@
 
 namespace Engine {
 
+	struct ENGINE_API UVs {
+		float u;
+		float v;
+	};
+
 	class ENGINE_API Sprite : public Entity2D {
 	private:
 		int _width;
@@ -14,6 +19,7 @@ namespace Engine {
 		bool _transparency;
 		Renderer* _renderer;
 		TextureImporter* _texImporter;
+		UVs uv[4];
 
 		unsigned int _vao = 0;
 		unsigned int _vbo = 0;
@@ -38,26 +44,29 @@ namespace Engine {
 		void BindEBO(unsigned int* indices, int AmmountOfIndices);
 		void UnbindBuffers();
 		void DeleteBuffer();
+		void BindBuffers();
+		void BindTexture();
+		void BlendSprite();
+		void UnBlendSprite();
+		void LoadSprite();
+		void LoadSprite(int width, int height);
+		void LoadSprite(int width, int height, const char* path);
+		void SetWidth(int width);
+		int GetWidth();
+		void SetHeight(int height);
+		int GetHeight();
 	public:
 		Sprite(bool transparency, Renderer* renderer, Shader shader, std::string name);
 		Sprite(bool transparency, const char* path,  Renderer* renderer, Shader shader, std::string name);
 		Sprite(int width, int height, const char* path, bool transparency, Renderer* renderer, Shader shader, std::string name);
 		~Sprite();
 		void Init();
-		void LoadSprite();
-		void LoadSprite(int width, int height);
-		void LoadSprite(int width, int height, const char* path);
-		void BindBuffers();
-		void BindTexture();
-		void BlendSprite();
-		void UnBlendSprite();
 		void Color(float r, float g, float b);
 		void Color(glm::vec3 color);
+		void SetUVs(glm::vec4 uvRect);
+		void UpdateUVs();
 		void DrawSprite();
-		void SetWidth(int width);
-		int GetWidth();
-		void SetHeight(int height);
-		int GetHeight();
+		void DrawAnimation(glm::vec4 uv);
 		void SetPath(const char* path);
 		const char* GetPath();
 	};
