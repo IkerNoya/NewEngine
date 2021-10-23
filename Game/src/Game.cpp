@@ -21,6 +21,10 @@ Game::~Game() {
 		delete _sprite;
 		_sprite = NULL;
 	}
+	if (player != NULL) {
+		delete player;
+		player = NULL;
+	}
 }
 void Game::InitGame() {
 	_shape = new Engine::Shape(Type::triangle, GetRenderer(), basicShader);
@@ -58,14 +62,6 @@ void Game::InitGame() {
 }
 void Game::UpdateGame() {
 
-	if (input.GetMouseButton(MouseButtons::LEFT_MOUSE_BUTTON))
-	{
-		 shapePos = glm::vec2(input.GetMousePosition2D());
-		 t = 0;
-	}
-
-	glm::vec2 newPos = _sprite->Lerp(_sprite->transform.position, shapePos, t);
-	_sprite->transform.position = glm::vec3(newPos.x, newPos.y, 0);
 	if (input.GetKey(KeyCode::UP)) {
 		_shape->transform.scale.x += 2;
 		_shape->transform.scale.y += 2;
@@ -74,6 +70,10 @@ void Game::UpdateGame() {
 		_shape->transform.scale.x -= 2;
 		_shape->transform.scale.y -= 2;
 	}
+
+	if (input.GetKeyUp(KeyCode::SPACE)) {
+	}
+
 	angle -= 0.01f;
 	t += 0.001f;
 	if (t >= 1) t = 0;
@@ -87,6 +87,9 @@ void Game::UpdateGame() {
 	_shape->Draw();
 	_sprite->DrawAnimation(player->GetUVs(12));
 	//_sprite->DrawSprite();
+
+	std::cout << time.GetFPS() << std::endl;
+
 }
 void Game::UnloadGame() {
 	if (_shape != NULL) {
@@ -105,5 +108,9 @@ void Game::UnloadGame() {
 	if (_sprite != NULL) {
 		delete _sprite;
 		_sprite = NULL;
+	}
+	if (player != NULL) {
+		delete player;
+		player = NULL;
 	}
 }

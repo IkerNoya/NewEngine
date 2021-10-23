@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "input.h"
 #include "animation.h"
+#include "time_manager.h"
 
 namespace Engine {
 	class ENGINE_API Base {
@@ -22,6 +23,8 @@ namespace Engine {
 		Shader textureShader;
 		Renderer* GetRenderer();
 		Window* GetWindow();
+
+		Time time;
 		Input input;
 	public:
 		Base();

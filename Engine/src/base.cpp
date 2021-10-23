@@ -57,6 +57,8 @@ void Base::Update(){
 		UpdateGame();
 		_camera->Draw(basicShader);
 		_camera->Draw(textureShader);
+		time.CalculateFPS();
+		time.Tick();
 		_renderer->EndFrame(_window->GetWindow());
 	}
 }

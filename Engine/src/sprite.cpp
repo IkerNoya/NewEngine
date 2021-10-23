@@ -1,6 +1,7 @@
 #include"GL/glew.h"
 #include"GLFW/glfw3.h"
 #include"sprite.h"
+#include "animation.h"
 
 namespace Engine {
 	Sprite::Sprite(bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
@@ -129,11 +130,14 @@ namespace Engine {
 
 	void Sprite::SetUVs(glm::vec4 uvRect) {
 		uv[0].u = uvRect.x + uvRect.z; uv[0].v = uvRect.y + uvRect.w;    // top right
-		uv[1].u = uvRect.x + uvRect.z; uv[1].v = uvRect.y;    // bottom right
-		uv[2].u = uvRect.x; uv[2].v = uvRect.y;				 // bottom left
-		uv[3].u = uvRect.x; uv[3].v = uvRect.y + uvRect.w;  // top left
+		uv[1].u = uvRect.x + uvRect.z; uv[1].v = uvRect.y;				 // bottom right
+		uv[2].u = uvRect.x; uv[2].v = uvRect.y;							// bottom left
+		uv[3].u = uvRect.x; uv[3].v = uvRect.y + uvRect.w;				// top left
 
 		UpdateUVs();
+	}
+
+	void Sprite::UpdateAnimation(Time& time){
 	}
 
 	void Sprite::UpdateUVs(){
@@ -145,10 +149,6 @@ namespace Engine {
 
 	void Sprite::DrawSprite() {
 		UpdateMatrices();
-		std::cout << "Top Right" << uv[0].u << " | " << uv[0].v << std::endl;
-		std::cout << "Bottom Right" << uv[1].u << " | " << uv[1].v << std::endl;
-		std::cout << "Bottom Left" << uv[2].u << " | " << uv[2].v << std::endl;
-		std::cout << "Top Left" << uv[3].u << " | " << uv[3].v << std::endl;
 		if (_transparency) {
 			BlendSprite();
 			BindTexture();
@@ -164,10 +164,6 @@ namespace Engine {
 	}
 
 	void Sprite::DrawAnimation(glm::vec4 uvRect){
-		std::cout << "Top Right" << uv[0].u << " | " << uv[0].v << std::endl;
-		std::cout << "Bottom Right" << uv[1].u << " | " << uv[1].v << std::endl;
-		std::cout << "Bottom Left" << uv[2].u << " | " << uv[2].v << std::endl;
-		std::cout << "Top Left" << uv[3].u << " | " << uv[3].v << std::endl;
 		UpdateMatrices();
 		SetUVs(uvRect);
 		if (_transparency) {

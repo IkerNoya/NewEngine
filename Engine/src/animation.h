@@ -13,7 +13,6 @@ namespace Engine {
 		~Animation();
 		void Init(Sprite* texture, const glm::ivec2& tileDims);
 		glm::vec4 GetUVs(int index);
-
 	};
 
 }

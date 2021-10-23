@@ -6,10 +6,6 @@ Engine::Animation::Animation(){
 }
 
 Engine::Animation::~Animation(){
-	if (sprite != NULL){
-		delete sprite;
-		sprite = NULL;
-	}
 }
 
 void Engine::Animation::Init(Sprite* texture, const glm::ivec2& tileDims){

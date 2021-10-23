@@ -6,6 +6,8 @@
 #include"renderer.h"
 
 namespace Engine {
+	class Animation;
+	class Time;
 
 	struct ENGINE_API UVs {
 		float u;
@@ -64,6 +66,7 @@ namespace Engine {
 		void Color(float r, float g, float b);
 		void Color(glm::vec3 color);
 		void SetUVs(glm::vec4 uvRect);
+		void UpdateAnimation(Time& time);
 		void UpdateUVs();
 		void DrawSprite();
 		void DrawAnimation(glm::vec4 uv);
