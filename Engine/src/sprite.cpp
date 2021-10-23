@@ -2,6 +2,7 @@
 #include"GLFW/glfw3.h"
 #include"sprite.h"
 #include "animation.h"
+#include "time_manager.h"
 
 namespace Engine {
 	Sprite::Sprite(bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
@@ -138,6 +139,7 @@ namespace Engine {
 	}
 
 	void Sprite::UpdateAnimation(Time& time){
+		//codigo para cambiar indice y recortar uvs
 	}
 
 	void Sprite::UpdateUVs(){

@@ -8,7 +8,7 @@ namespace Engine {
 		std::chrono::system_clock::time_point _prevTime;
 		std::chrono::system_clock::time_point _currentTime;
 		std::chrono::duration<float> _deltaTime;
-		float _time;
+		float _time = 0;
 		float _fps;
 		float _fpsElapesedTime;
 		int _frames;

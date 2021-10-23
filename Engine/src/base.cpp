@@ -45,6 +45,8 @@ int Base::Init(){
 
 	input.SetWindow(_window->GetWindow());
 
+	time.Reset();
+
 	InitGame();
 }
 

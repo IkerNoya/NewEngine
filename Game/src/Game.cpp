@@ -37,6 +37,11 @@ void Game::InitGame() {
 	_sprite->Init();
 	_shape->Init();
 	player->Init(_sprite, glm::ivec2(6,3));
+	player->AddAnimation(0, 6);
+	player->AddAnimation(6, 11);
+	player->AddAnimation(12, 14);
+	player->SetAnimation(1, false);
+	player->SetAnimationTime(1.5f);
 
 	_shape->Scale(100.0f,100.0f,1.0f);
 	_sprite->Scale(100.0f, 100.0f, 1.0f);
@@ -71,12 +76,12 @@ void Game::UpdateGame() {
 		_shape->transform.scale.y -= 2;
 	}
 
-	if (input.GetKeyUp(KeyCode::SPACE)) {
+	if (input.GetKey(KeyCode::SPACE)) {
+		_sprite->transform.position.x += 30 * time.GetDeltaTime();
 	}
 
-	angle -= 0.01f;
-	t += 0.001f;
-	if (t >= 1) t = 0;
+	player->UpdateIndex(time);
+
 	//_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]){
@@ -85,10 +90,8 @@ void Game::UpdateGame() {
 		}
 	}
 	_shape->Draw();
-	_sprite->DrawAnimation(player->GetUVs(12));
+	_sprite->DrawAnimation(player->GetUVs(player->GetCurrentIndex()));
 	//_sprite->DrawSprite();
-
-	std::cout << time.GetFPS() << std::endl;
 
 }
 void Game::UnloadGame() {
