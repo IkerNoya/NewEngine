@@ -13,6 +13,8 @@ namespace Engine {
 	struct ENGINE_API AnimationData {
 		int _beginIndex;
 		int _endIndex;
+		bool hasEnded = false;
+		bool loop = true;
 	};
 
 	class Sprite;
@@ -33,7 +35,6 @@ namespace Engine {
 
 		float animationSpeed = 0;
 
-		bool _loop = true;
 
 		std::vector<AnimationData> animation;
 	public:
@@ -44,9 +45,9 @@ namespace Engine {
 		void UpdateIndex(Time& time);
 		void SetAnimationTime(float time);
 		int GetCurrentIndex();
-		void AddAnimation(int beginIndex, int endIndex);
-		int GetCurrentAnimation();
-		void SetAnimation(int index, bool loop);
+		void AddAnimation(int beginIndex, int endIndex, bool isLoopable);
+		AnimationData GetCurrentAnimation();
+		void SetAnimation(int index);
 	};
 
 }

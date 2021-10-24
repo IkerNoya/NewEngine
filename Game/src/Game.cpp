@@ -31,17 +31,17 @@ void Game::InitGame() {
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::triangle, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
-	_sprite = new Engine::Sprite(true, "res/textures/samurai.png", GetRenderer(), textureShader, "xd");
+	_sprite = new Engine::Sprite(true, "res/textures/samurai.png", GetRenderer(), textureShader, "player");
 	player = new Animation();
 
 	_sprite->Init();
 	_shape->Init();
 	player->Init(_sprite, glm::ivec2(6,3));
-	player->AddAnimation(0, 6);
-	player->AddAnimation(6, 11);
-	player->AddAnimation(12, 14);
-	player->SetAnimation(1, false);
-	player->SetAnimationTime(1.5f);
+	player->AddAnimation(0, 6, false); //ataque
+	player->AddAnimation(6, 11, false); // bloqueo
+	player->AddAnimation(12, 14, true); // idle
+	player->SetAnimation(2);
+	player->SetAnimationTime(0.75f);
 
 	_shape->Scale(100.0f,100.0f,1.0f);
 	_sprite->Scale(100.0f, 100.0f, 1.0f);
@@ -67,29 +67,35 @@ void Game::InitGame() {
 }
 void Game::UpdateGame() {
 
-	if (input.GetKey(KeyCode::UP)) {
-		_shape->transform.scale.x += 2;
-		_shape->transform.scale.y += 2;
-	}
-	if (input.GetKey(KeyCode::DOWN)) {
-		_shape->transform.scale.x -= 2;
-		_shape->transform.scale.y -= 2;
-	}
+	//if (input.GetKey(KeyCode::UP)) {
+	//	_shape->transform.scale.x += 2;
+	//	_shape->transform.scale.y += 2;
+	//}
+	//if (input.GetKey(KeyCode::DOWN)) {
+	//	_shape->transform.scale.x -= 2;
+	//	_shape->transform.scale.y -= 2;
+	//}
 
-	if (input.GetKey(KeyCode::SPACE)) {
-		_sprite->transform.position.x += 30 * time.GetDeltaTime();
+	if (input.GetKey(KeyCode::UP)) {
+		player->SetAnimation(2);
+	}
+	if (input.GetMouseButton(MouseButtons::LEFT_MOUSE_BUTTON)) {
+		player->SetAnimation(0);
+	}
+	if (input.GetMouseButton(MouseButtons::RIGHT_MOUSE_BUTTON)) {
+		player->SetAnimation(1);
 	}
 
 	player->UpdateIndex(time);
 
 	//_shape->RotateZ(angle);
-	for (int i = 0; i < shapes.size(); i++) {
-		if (shapes[i]){
-			shapes[i]->RotateZ(angle);
-			shapes[i]->Draw();
-		}
-	}
-	_shape->Draw();
+	//for (int i = 0; i < shapes.size(); i++) {
+	//	if (shapes[i]){
+	//		shapes[i]->RotateZ(angle);
+	//		shapes[i]->Draw();
+	//	}
+	//}
+	//_shape->Draw();
 	_sprite->DrawAnimation(player->GetUVs(player->GetCurrentIndex()));
 	//_sprite->DrawSprite();
 
