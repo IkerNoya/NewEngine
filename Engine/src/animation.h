@@ -11,8 +11,8 @@ namespace Engine {
 	};
 
 	struct ENGINE_API AnimationData { // estructura con información sobre la animacion
-		int _beginIndex;
-		int _endIndex;
+		int _beginIndex = 0;
+		int _endIndex = 0;
 		bool hasEnded = false;
 		bool loop = true;
 	};
@@ -27,7 +27,7 @@ namespace Engine {
 		int _currentIndex = 0;
 		int _actualCurrentIndex = 0;
 
-		int _currentAnimation;
+		int _currentAnimation = 0;
 
 		float _currentTime = 0;
 		float _time = 0;
