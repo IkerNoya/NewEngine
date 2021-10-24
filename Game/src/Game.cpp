@@ -21,9 +21,17 @@ Game::~Game() {
 		delete _sprite;
 		_sprite = NULL;
 	}
+	if (npc != NULL) {
+		delete npc;
+		npc = NULL;
+	}
 	if (player != NULL) {
 		delete player;
 		player = NULL;
+	}
+	if (npcAnim != NULL) {
+		delete npcAnim;
+		npcAnim = NULL;
 	}
 }
 void Game::InitGame() {
@@ -31,11 +39,17 @@ void Game::InitGame() {
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::triangle, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
+
 	_sprite = new Engine::Sprite(true, "res/textures/samurai.png", GetRenderer(), textureShader);
 	player = new Animation();
 
+	npc = new Engine::Sprite(true, "res/textures/spriteSheet.png", GetRenderer(), textureShader);
+	npcAnim = new Animation();
+
 	_sprite->Init();
+	npc->Init();
 	_shape->Init();
+
 	player->Init(_sprite, glm::ivec2(6,3));
 	player->AddAnimation(0, 6, false); //ataque
 	player->AddAnimation(6, 11, false); // bloqueo
@@ -43,8 +57,14 @@ void Game::InitGame() {
 	player->SetAnimation(2);
 	player->SetAnimationTime(0.75f);
 
+	npcAnim->Init(npc, glm::ivec2(7, 1));
+	npcAnim->AddAnimation(0, 6, true);
+	npcAnim->SetAnimation(0);
+	npcAnim->SetAnimationTime(1.0f);
+
 	_shape->Scale(100.0f,100.0f,1.0f);
 	_sprite->Scale(100.0f, 100.0f, 1.0f);
+	npc->Scale(100.0f, 100.0f, 1.0f);
 	_shape->transform.position = glm::vec3(200.0f, 300.0f, 0);
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]) {
@@ -61,24 +81,25 @@ void Game::InitGame() {
 	shapes[2]->transform.position = glm::vec3(400.0f, 500.0f, 0.0f);
 	shapePos = _shape->transform.position;
 	_sprite->Color(1.0f, 1.0f, 1.0f);
-	_sprite->transform.position = glm::vec3(200,300,0);
+	_sprite->transform.position = glm::vec3(200,300,1);
+	npc->transform.position = glm::vec3(600, 300, 1);
 
 
 }
-void Game::UpdateGame() {
-
-	//if (input.GetKey(KeyCode::UP)) {
-	//	_shape->transform.scale.x += 2;
-	//	_shape->transform.scale.y += 2;
-	//}
-	//if (input.GetKey(KeyCode::DOWN)) {
-	//	_shape->transform.scale.x -= 2;
-	//	_shape->transform.scale.y -= 2;
-	//}
-
-	if (input.GetKey(KeyCode::UP)) {
-		player->SetAnimation(2);
+void Game::PlayerInputs() {
+	if (input.GetKey(KeyCode::W)) {
+		_sprite->transform.position.y += 200 * time.GetDeltaTime();
 	}
+	if (input.GetKey(KeyCode::S)) {
+		_sprite->transform.position.y -= 200 * time.GetDeltaTime();
+	}
+	if (input.GetKey(KeyCode::D)) {
+		_sprite->transform.position.x += 200 * time.GetDeltaTime();
+	}
+	if (input.GetKey(KeyCode::A)) {
+		_sprite->transform.position.x -= 200 * time.GetDeltaTime();
+	}
+
 	if (input.GetMouseButton(MouseButtons::LEFT_MOUSE_BUTTON)) {
 		player->SetAnimation(0);
 	}
@@ -86,22 +107,29 @@ void Game::UpdateGame() {
 		player->SetAnimation(1);
 	}
 
+}
+void Game::UpdateGame() {
+
+	PlayerInputs();
+
+
 	if (!player->GetCurrentAnimation().loop && player->GetCurrentAnimation().hasEnded) {
 		player->SetAnimation(2);
 	}
 
 	player->UpdateIndex(time);
+	npcAnim->UpdateIndex(time);
 
-	//_shape->RotateZ(angle);
-	//for (int i = 0; i < shapes.size(); i++) {
-	//	if (shapes[i]){
-	//		shapes[i]->RotateZ(angle);
-	//		shapes[i]->Draw();
-	//	}
-	//}
-	//_shape->Draw();
+	_shape->RotateZ(angle);
+	for (int i = 0; i < shapes.size(); i++) {
+		if (shapes[i]){
+			shapes[i]->RotateZ(angle);
+			shapes[i]->Draw();
+		}
+	}
+	_shape->Draw();
 	_sprite->DrawAnimation(player->GetUVs(player->GetCurrentIndex()));
-	//_sprite->DrawSprite();
+	npc->DrawAnimation(npcAnim->GetUVs(npcAnim->GetCurrentIndex()));
 
 }
 void Game::UnloadGame() {
@@ -122,8 +150,16 @@ void Game::UnloadGame() {
 		delete _sprite;
 		_sprite = NULL;
 	}
+	if (npc != NULL) {
+		delete npc;
+		npc = NULL;
+	}
 	if (player != NULL) {
 		delete player;
 		player = NULL;
+	}
+	if (npcAnim != NULL) {
+		delete npcAnim;
+		npcAnim = NULL;
 	}
 }

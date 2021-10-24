@@ -14,11 +14,14 @@ private:
 	Shape* _shape = NULL;
 	std::vector<Shape*> shapes;
 	Sprite* _sprite = NULL;
+	Sprite* npc = NULL;
 	Animation* player;
+	Animation* npcAnim;
 
 public:
 	Game();
 	~Game();
+	void PlayerInputs();
 	void InitGame() override;
 	void UpdateGame() override;
 	void UnloadGame() override;
