@@ -16,8 +16,8 @@ namespace Engine {
 
 	class ENGINE_API Sprite : public Entity2D {
 	private:
-		int _width;
-		int _height;
+		int _width=0;
+		int _height=0;
 		bool _transparency;
 		Renderer* _renderer;
 		TextureImporter* _texImporter;
@@ -58,15 +58,13 @@ namespace Engine {
 		void SetHeight(int height);
 		int GetHeight();
 	public:
-		Sprite(bool transparency, Renderer* renderer, Shader shader, std::string name);
-		Sprite(bool transparency, const char* path,  Renderer* renderer, Shader shader, std::string name);
-		Sprite(int width, int height, const char* path, bool transparency, Renderer* renderer, Shader shader, std::string name);
+		Sprite(bool transparency, Renderer* renderer, Shader shader);
+		Sprite(bool transparency, const char* path,  Renderer* renderer, Shader shader);
 		~Sprite();
 		void Init();
 		void Color(float r, float g, float b);
 		void Color(glm::vec3 color);
 		void SetUVs(glm::vec4 uvRect);
-		void UpdateAnimation(Time& time);
 		void UpdateUVs();
 		void DrawSprite();
 		void DrawAnimation(glm::vec4 uv);

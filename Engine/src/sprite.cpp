@@ -5,7 +5,7 @@
 #include "time_manager.h"
 
 namespace Engine {
-	Sprite::Sprite(bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
+	Sprite::Sprite(bool transparency, Renderer* renderer, Shader shader) : Entity2D() {
 		_transparency = transparency;
 		_renderer = renderer;
 		this->shader = shader;
@@ -17,24 +17,12 @@ namespace Engine {
 		uv[3].u = 0; uv[3].v = 1;
 	}
 
-	Sprite::Sprite(bool transparency, const char* path, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
+	Sprite::Sprite(bool transparency, const char* path, Renderer* renderer, Shader shader) : Entity2D() {
 		_transparency = transparency;
 		_renderer = renderer;
 		_texImporter = new TextureImporter();
 		this->shader = shader;
 		_texImporter->SetPath(path);
-
-		uv[0].u = 1; uv[0].v = 1;
-		uv[1].u = 1; uv[1].v = 0;
-		uv[2].u = 0; uv[2].v = 0;
-		uv[3].u = 0; uv[3].v = 1;
-	}
-
-	Sprite::Sprite(int width, int height, const char* path, bool transparency, Renderer* renderer, Shader shader, std::string name) : Entity2D() {
-		_transparency = transparency;
-		_renderer = renderer;
-		this->shader = shader;
-		_texImporter = new TextureImporter(width, height, path, transparency);
 
 		uv[0].u = 1; uv[0].v = 1;
 		uv[1].u = 1; uv[1].v = 0;
@@ -130,16 +118,16 @@ namespace Engine {
 	}
 
 	void Sprite::SetUVs(glm::vec4 uvRect) {
+		//				x + ancho                   y + alto
 		uv[0].u = uvRect.x + uvRect.z; uv[0].v = uvRect.y + uvRect.w;    // top right
+		//				 x + ancho                   y
 		uv[1].u = uvRect.x + uvRect.z; uv[1].v = uvRect.y;				 // bottom right
+		//				x                  y
 		uv[2].u = uvRect.x; uv[2].v = uvRect.y;							// bottom left
+		//				x					y + alto
 		uv[3].u = uvRect.x; uv[3].v = uvRect.y + uvRect.w;				// top left
 
 		UpdateUVs();
-	}
-
-	void Sprite::UpdateAnimation(Time& time){
-		//codigo para cambiar indice y recortar uvs
 	}
 
 	void Sprite::UpdateUVs(){

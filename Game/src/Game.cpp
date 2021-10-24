@@ -31,7 +31,7 @@ void Game::InitGame() {
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::triangle, GetRenderer(), basicShader));
 	shapes.push_back(new Shape(Type::quad, GetRenderer(), basicShader));
-	_sprite = new Engine::Sprite(true, "res/textures/samurai.png", GetRenderer(), textureShader, "player");
+	_sprite = new Engine::Sprite(true, "res/textures/samurai.png", GetRenderer(), textureShader);
 	player = new Animation();
 
 	_sprite->Init();
@@ -84,6 +84,10 @@ void Game::UpdateGame() {
 	}
 	if (input.GetMouseButton(MouseButtons::RIGHT_MOUSE_BUTTON)) {
 		player->SetAnimation(1);
+	}
+
+	if (!player->GetCurrentAnimation().loop && player->GetCurrentAnimation().hasEnded) {
+		player->SetAnimation(2);
 	}
 
 	player->UpdateIndex(time);

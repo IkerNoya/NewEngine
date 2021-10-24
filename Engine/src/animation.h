@@ -7,10 +7,10 @@ namespace Engine {
 
 	class Time;
 	enum class ENGINE_API AnimationState {
-		idle, moving, jumping, attacking, interacting, damage,dead
+		idle, moving, jumping, attacking, interacting, damage,dead // enumerador que indica estado de animación, pensar forma de utilizar
 	};
 
-	struct ENGINE_API AnimationData {
+	struct ENGINE_API AnimationData { // estructura con información sobre la animacion
 		int _beginIndex;
 		int _endIndex;
 		bool hasEnded = false;
