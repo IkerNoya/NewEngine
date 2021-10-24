@@ -76,7 +76,6 @@ Engine::AnimationData Engine::Animation::GetCurrentAnimation() {
 }
 
 void Engine::Animation::SetAnimation(int index) {
-	_currentTime = 0;
 	_currentAnimation = index;
 	_firstIndex = animation[_currentAnimation]._beginIndex;
 	_lastIndex = animation[_currentAnimation]._endIndex;
@@ -84,6 +83,9 @@ void Engine::Animation::SetAnimation(int index) {
 	if (_currentIndex < _firstIndex || _currentIndex > _lastIndex)
 		_actualCurrentIndex = _firstIndex;
 
-	animation[_currentAnimation].hasEnded = false;
+	if (animation[_currentAnimation].hasEnded || (_actualCurrentIndex >= _lastIndex || _actualCurrentIndex < _firstIndex)) {
+		animation[_currentAnimation].hasEnded = false;
+		_currentTime = 0;
+	}
 }
 
