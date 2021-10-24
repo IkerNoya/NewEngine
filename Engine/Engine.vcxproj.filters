@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{720f7a07-d7dc-4d1d-8284-58f01f9496d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="BaseGame">
       <UniqueIdentifier>{8de2869e-ebed-42aa-b369-38d4b9af8390}</UniqueIdentifier>
     </Filter>
