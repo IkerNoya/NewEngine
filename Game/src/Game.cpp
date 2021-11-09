@@ -134,6 +134,7 @@ void Game::UnloadGame() {
 	if (_shape != NULL) {
 		delete _shape;
 		_shape = NULL;
+		
 	}
 	if (!shapes.empty()) {
 		for (int i = 0; i < shapes.size(); i++) {
