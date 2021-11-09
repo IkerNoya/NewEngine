@@ -71,6 +71,7 @@ void Game::InitGame() {
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]) {
 			shapes[i]->Init();
+
 			shapes[i]->Scale(100, 100.0f, 0.0f);
 		}
 	}
