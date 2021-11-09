@@ -11,6 +11,7 @@
 #include "input.h"
 #include "animation.h"
 #include "time_manager.h"
+#include "collision_manager.h"
 
 namespace Engine {
 	class ENGINE_API Base {
@@ -23,6 +24,7 @@ namespace Engine {
 		Shader textureShader;
 		Renderer* GetRenderer();
 		Window* GetWindow();
+		CollisionManager* collisionmanager;
 
 		Time time;
 		Input input;
