@@ -20,6 +20,7 @@ void Engine::Animation::Init(Sprite* texture, const glm::ivec2& tileDims) {
 glm::vec4 Engine::Animation::GetUVs(int index) {
 	int xTile = index % dimensions.x; // se hace para que cuando el indice sea mayor a la dimension en x, vuelva a ser 0, es decir, se "reinicia" el ciclo en x
 	int yTile = index / dimensions.x;
+
 	//                      x  y   w   h
 	glm::vec4 uv = glm::vec4(0, 0, 0, 0);
 
@@ -32,8 +33,15 @@ glm::vec4 Engine::Animation::GetUVs(int index) {
 }
 
 void Engine::Animation::UpdateIndex(Time& time) {
+	float length = 1.0f * 1000;
+	_currentTime += time.GetDeltaTime() * animationSpeed;
 
-	int framesAmmount = (animation[_currentAnimation]._endIndex) - animation[_currentAnimation]._beginIndex;
+	while (_currentTime > length) {
+		_currentTime -= length;
+	}
+
+	int framesAmmount = (animation[_currentAnimation]._endIndex - animation[_currentAnimation]._beginIndex);
+
 
 	if (!animation[_currentAnimation].hasEnded) { // pregunto si la animacion no termino
 		_actualCurrentIndex = animation[_currentAnimation]._beginIndex;
@@ -49,26 +57,26 @@ void Engine::Animation::UpdateIndex(Time& time) {
 		_actualCurrentIndex = animation[_currentAnimation]._endIndex -1; // si termino la animacion y no es loopeable, seteo el indice al ultimo frame de la animación
 	}
 
-	_currentTime += time.GetDeltaTime() * animationSpeed;
 }
 
-void Engine::Animation::SetAnimationTime(float time) {
-	if (time < 0)
-		time *= -1;
+void Engine::Animation::SetAnimationSpeed(float speed) {
+	if (speed < 0)
+		speed *= -1;
 
-	animationSpeed = time * 10;
+	animation[_currentAnimation].animationSpeed = speed * 10;
 }
 
 int Engine::Animation::GetCurrentIndex() {
 	return _actualCurrentIndex;
 }
 
-void Engine::Animation::AddAnimation(int beginIndex, int endIndex, bool isLoopable) {
+void Engine::Animation::AddAnimation(int beginIndex, int endIndex, bool isLoopable, float animationSpeed) {
 	AnimationData newAnim;
 	newAnim._beginIndex = beginIndex;
 	newAnim._endIndex = endIndex;
 	newAnim.loop = isLoopable;
-	animation.push_back(newAnim);
+	newAnim.animationSpeed = animationSpeed * 10;
+	animation.push_back(newAnim); 
 }
 
 Engine::AnimationData Engine::Animation::GetCurrentAnimation() {
@@ -79,10 +87,14 @@ void Engine::Animation::SetAnimation(int index) {
 	_currentAnimation = index;
 	_firstIndex = animation[_currentAnimation]._beginIndex;
 	_lastIndex = animation[_currentAnimation]._endIndex;
+	if(animationSpeed != animation[_currentAnimation].animationSpeed)
+	animationSpeed = animation[_currentAnimation].animationSpeed;
 
 	if (_currentIndex < _firstIndex || _currentIndex > _lastIndex)
 		_actualCurrentIndex = _firstIndex;
 
+
+	// si termino la animación y el boton sigue presionado, se resetea la animacion y no se auto superpone
 	if (animation[_currentAnimation].hasEnded || (_actualCurrentIndex >= _lastIndex || _actualCurrentIndex < _firstIndex)) {
 		animation[_currentAnimation].hasEnded = false;
 		_currentTime = 0;

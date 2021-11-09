@@ -51,16 +51,14 @@ void Game::InitGame() {
 	_shape->Init();
 
 	player->Init(_sprite, glm::ivec2(6,3));
-	player->AddAnimation(0, 6, false); //ataque
-	player->AddAnimation(6, 11, false); // bloqueo
-	player->AddAnimation(12, 14, true); // idle
+	player->AddAnimation(0, 6, false, 1.25f); //ataque
+	player->AddAnimation(6, 11, false, 1.25f); // bloqueo
+	player->AddAnimation(12, 14, true, 0.5f); // idle
 	player->SetAnimation(2);
-	player->SetAnimationTime(0.75f);
 
 	npcAnim->Init(npc, glm::ivec2(7, 1));
-	npcAnim->AddAnimation(0, 6, true);
+	npcAnim->AddAnimation(0, 6, true, 1.0f);
 	npcAnim->SetAnimation(0);
-	npcAnim->SetAnimationTime(1.0f);
 
 	_shape->Scale(100.0f,100.0f,1.0f);
 	_sprite->Scale(100.0f, 100.0f, 1.0f);
@@ -118,7 +116,7 @@ void Game::UpdateGame() {
 	}
 
 	player->UpdateIndex(time);
-	npcAnim->UpdateIndex(time);
+	//npcAnim->UpdateIndex(time);
 
 	_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
@@ -129,7 +127,7 @@ void Game::UpdateGame() {
 	}
 	_shape->Draw();
 	_sprite->DrawAnimation(player->GetUVs(player->GetCurrentIndex()));
-	npc->DrawAnimation(npcAnim->GetUVs(npcAnim->GetCurrentIndex()));
+	//npc->DrawAnimation(glm::vec4(0,0,1,1));
 
 }
 void Game::UnloadGame() {

@@ -13,6 +13,7 @@ namespace Engine {
 	struct ENGINE_API AnimationData { // estructura con información sobre la animacion
 		int _beginIndex = 0;
 		int _endIndex = 0;
+		float animationSpeed;
 		bool hasEnded = false;
 		bool loop = true;
 	};
@@ -43,9 +44,9 @@ namespace Engine {
 		void Init(Sprite* texture, const glm::ivec2& tileDims);
 		glm::vec4 GetUVs(int index);
 		void UpdateIndex(Time& time);
-		void SetAnimationTime(float time);
+		void SetAnimationSpeed(float speed);
 		int GetCurrentIndex();
-		void AddAnimation(int beginIndex, int endIndex, bool isLoopable);
+		void AddAnimation(int beginIndex, int endIndex, bool isLoopable, float animationSpeed);
 		AnimationData GetCurrentAnimation();
 		void SetAnimation(int index);
 	};
