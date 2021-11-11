@@ -14,13 +14,12 @@ namespace Engine {
 		glm::vec2 obstacleScale(otherEntity->transform.scale.x, otherEntity->transform.scale.y);
 		glm::vec2 entityPos(entity->transform.position.x, entity->transform.position.y);
 		glm::vec2 obstaclePos(otherEntity->transform.position.x, otherEntity->transform.position.y);
-		cout << "entityPosX: " << entityPos.x << "||" << "obstaclePosX: " << obstaclePos.x << endl;
 		float minX = 0.0f;
-		float maxX = glm::min(entityPos.x + fabs(entityScale.x / 2), obstaclePos.x + fabs(obstacleScale.x)) - glm::max(entityPos.x - fabs(entityScale.x / 2), obstaclePos.x - fabs(obstacleScale.x));
+		float maxX = glm::min(entityPos.x + fabs(entityScale.x) / 2.0f, obstaclePos.x + fabs(obstacleScale.x) / 2.0f) - glm::max(entityPos.x - fabs(entityScale.x) / 2.0f, obstaclePos.x - fabs(obstacleScale.x) / 2.0f);
 		float overlapX = glm::max(minX, maxX);
 
 		float minY = 0.0f;
-		float maxY = glm::min(entityPos.y + fabs(entityScale.y), obstaclePos.y + fabs(obstacleScale.y)) - glm::max(entityPos.y - fabs(entityScale.y / 2), obstaclePos.y - fabs(obstacleScale.y));
+		float maxY = glm::min(entityPos.y + fabs(entityScale.y) / 2.0f, obstaclePos.y + fabs(obstacleScale.y) / 2.0f) - glm::max(entityPos.y - fabs(entityScale.y) / 2.0f, obstaclePos.y - fabs(obstacleScale.y) / 2.0f);
 		float overlapY = glm::max(minY, maxY);
 
 		if (overlapX != 0.0f && overlapY != 0.0f) {
