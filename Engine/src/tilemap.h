@@ -22,7 +22,7 @@ namespace Engine {
 		TileMap();
 		~TileMap();
 		void Load(const char* filePath);
-		void SetTile(int index, bool isWalkable);
+		void AddTile(int index, bool isWalkable);
 	};
 }
 

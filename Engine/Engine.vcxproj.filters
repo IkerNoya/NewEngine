@@ -43,6 +43,12 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{8befe6a5-8265-4661-a64a-31b12c04a98c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TileMap">
+      <UniqueIdentifier>{bdd81fff-30f2-4e5a-bb81-e16735e43187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{19ac1936-56c2-442c-987d-574e32ad40ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base.h">
@@ -59,9 +65,6 @@
     </ClInclude>
     <ClInclude Include="src\shader.h">
       <Filter>Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer.h">
-      <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\shape.h">
       <Filter>Shape</Filter>
@@ -86,6 +89,18 @@
     </ClInclude>
     <ClInclude Include="src\time_manager.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tilemap.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tile.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,8 +137,17 @@
     <ClCompile Include="src\animation.cpp">
       <Filter>Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="src\tilemap.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile.cpp">
+      <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\textures.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
     <ClCompile Include="src\time_manager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
