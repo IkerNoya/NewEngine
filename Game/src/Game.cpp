@@ -1,5 +1,7 @@
 #include "Game.h"
 
+float speed = 500.0f;
+
 Game::Game() {
 
 }
@@ -67,7 +69,8 @@ void Game::InitGame() {
 	for (int i = 0; i < shapes.size(); i++) {
 		if (shapes[i]) {
 			shapes[i]->Init();
-			shapes[i]->Scale(100.0f, 100.0f, 0.0f);
+
+			shapes[i]->Scale(100, 100.0f, 0.0f);
 		}
 	}
 
@@ -86,16 +89,20 @@ void Game::InitGame() {
 }
 void Game::PlayerInputs() {
 	if (input.GetKey(KeyCode::W)) {
-		_sprite->transform.position.y += 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.y += 200 * time.GetDeltaTime();
+		//_sprite->transform.position.y += 200 * time.GetDeltaTime();
 	}
 	if (input.GetKey(KeyCode::S)) {
-		_sprite->transform.position.y -= 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.y -= 200 * time.GetDeltaTime();
+		//_sprite->transform.position.y -= 200 * time.GetDeltaTime();
 	}
 	if (input.GetKey(KeyCode::D)) {
-		_sprite->transform.position.x += 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.x += 200 * time.GetDeltaTime();
+		//_sprite->transform.position.x += 200 * time.GetDeltaTime();
 	}
 	if (input.GetKey(KeyCode::A)) {
-		_sprite->transform.position.x -= 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.x -= 200 * time.GetDeltaTime();
+		//_sprite->transform.position.x -= 200 * time.GetDeltaTime();
 	}
 
 	if (input.GetMouseButton(MouseButtons::LEFT_MOUSE_BUTTON)) {
@@ -129,6 +136,7 @@ void Game::UpdateGame() {
 	_sprite->DrawAnimation(player->GetUVs(player->GetCurrentIndex()));
 	//npc->DrawAnimation(glm::vec4(0,0,1,1));
 
+	collisionmanager->CheckCollision(shapes[0], shapes[2], speed * time.GetDeltaTime());
 }
 void Game::UnloadGame() {
 	if (_shape != NULL) {

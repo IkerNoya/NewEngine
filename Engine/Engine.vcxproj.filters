@@ -43,6 +43,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{8befe6a5-8265-4661-a64a-31b12c04a98c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{6b948db5-e989-42ff-9204-90b6a863a9ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\base.h">
@@ -87,6 +90,9 @@
     <ClInclude Include="src\time_manager.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="src\collision_manager.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -124,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="src\time_manager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\collision_manager.cpp">
+      <Filter>Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

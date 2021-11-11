@@ -8,6 +8,7 @@ Base::Base(){
 	_renderer = new Renderer();
 	_window = new Window(1280, 720);
 	_camera = new Camera(_renderer, ProjectionType::orthographic);
+	collisionmanager = new CollisionManager();
 }
 
 Base::~Base() {
@@ -23,6 +24,10 @@ Base::~Base() {
 	if (_camera != NULL) {
 		delete _camera;
 		_camera = NULL;
+	}
+	if (collisionmanager != NULL) {
+		delete collisionmanager;
+		collisionmanager = NULL;
 	}
 }
 
