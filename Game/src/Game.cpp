@@ -53,6 +53,7 @@ void Game::InitGame() {
 	_shape->Init();
 
 	player->Init(_sprite, glm::ivec2(6,3));
+	//   first frame     Last frame   Loop    anim speed
 	player->AddAnimation(0, 6, false, 1.25f); //ataque
 	player->AddAnimation(6, 11, false, 1.25f); // bloqueo
 	player->AddAnimation(12, 14, true, 0.5f); // idle
