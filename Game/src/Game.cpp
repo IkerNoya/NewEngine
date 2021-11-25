@@ -1,6 +1,6 @@
 #include "Game.h"
 
-float speed = 500.0f;
+float speed = 100.0f;
 
 Game::Game() {
 
@@ -89,19 +89,19 @@ void Game::InitGame() {
 }
 void Game::PlayerInputs() {
 	if (input.GetKey(KeyCode::W)) {
-		shapes[0]->transform.position.y += 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.y += speed * time.GetDeltaTime();
 		//_sprite->transform.position.y += 200 * time.GetDeltaTime();
 	}
 	if (input.GetKey(KeyCode::S)) {
-		shapes[0]->transform.position.y -= 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.y -= speed * time.GetDeltaTime();
 		//_sprite->transform.position.y -= 200 * time.GetDeltaTime();
 	}
 	if (input.GetKey(KeyCode::D)) {
-		shapes[0]->transform.position.x += 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.x += speed * time.GetDeltaTime();
 		//_sprite->transform.position.x += 200 * time.GetDeltaTime();
 	}
 	if (input.GetKey(KeyCode::A)) {
-		shapes[0]->transform.position.x -= 200 * time.GetDeltaTime();
+		shapes[0]->transform.position.x -= speed * time.GetDeltaTime();
 		//_sprite->transform.position.x -= 200 * time.GetDeltaTime();
 	}
 
