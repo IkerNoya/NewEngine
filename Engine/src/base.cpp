@@ -6,8 +6,9 @@ using namespace Engine;
 
 Base::Base(){
 	_renderer = new Renderer();
-	_window = new Window(800, 600);
+	_window = new Window(1280, 720);
 	_camera = new Camera(_renderer, ProjectionType::orthographic);
+	collisionmanager = new CollisionManager();
 }
 
 Base::~Base() {
@@ -24,6 +25,10 @@ Base::~Base() {
 		delete _camera;
 		_camera = NULL;
 	}
+	if (collisionmanager != NULL) {
+		delete collisionmanager;
+		collisionmanager = NULL;
+	}
 }
 
 int Base::Init(){
@@ -34,14 +39,18 @@ int Base::Init(){
 	}
 
 	basicShader.Create("..//Engine//src//Shaders//vertex.vert", "..//Engine//src//Shaders//fragment.frag");
+	textureShader.Create("..//Engine//src//Shaders//texture_vert.vert", "..//Engine//src//Shaders//texture_frag.frag");
 	glEnable(GL_DEPTH_TEST);
-	_camera->transform.position = glm::vec3(0.0f, 0.0f, -1.0f);
-	_camera->SetView(glm::vec3(0.0f,0.0f,1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	_camera->transform.position = glm::vec3(0.0f, 0.0f, -3.0f);
+	_camera->SetView(glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	_camera->SetProjection(ProjectionType::orthographic);
 	_camera->Init(basicShader);
+	_camera->Init(textureShader);
 
 
 	input.SetWindow(_window->GetWindow());
+
+	time.Reset();
 
 	InitGame();
 }
@@ -54,6 +63,9 @@ void Base::Update(){
 		//std::cout << _camera->transform.position.x << std::endl;
 		UpdateGame();
 		_camera->Draw(basicShader);
+		_camera->Draw(textureShader);
+		time.CalculateFPS();
+		time.Tick();
 		_renderer->EndFrame(_window->GetWindow());
 	}
 }

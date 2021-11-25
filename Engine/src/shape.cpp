@@ -53,8 +53,8 @@ void Shape::Init() {
 		BindEBO(_quadIndices, 6);
 		break;
 	}
-	_shader.SetVertexAttributes("position");
-	_shader.SetColorAttributes("color");
+	_shader.SetVertexAttributes("position", 6);
+	_shader.SetColorAttributes("color", 6);
 }
 
 void Shape::Color(float r, float g, float b) {

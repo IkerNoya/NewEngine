@@ -6,8 +6,12 @@
 #include "window.h"
 #include "shader.h"
 #include "shape.h"
+#include "sprite.h"
 #include "camera.h"
 #include "input.h"
+#include "animation.h"
+#include "time_manager.h"
+#include "collision_manager.h"
 
 namespace Engine {
 	class ENGINE_API Base {
@@ -17,8 +21,12 @@ namespace Engine {
 	protected:
 		Camera* _camera;
 		Shader basicShader;
+		Shader textureShader;
 		Renderer* GetRenderer();
 		Window* GetWindow();
+		CollisionManager* collisionmanager;
+
+		Time time;
 		Input input;
 	public:
 		Base();

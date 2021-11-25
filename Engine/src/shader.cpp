@@ -95,13 +95,17 @@ void Shader::Use(glm::mat4 model) {
 	glUseProgram(_id);
 	glUniformMatrix4fv(matrixLoc, 1, GL_FALSE, glm::value_ptr(model));
 }
-void Shader::SetVertexAttributes(const char* name) {
+void Shader::SetVertexAttributes(const char* name, int vertexSize) {
 	unsigned int attribute = glGetAttribLocation(_id, name);
-	CreateAttribPointer(attribute, 3, 6, 0);
+	CreateAttribPointer(attribute, 3, vertexSize, 0);
 }
-void Shader::SetColorAttributes(const char* name) {
+void Shader::SetColorAttributes(const char* name, int vertexSize) {
 	unsigned int attribute = glGetAttribLocation(_id, name);
-	CreateAttribPointer(attribute, 3, 6, 3);
+	CreateAttribPointer(attribute, 3, vertexSize, 3);
+}
+void Shader::SetTextureAttributes(const char* name, int vertexSize) {
+	unsigned int attribute = glGetAttribLocation(_id, name);
+	CreateAttribPointer(attribute, 2, vertexSize, 6);
 }
 unsigned int Shader::GetMatrixAttributes(const char* name) {
 	unsigned int matrixLoc = glGetUniformLocation(_id, name);

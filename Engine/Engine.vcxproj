@@ -19,28 +19,41 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\animation.h" />
     <ClInclude Include="src\base.h" />
     <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\collision_manager.h" />
     <ClInclude Include="src\entity2D.h" />
     <ClInclude Include="src\export.h" />
     <ClInclude Include="src\input.h" />
     <ClInclude Include="src\renderer.h" />
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\shape.h" />
+    <ClInclude Include="src\sprite.h" />
+    <ClInclude Include="src\stb_image.h" />
+    <ClInclude Include="src\texture_importer.h" />
+    <ClInclude Include="src\time_manager.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\animation.cpp" />
     <ClCompile Include="src\base.cpp" />
     <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\collision_manager.cpp" />
     <ClCompile Include="src\entity2D.cpp" />
     <ClCompile Include="src\input.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\shape.cpp" />
+    <ClCompile Include="src\sprite.cpp" />
+    <ClCompile Include="src\texture_importer.cpp" />
+    <ClCompile Include="src\time_manager.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\fragment.frag" />
+    <None Include="src\Shaders\texture_frag.frag" />
+    <None Include="src\Shaders\texture_vert.vert" />
     <None Include="src\Shaders\vertex.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

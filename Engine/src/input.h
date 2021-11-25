@@ -3,6 +3,7 @@
 #include "export.h"
 #include "vec2.hpp"
 #include "vec3.hpp"
+#include "glm.hpp"
 
 enum class ENGINE_API KeyCode {
     SPACE = 32,
