@@ -31,6 +31,13 @@ Base::~Base() {
 	}
 }
 
+void Base::Execute()
+{
+	Init();
+	Update();
+	Unload();
+}
+
 int Base::Init(){
 	_window->CreateWindow("Unreal Engine pero con Intellisense");
 

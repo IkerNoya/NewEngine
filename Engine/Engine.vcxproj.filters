@@ -48,9 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\base.h">
-      <Filter>BaseGame</Filter>
-    </ClInclude>
     <ClInclude Include="src\entity2D.h">
       <Filter>Entity</Filter>
     </ClInclude>
@@ -92,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="src\collision_manager.h">
       <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\base.h">
+      <Filter>BaseGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

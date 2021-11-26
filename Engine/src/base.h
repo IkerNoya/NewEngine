@@ -28,13 +28,14 @@ namespace Engine {
 
 		Time time;
 		Input input;
+		int Init();
+		void Update();
+		void Unload();
 	public:
 		Base();
 		~Base();
 
-		int Init();
-		void Update();
-		void Unload();
+		void Execute();
 
 		virtual void InitGame() = 0;
 		virtual void UpdateGame() = 0;

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-float speed = 100.0f;
+float speed = 200.0f;
 
 Game::Game() {
 
@@ -112,19 +112,17 @@ void Game::PlayerInputs() {
 	if (input.GetMouseButton(MouseButtons::RIGHT_MOUSE_BUTTON)) {
 		player->SetAnimation(1);
 	}
-
 }
 void Game::UpdateGame() {
 
 	PlayerInputs();
-
 
 	if (!player->GetCurrentAnimation().loop && player->GetCurrentAnimation().hasEnded) {
 		player->SetAnimation(2);
 	}
 
 	player->UpdateIndex(time);
-	//npcAnim->UpdateIndex(time);
+	npcAnim->UpdateIndex(time);
 
 	_shape->RotateZ(angle);
 	for (int i = 0; i < shapes.size(); i++) {
@@ -135,7 +133,7 @@ void Game::UpdateGame() {
 	}
 	_shape->Draw();
 	_sprite->DrawAnimation(player->GetUVs(player->GetCurrentIndex()));
-	//npc->DrawAnimation(glm::vec4(0,0,1,1));
+	npc->DrawAnimation(npcAnim->GetUVs(npcAnim->GetCurrentIndex()));
 
 	collisionmanager->CheckCollision(shapes[0], shapes[2], speed * time.GetDeltaTime());
 }
