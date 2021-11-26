@@ -46,6 +46,9 @@
     <Filter Include="Collision">
       <UniqueIdentifier>{6b948db5-e989-42ff-9204-90b6a863a9ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TileMap">
+      <UniqueIdentifier>{911e82e1-c07b-4283-8069-5ae5d17aada7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity2D.h">
@@ -93,6 +96,9 @@
     <ClInclude Include="src\base.h">
       <Filter>BaseGame</Filter>
     </ClInclude>
+    <ClInclude Include="src\tile.h">
+      <Filter>TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -133,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="src\collision_manager.cpp">
       <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tile.cpp">
+      <Filter>TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
