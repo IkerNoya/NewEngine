@@ -5,19 +5,18 @@
 namespace Engine {
 
 	class Sprite;
-	class ENGINE_API Tile {
+	class ENGINE_API Tile : public Sprite {
 	private:
-		Sprite* _tile = nullptr;
 		bool _isWalkable = false;
-
+		unsigned int _id = 0;
 	public:
 		Tile();
-		Tile(Sprite* texture, bool isWalkable);
+		Tile(unsigned int id, bool isWalkable);
 		~Tile();
-		void SetTexture(Sprite* texture);
 		void SetIsWalkable(bool value);
-		Sprite* GetTexture();
 		bool GetIsWalkable();
+		unsigned int GetID();
+		void SetID(unsigned int value);
 	};
 
 }

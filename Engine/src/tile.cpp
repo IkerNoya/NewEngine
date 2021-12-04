@@ -5,30 +5,26 @@ using namespace Engine;
 
 Tile::Tile() {}
 
-Tile::Tile(Sprite* texture, bool isWalkable) {
-	_tile = texture;
+Tile::Tile(unsigned int id, bool isWalkable) {
+	_id = id;
 	_isWalkable = isWalkable;
 }
 
 Tile::~Tile() {
-	if (_tile != NULL) {
-		delete _tile;
-		_tile = NULL;
-	}
-}
-
-void Tile::SetTexture(Sprite* texture){
-	_tile = texture;
 }
 
 void Tile::SetIsWalkable(bool value) {
 	_isWalkable = value;
 }
 
-Sprite* Tile::GetTexture() {
-	return _tile;
-}
-
 bool Tile::GetIsWalkable() {
 	return _isWalkable;
+}
+
+unsigned int Tile::GetID() {
+	return _id;
+}
+
+void Tile::SetID(unsigned int value) {
+	_id = value;
 }
