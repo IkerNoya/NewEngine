@@ -5,6 +5,16 @@
 #include "time_manager.h"
 
 namespace Engine {
+	Sprite::Sprite(){
+		_transparency = true;
+		_renderer = NULL;
+		_texImporter = new TextureImporter();
+
+		uv[0].u = 1; uv[0].v = 1;
+		uv[1].u = 1; uv[1].v = 0;
+		uv[2].u = 0; uv[2].v = 0;
+		uv[3].u = 0; uv[3].v = 1;
+	}
 	Sprite::Sprite(bool transparency, Renderer* renderer, Shader shader) : Entity2D() {
 		_transparency = transparency;
 		_renderer = renderer;
@@ -66,17 +76,11 @@ namespace Engine {
 			std::cout << "Couldn't find image" << std::endl;
 	}
 
-	void Sprite::LoadSprite(int width, int height) {
-		if (_texImporter)
-			_texImporter->LoadImage(width, height, _transparency);
-		else
-			std::cout << "Couldn't find image" << std::endl;
-	}
 
-	void Sprite::LoadSprite(int width, int height, const char* path) {
+	void Sprite::LoadSprite(const char* path) {
 		if (_texImporter) {
 			_texImporter->SetPath(path);
-			_texImporter->LoadImage(width, height, _transparency);
+			_texImporter->LoadImage(_width, _height, _transparency);
 		}
 		else
 			std::cout << "Couldn't find image" << std::endl;
@@ -153,6 +157,23 @@ namespace Engine {
 		}
 	}
 
+	void Sprite::DrawFromUVs(glm::vec4 uv) {
+		UpdateMatrices();
+		SetUVs(uv);
+		if (_transparency) {
+			BlendSprite();
+			BindTexture();
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			UnBlendSprite();
+			glDisable(GL_TEXTURE_2D);
+		}
+		else {
+			BindTexture();
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			glDisable(GL_TEXTURE_2D);
+		}
+	}
+
 	void Sprite::DrawAnimation(glm::vec4 uvRect){
 		UpdateMatrices();
 		SetUVs(uvRect);
@@ -186,6 +207,18 @@ namespace Engine {
 		return _height;
 	}
 
+	void Sprite::SetRenderer(Renderer* renderer){
+		_renderer = renderer;
+	}
+
+	void Sprite::SetShader(Shader shader){
+		this->shader = shader;
+	}
+
+	Renderer* Sprite::GetRenderer(){
+		return _renderer;
+	}
+
 	void Sprite::SetPath(const char* path) {
 		if (_texImporter)
 			_texImporter->SetPath(path);
@@ -198,6 +231,10 @@ namespace Engine {
 			return _texImporter->GetPath();
 		else
 			return nullptr;
+	}
+
+	void Sprite::SetTransparency(bool value){
+		_transparency = value;
 	}
 
 	void Sprite::UnbindBuffers() {

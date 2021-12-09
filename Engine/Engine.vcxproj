@@ -36,6 +36,7 @@
     <ClInclude Include="src\tilemap.h" />
     <ClInclude Include="src\time_manager.h" />
     <ClInclude Include="src\window.h" />
+    <ClInclude Include="src\xml_lib\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\animation.cpp" />
@@ -53,6 +54,8 @@
     <ClCompile Include="src\tilemap.cpp" />
     <ClCompile Include="src\time_manager.cpp" />
     <ClCompile Include="src\window.cpp" />
+    <ClCompile Include="src\xml_lib\tinyxml2.cpp" />
+    <ClCompile Include="src\xml_lib\xmltest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\fragment.frag" />

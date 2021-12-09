@@ -102,6 +102,9 @@
     <ClInclude Include="src\tilemap.h">
       <Filter>TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="src\xml_lib\tinyxml2.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -148,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="src\tilemap.cpp">
       <Filter>TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xml_lib\tinyxml2.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xml_lib\xmltest.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

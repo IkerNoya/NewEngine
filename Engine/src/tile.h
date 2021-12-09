@@ -1,14 +1,15 @@
 #ifndef TILE_H
 #define TILE_H
 #include "export.h"
+#include "sprite.h"
 
 namespace Engine {
 
-	class Sprite;
 	class ENGINE_API Tile : public Sprite {
 	private:
 		bool _isWalkable = false;
 		unsigned int _id = 0;
+
 	public:
 		Tile();
 		Tile(unsigned int id, bool isWalkable);

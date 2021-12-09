@@ -51,13 +51,14 @@ namespace Engine {
 		void BlendSprite();
 		void UnBlendSprite();
 		void LoadSprite();
-		void LoadSprite(int width, int height);
-		void LoadSprite(int width, int height, const char* path);
+		void LoadSprite(const char* path);
 		void SetWidth(int width);
 		int GetWidth();
 		void SetHeight(int height);
 		int GetHeight();
+
 	public:
+		Sprite();
 		Sprite(bool transparency, Renderer* renderer, Shader shader);
 		Sprite(bool transparency, const char* path,  Renderer* renderer, Shader shader);
 		~Sprite();
@@ -67,9 +68,14 @@ namespace Engine {
 		void SetUVs(glm::vec4 uvRect);
 		void UpdateUVs();
 		void DrawSprite();
+		void DrawFromUVs(glm::vec4 uv);
 		void DrawAnimation(glm::vec4 uv);
+		void SetRenderer(Renderer* renderer);
+		void SetShader(Shader shader);
+		Renderer* GetRenderer();
 		void SetPath(const char* path);
 		const char* GetPath();
+		void SetTransparency(bool value);
 	};
 }
 

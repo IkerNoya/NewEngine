@@ -1,11 +1,10 @@
 #include "tile.h"
-#include "sprite.h"
 using namespace Engine;
 
 
 Tile::Tile() {}
 
-Tile::Tile(unsigned int id, bool isWalkable) {
+Tile::Tile(unsigned int id, bool isWalkable) : Sprite(){
 	_id = id;
 	_isWalkable = isWalkable;
 }
