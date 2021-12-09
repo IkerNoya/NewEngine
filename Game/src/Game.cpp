@@ -105,6 +105,14 @@ void Game::PlayerInputs() {
 		//_sprite->transform.position.x -= 200 * time.GetDeltaTime();
 	}
 
+	if (input.GetKey(KeyCode::T)) {
+		shapes[0]->transform.scale += 0.05f;
+	}
+
+	if (input.GetKey(KeyCode::R)) {
+		shapes[0]->transform.scale -= 0.05f;
+	}
+
 	if (input.GetMouseButton(MouseButtons::LEFT_MOUSE_BUTTON)) {
 		player->SetAnimation(0);
 	}
