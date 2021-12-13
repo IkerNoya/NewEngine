@@ -3,6 +3,8 @@
 #include "export.h"
 #include <vector>
 #include <string>
+#include <glm.hpp>
+#include "shader.h"
 
 namespace Engine {
 	class CollisionManager;
@@ -15,13 +17,18 @@ namespace Engine {
 	class ENGINE_API Tilemap {
 	private:
 		std::vector<Tile*> tiles;
-		unsigned int grid;
-		
+		std::vector<std::vector<int>> grid;
+		glm::ivec2 dims;
+		Shader shader;
+		const char* imagePath;
 
 	public:
-
-
-
+		Tilemap(glm::ivec2 dimension, Shader shader);
+		~Tilemap();
+		void SetImagePath(const char* imagepath);
+		void LoadMap(const char* path);
+		glm::vec4 GetTileFromID(unsigned int id);
+		void Draw();
 	};
 
 }

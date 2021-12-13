@@ -35,6 +35,11 @@ Game::~Game() {
 		delete npcAnim;
 		npcAnim = NULL;
 	}
+
+	if (map != NULL) {
+		delete map;
+		map = NULL;
+	}
 }
 void Game::InitGame() {
 	_shape = new Engine::Shape(Type::triangle, GetRenderer(), basicShader);
@@ -47,6 +52,9 @@ void Game::InitGame() {
 
 	npc = new Engine::Sprite(true, "res/textures/spriteSheet.png", GetRenderer(), textureShader);
 	npcAnim = new Animation();
+
+	map = new Tilemap(glm::vec2(8, 8), textureShader);
+	map->LoadMap("res/tilemap/Map1.tmx");
 
 	_sprite->Init();
 	npc->Init();

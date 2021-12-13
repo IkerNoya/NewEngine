@@ -63,9 +63,6 @@
     <ClInclude Include="src\shader.h">
       <Filter>Shader</Filter>
     </ClInclude>
-    <ClInclude Include="src\renderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\shape.h">
       <Filter>Shape</Filter>
     </ClInclude>
@@ -104,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="src\xml_lib\tinyxml2.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

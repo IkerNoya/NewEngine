@@ -27,3 +27,4 @@ unsigned int Tile::GetID() {
 void Tile::SetID(unsigned int value) {
 	_id = value;
 }
+
