@@ -5,7 +5,7 @@
 #include "time_manager.h"
 
 namespace Engine {
-	Sprite::Sprite(){
+	Sprite::Sprite() {
 		_transparency = true;
 		_renderer = NULL;
 		_texImporter = new TextureImporter();
@@ -69,9 +69,17 @@ namespace Engine {
 		BindBuffers();
 	}
 
+	void Sprite::Init(unsigned int texture) {
+		_texture = texture;
+		_renderer->SetTexAttribPointer(shader.GetID());
+		BindBuffers();
+	}
+
 	void Sprite::LoadSprite() {
-		if (_texImporter)
+		if (_texImporter) {
 			_texImporter->LoadImage(_width, _height, _transparency);
+			_texture = _texImporter->GetTexture();
+		}
 		else
 			std::cout << "Couldn't find image" << std::endl;
 	}
@@ -107,18 +115,18 @@ namespace Engine {
 		glDisable(GL_BLEND);
 	}
 
-	void Sprite::Color(float r, float g, float b){
+	void Sprite::Color(float r, float g, float b) {
 		_vertices[3] = r;  _vertices[4] = g;  _vertices[5] = b;
 		_vertices[11] = r; _vertices[12] = g; _vertices[13] = b;
 		_vertices[19] = r; _vertices[20] = g; _vertices[21] = b;
 		_vertices[27] = r; _vertices[28] = g; _vertices[29] = b;
 	}
 
-	void Sprite::Color(glm::vec3 color){
-		   _vertices[3] = color.x;  _vertices[4] = color.y;  _vertices[5] = color.z;
-		  _vertices[11] = color.x; _vertices[12] = color.y; _vertices[13] = color.z;
-		  _vertices[19] = color.x; _vertices[20] = color.y; _vertices[21] = color.z;
-		  _vertices[27] = color.x; _vertices[28] = color.y; _vertices[29] = color.z;
+	void Sprite::Color(glm::vec3 color) {
+		_vertices[3] = color.x;  _vertices[4] = color.y;  _vertices[5] = color.z;
+		_vertices[11] = color.x; _vertices[12] = color.y; _vertices[13] = color.z;
+		_vertices[19] = color.x; _vertices[20] = color.y; _vertices[21] = color.z;
+		_vertices[27] = color.x; _vertices[28] = color.y; _vertices[29] = color.z;
 	}
 
 	void Sprite::SetUVs(glm::vec4 uvRect) {
@@ -133,6 +141,16 @@ namespace Engine {
 
 		UpdateUVs();
 	}
+
+	void Sprite::SetUVs(float sheetHeight, float sheetWidth, float spriteHeight, float spriteWidth, int x, int y) {
+		uv[0].u = ((x +1) * spriteWidth) / sheetWidth; uv[0].v = ((y + 1) * spriteHeight) / sheetHeight;    // top right
+		uv[1].u = ((x +1) * spriteWidth) / sheetWidth; uv[1].v = (y * spriteHeight) / sheetHeight;				 // bottom right
+		uv[2].u = (x * spriteWidth) / sheetWidth;      uv[2].v = (y * spriteHeight) / sheetHeight;							// bottom left
+		uv[3].u = (x * spriteWidth) / sheetWidth;      uv[3].v = ((y + 1) * spriteHeight) / sheetHeight;				// top left
+
+		UpdateUVs();
+	}
+
 
 	void Sprite::UpdateUVs(){
 		 _vertices[6] = uv[0].u;  _vertices[7] = uv[0].v;   // top Right

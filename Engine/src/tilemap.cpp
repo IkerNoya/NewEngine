@@ -3,12 +3,17 @@
 #include "tile.h"
 #include "xml_lib/tinyxml2.h"	
 #include <sstream>
+#include "texture_importer.h"
+#include "renderer.h"
 
 using namespace Engine;
 
-Tilemap::Tilemap(glm::ivec2 dimensions, Shader shader) {
+Tilemap::Tilemap(glm::ivec2 dimensions, Shader shader, const char* imagePath, Renderer* renderer) {
 	dims = dimensions;
 	this->shader = shader;
+	this->imagePath = imagePath;
+	_renderer = renderer;
+	_texture = new TextureImporter();
 }
 
 Tilemap::~Tilemap() {
@@ -29,6 +34,10 @@ Tilemap::~Tilemap() {
 		}
 		tiles.clear();
 	}
+	if (_texture != NULL) {
+		delete _texture;
+		_texture = NULL;
+	}
 }
 
 void Tilemap::SetImagePath(const char* imagepath){
@@ -45,6 +54,8 @@ void Tilemap::LoadMap(const char* path) {
 	}
 	int width = mapElements->IntAttribute("width");
 	int height = mapElements->IntAttribute("height");
+	_tileWidth = mapElements->IntAttribute("tilewidth");
+	_tileHeight = mapElements->IntAttribute("tileheight");
 	grid.resize(height);
 
 	tinyxml2::XMLElement* layerElement = mapElements->FirstChildElement("layer");
@@ -58,12 +69,8 @@ void Tilemap::LoadMap(const char* path) {
 		return;
 	}
 
-
-	int x = 0;
-	int y = 0;
 	std::string mapGrid;
 	mapGrid = dataElement->Value();
-
 	std::stringstream ss(mapGrid);
 	for (int y = 0; y < width; y++) {
 		grid[y].resize(width);
@@ -77,29 +84,48 @@ void Tilemap::LoadMap(const char* path) {
 			if (std::stringstream(value) >> val)
 				grid[y][x]=val;
 
+			tilesAmmount++;
 		}
 	}
 
-	for (int y = 0; y < dims.y; y++) {
-		for (int x = 0; x < dims.x; x++) {
-			std::cout << grid[x][y] << " , ";
-		}
-		std::cout<<std::endl;
-	}
-
+	LoadTilesFromMap();
 }
 
-glm::vec4 Tilemap::GetTileFromID(unsigned int id) {
+
+void Tilemap::LoadTilesFromMap() {
+	_texture->SetPath(imagePath);
+	_texture->LoadImage(_imageWidth, _imageHeight, true);
+	int xPos = 0;
+	int yPos = 720;
+	for (int y = 0; y < grid.size(); y++){
+		for (int x = 0; x < grid[y].size(); x++) {
+			Tile* newTile = new Tile(grid[y][x], true);
+			newTile->SetRenderer(_renderer);
+			newTile->SetShader(shader);
+			newTile->SetPath(imagePath);
+			newTile->Init();
+			newTile->Translate(xPos, yPos, 0);
+			newTile->Scale(_tileWidth, _tileHeight, 1);
+			newTile->SetUVs(GetTileFromPos(newTile->GetID()-1));
+			tiles.push_back(newTile);
+			xPos += newTile->transform.scale.x + _tileWidth;
+		}
+		yPos -= _tileHeight + _tileHeight;
+		xPos = 0;
+	}
+}
+
+glm::vec4 Tilemap::GetTileFromPos(unsigned int id) {
 	int xTile = id % dims.x; // se hace para que cuando el indice sea mayor a la dimension en x, vuelva a ser 0, es decir, se "reinicia" el ciclo en x
 	int yTile = id / dims.x;
-	
+	yTile = _imageHeight - yTile - 1;
 	//                      x  y   w   h
 	glm::vec4 uv = glm::vec4(0, 0, 0, 0);
 
 	uv.x = xTile / static_cast<float>(dims.x); // X
 	uv.y = yTile / static_cast<float>(dims.y); // Y
-	uv.z = 1.0f / dims.x; // Ancho / W
-	uv.w = 1.0f / dims.y; // Alto / H
+	uv.z = 1.0f / (dims.x); // Ancho / W
+	uv.w = 1.0f / (dims.y); // Alto / H
 
 	return uv;
 }

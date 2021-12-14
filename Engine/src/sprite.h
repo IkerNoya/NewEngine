@@ -22,6 +22,7 @@ namespace Engine {
 		Renderer* _renderer;
 		TextureImporter* _texImporter;
 		UVs uv[4];
+		unsigned int _texture = 0;
 
 		unsigned int _vao = 0;
 		unsigned int _vbo = 0;
@@ -63,9 +64,11 @@ namespace Engine {
 		Sprite(bool transparency, const char* path,  Renderer* renderer, Shader shader);
 		~Sprite();
 		void Init();
+		void Init(unsigned int texture);
 		void Color(float r, float g, float b);
 		void Color(glm::vec3 color);
 		void SetUVs(glm::vec4 uvRect);
+		void SetUVs(float sheetHeight, float sheetWidth, float spriteHeight, float spriteWidth, int x, int y);
 		void UpdateUVs();
 		void DrawSprite();
 		void DrawFromUVs(glm::vec4 uv);

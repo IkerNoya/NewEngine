@@ -53,7 +53,7 @@ void Game::InitGame() {
 	npc = new Engine::Sprite(true, "res/textures/spriteSheet.png", GetRenderer(), textureShader);
 	npcAnim = new Animation();
 
-	map = new Tilemap(glm::vec2(8, 8), textureShader);
+	map = new Tilemap(glm::vec2(10, 10), textureShader, "res/textures/Dungeon_Tileset.png", GetRenderer());
 	map->LoadMap("res/tilemap/Map1.tmx");
 
 	_sprite->Init();
@@ -128,6 +128,9 @@ void Game::UpdateGame() {
 	if (!player->GetCurrentAnimation().loop && player->GetCurrentAnimation().hasEnded) {
 		player->SetAnimation(2);
 	}
+	
+
+	map->Draw();
 
 	player->UpdateIndex(time);
 	npcAnim->UpdateIndex(time);
