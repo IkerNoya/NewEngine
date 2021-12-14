@@ -18,9 +18,11 @@ Tilemap::Tilemap(glm::ivec2 dimensions, Shader shader, const char* imagePath, Re
 
 Tilemap::~Tilemap() {
 	if (!grid.empty()) {
-		for (int y = 0; y < grid.size(); y++) {
-			for (int x = 0; x < grid[y].size(); x++) {
-				grid[y][x] = 0;
+		for (int l = 0; l < grid.size(); l++) {
+			for (int y = 0; y < grid[l].size(); y++) {
+				for (int x = 0; x < grid[l][y].size(); x++) {
+					grid[l][y][x] = 0;
+				}
 			}
 		}
 		grid.clear();
@@ -56,14 +58,21 @@ void Tilemap::LoadMap(const char* path) {
 	int height = mapElements->IntAttribute("height");
 	_tileWidth = mapElements->IntAttribute("tilewidth");
 	_tileHeight = mapElements->IntAttribute("tileheight");
-	grid.resize(height);
 
-	tinyxml2::XMLElement* layerElement = mapElements->FirstChildElement("layer");
-	if (layerElement == NULL) {
-		std::cout << "Error loading tilemap" << std::endl;
-		return;
+	int layers = 0;
+	std::vector<tinyxml2::XMLElement*>layerElement;
+	for (tinyxml2::XMLElement* child = mapElements->FirstChildElement(); child; child = child->NextSiblingElement()) {
+		string name = child->Name();
+		string layer = "layer";
+		if (child != NULL && name == layer) {
+			layers++;
+			layerElement.push_back(child);
+		}
 	}
-	tinyxml2::XMLText* dataElement = layerElement->FirstChildElement("data")->FirstChild()->ToText();
+	std::cout << layers << std::endl;
+	grid.resize(layers);
+	for (int l = 0; l < grid.size(); l++) {
+	tinyxml2::XMLText* dataElement = layerElement[l]->FirstChildElement("data")->FirstChild()->ToText();
 	if (dataElement == NULL) {
 		std::cout << "Error loading tilemap" << std::endl;
 		return;
@@ -72,22 +81,23 @@ void Tilemap::LoadMap(const char* path) {
 	std::string mapGrid;
 	mapGrid = dataElement->Value();
 	std::stringstream ss(mapGrid);
-	for (int y = 0; y < width; y++) {
-		grid[y].resize(width);
-		for (int x = 0; x < height; x++) {
-			std::string value;
-			std::getline(ss, value, ',');
-			if (!ss.good())
-				break;
+		grid[l].resize(height);
+		for (int y = 0; y < width; y++) {
+			grid[l][y].resize(width);
+			for (int x = 0; x < height; x++) {
+				std::string value;
+				std::getline(ss, value, ',');
+				if (!ss.good())
+					break;
 
-			int val;
-			if (std::stringstream(value) >> val)
-				grid[y][x]=val;
+				int val;
+				if (std::stringstream(value) >> val)
+					grid[l][y][x] = val;
 
-			tilesAmmount++;
+				tilesAmmount++;
+			}
 		}
 	}
-
 	LoadTilesFromMap();
 }
 
@@ -97,25 +107,33 @@ void Tilemap::LoadTilesFromMap() {
 	_texture->LoadImage(_imageWidth, _imageHeight, true);
 	int xPos = 0;
 	int yPos = 720;
-	for (int y = 0; y < grid.size(); y++){
-		for (int x = 0; x < grid[y].size(); x++) {
-			Tile* newTile = new Tile(grid[y][x], true);
-			newTile->SetRenderer(_renderer);
-			newTile->SetShader(shader);
-			newTile->SetPath(imagePath);
-			newTile->Init();
-			newTile->Translate(xPos, yPos, 0);
-			newTile->Scale(_tileWidth, _tileHeight, 1);
-			newTile->SetUVs(GetTileFromPos(newTile->GetID()-1));
-			tiles.push_back(newTile);
-			xPos += newTile->transform.scale.x + _tileWidth;
-		}
-		yPos -= _tileHeight + _tileHeight;
+	for (int l = 0; l < grid.size(); l++) {
 		xPos = 0;
+		yPos = 720;
+		for (int y = 0; y < grid[l].size(); y++) {
+			for (int x = 0; x < grid[l][y].size(); x++) {
+				Tile* newTile = new Tile(grid[l][y][x], true);
+				newTile->SetRenderer(_renderer);
+				newTile->SetShader(shader);
+				newTile->SetPath(imagePath);
+				newTile->Init();
+				newTile->Translate(xPos, yPos, l-0.5f);
+				newTile->Scale(_tileWidth, _tileHeight, 1);
+				if(newTile->GetID()<=0 && l > 0)
+					newTile->SetUVs(GetTileFromID(grid[l-1][y][x] - 1));
+				else
+					newTile->SetUVs(GetTileFromID(newTile->GetID() - 1));
+
+				tiles.push_back(newTile);
+				xPos += newTile->transform.scale.x + _tileWidth;
+			}
+			yPos -= _tileHeight + _tileHeight;
+			xPos = 0;
+		}
 	}
 }
 
-glm::vec4 Tilemap::GetTileFromPos(unsigned int id) {
+glm::vec4 Tilemap::GetTileFromID(unsigned int id) {
 	int xTile = id % dims.x; // se hace para que cuando el indice sea mayor a la dimension en x, vuelva a ser 0, es decir, se "reinicia" el ciclo en x
 	int yTile = id / dims.x;
 	yTile = _imageHeight - yTile - 1;

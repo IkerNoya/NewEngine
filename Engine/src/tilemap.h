@@ -18,7 +18,7 @@ namespace Engine {
 	class ENGINE_API Tilemap {
 	private:
 		std::vector<Tile*> tiles;
-		std::vector<std::vector<int>> grid;
+		std::vector<std::vector<std::vector<int>>> grid;
 		glm::ivec2 dims;
 		Shader shader;
 		TextureImporter* _texture;
@@ -38,7 +38,7 @@ namespace Engine {
 		~Tilemap();
 		void SetImagePath(const char* imagepath);
 		void LoadMap(const char* path);
-		glm::vec4 GetTileFromPos(unsigned int id);
+		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
 	};
 
