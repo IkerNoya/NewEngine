@@ -117,20 +117,25 @@ void Tilemap::LoadTilesFromMap() {
 				newTile->SetShader(shader);
 				newTile->SetPath(imagePath);
 				newTile->Init();
-				newTile->Translate(xPos, yPos, l-0.5f);
+				newTile->Translate(xPos, yPos, l - 0.5f);
 				newTile->Scale(_tileWidth, _tileHeight, 1);
-				if(newTile->GetID()<=0 && l > 0)
-					newTile->SetUVs(GetTileFromID(grid[l-1][y][x] - 1));
-				else
+				if (newTile->GetID() <= 0 && l > 0) {
+					delete newTile;
+					newTile = NULL;
+					xPos += _tileWidth + _tileWidth;
+				}
+				else {
 					newTile->SetUVs(GetTileFromID(newTile->GetID() - 1));
+					tiles.push_back(newTile);
+					xPos += newTile->transform.scale.x + _tileWidth;
+				}
 
-				tiles.push_back(newTile);
-				xPos += newTile->transform.scale.x + _tileWidth;
 			}
 			yPos -= _tileHeight + _tileHeight;
 			xPos = 0;
 		}
 	}
+	std::cout << "Ammount of tilemap Entities: " << tiles.size() << endl;
 }
 
 glm::vec4 Tilemap::GetTileFromID(unsigned int id) {
