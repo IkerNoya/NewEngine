@@ -20,7 +20,7 @@ namespace Engine {
 		float _triVertices[18] = {
 			-0.5f, -0.5f, 0.0f, 0.5f, 0.5f, 0.0f,
 			 0.5f, -0.5f, 0.0f, 0.5f, 0.5f, 0.0f,
-			 0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+			 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f
 		};
 
 		unsigned int _triIndices[3] = {
