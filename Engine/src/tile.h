@@ -18,6 +18,7 @@ namespace Engine {
 		bool GetIsWalkable();
 		unsigned int GetID();
 		void SetID(unsigned int value);
+		void SetPropertiesPath(const char* path);
 	};
 
 }

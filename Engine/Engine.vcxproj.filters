@@ -105,6 +105,9 @@
     <ClInclude Include="src\renderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\base.cpp">
@@ -156,6 +159,9 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\xml_lib\xmltest.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>

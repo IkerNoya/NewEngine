@@ -18,13 +18,6 @@ Tilemap::Tilemap(glm::ivec2 dimensions, Shader shader, const char* imagePath, Re
 
 Tilemap::~Tilemap() {
 	if (!grid.empty()) {
-		for (int l = 0; l < grid.size(); l++) {
-			for (int y = 0; y < grid[l].size(); y++) {
-				for (int x = 0; x < grid[l][y].size(); x++) {
-					grid[l][y][x] = 0;
-				}
-			}
-		}
 		grid.clear();
 	}
 	if (!tiles.empty()){
@@ -72,15 +65,15 @@ void Tilemap::LoadMap(const char* path) {
 	std::cout << layers << std::endl;
 	grid.resize(layers);
 	for (int l = 0; l < grid.size(); l++) {
-	tinyxml2::XMLText* dataElement = layerElement[l]->FirstChildElement("data")->FirstChild()->ToText();
-	if (dataElement == NULL) {
-		std::cout << "Error loading tilemap" << std::endl;
-		return;
-	}
+		tinyxml2::XMLText* dataElement = layerElement[l]->FirstChildElement("data")->FirstChild()->ToText();
+		if (dataElement == NULL) {
+			std::cout << "Error loading tilemap" << std::endl;
+			return;
+		}
 
-	std::string mapGrid;
-	mapGrid = dataElement->Value();
-	std::stringstream ss(mapGrid);
+		std::string mapGrid;
+		mapGrid = dataElement->Value();
+		std::stringstream ss(mapGrid);
 		grid[l].resize(height);
 		for (int y = 0; y < width; y++) {
 			grid[l][y].resize(width);
@@ -112,7 +105,7 @@ void Tilemap::LoadTilesFromMap() {
 		yPos = 720;
 		for (int y = 0; y < grid[l].size(); y++) {
 			for (int x = 0; x < grid[l][y].size(); x++) {
-				Tile* newTile = new Tile(grid[l][y][x], true);
+				Tile* newTile = new Tile(grid[l][y][x], false);
 				newTile->SetRenderer(_renderer);
 				newTile->SetShader(shader);
 				newTile->SetPath(imagePath);
@@ -125,6 +118,7 @@ void Tilemap::LoadTilesFromMap() {
 					xPos += _tileWidth + _tileWidth;
 				}
 				else {
+					newTile->SetPropertiesPath("res/tilemap/Ground.tsx");
 					newTile->SetUVs(GetTileFromID(newTile->GetID() - 1));
 					tiles.push_back(newTile);
 					xPos += newTile->transform.scale.x + _tileWidth;
@@ -158,6 +152,8 @@ void Tilemap::Draw() {
 		for (int i = 0; i < tiles.size(); i++) {
 			if (tiles[i] != NULL) {
 				tiles[i]->DrawSprite();
+				bool test = tiles[i]->GetIsWalkable();
+
 			}
 		}
 	}
