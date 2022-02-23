@@ -17,7 +17,7 @@ private:
 	Sprite* npc = NULL;
 	Animation* player = NULL;
 	Animation* npcAnim = NULL;
-	Tilemap* map;
+	//Tilemap* map = NULL;
 
 public:
 	Game();

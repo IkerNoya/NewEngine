@@ -35,11 +35,10 @@ Game::~Game() {
 		delete npcAnim;
 		npcAnim = NULL;
 	}
-
-	if (map != NULL) {
-		delete map;
-		map = NULL;
-	}
+	//if (map != NULL) {
+	//	delete map;
+	//	map = NULL;
+	//}
 }
 void Game::InitGame() {
 	_shape = new Engine::Shape(Type::triangle, GetRenderer(), basicShader);
@@ -53,8 +52,8 @@ void Game::InitGame() {
 	npc = new Engine::Sprite(true, "res/textures/spriteSheet.png", GetRenderer(), textureShader);
 	npcAnim = new Animation();
 
-	map = new Tilemap(glm::vec2(10, 10), textureShader, "res/textures/Dungeon_Tileset.png", GetRenderer());
-	map->LoadMap("res/tilemap/Map1.tmx");
+	//map = new Tilemap(glm::vec2(10, 10), textureShader, "res/textures/Dungeon_Tileset.png", GetRenderer());
+	//map->LoadMap("res/tilemap/Map1.tmx");
 
 	_sprite->Init();
 	npc->Init();
@@ -93,8 +92,6 @@ void Game::InitGame() {
 	_sprite->Color(1.0f, 1.0f, 1.0f);
 	_sprite->transform.position = glm::vec3(200,300,1);
 	npc->transform.position = glm::vec3(600, 300, 1);
-
-
 }
 void Game::PlayerInputs() {
 	if (input.GetKey(KeyCode::W)) {
@@ -130,7 +127,7 @@ void Game::UpdateGame() {
 	}
 	
 
-	map->Draw();
+	//map->Draw();
 
 	player->UpdateIndex(time);
 	npcAnim->UpdateIndex(time);
@@ -179,4 +176,8 @@ void Game::UnloadGame() {
 		delete npcAnim;
 		npcAnim = NULL;
 	}
+	//if (map != NULL) {
+	//	delete map;
+	//	map = NULL;
+	//}
 }

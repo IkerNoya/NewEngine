@@ -5,17 +5,18 @@
 #include <string>
 #include <glm.hpp>
 #include "shader.h"
+#include "Entity2D.h"
 
 namespace Engine {
 	class CollisionManager;
 	class Tile;
 	class Renderer;
 	class Shader;
+	class Shape;
 	class Sprite;
-	class Entity2D;
 	class TextureImporter;
 
-	class ENGINE_API Tilemap {
+	class ENGINE_API Tilemap{
 	private:
 		std::vector<Tile*> tiles;
 		std::vector<std::vector<std::vector<int>>> grid;
@@ -31,6 +32,12 @@ namespace Engine {
 		int _tileHeight=0;
 		int tilesAmmount = 0;
 
+		unsigned int _width;
+		unsigned int _height;
+
+		float _positionInX;
+		float _positionInY;
+
 		void LoadTilesFromMap();
 
 	public:
@@ -40,6 +47,7 @@ namespace Engine {
 		void LoadMap(const char* path);
 		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
+		bool CheckCollisionWithTileMap(Shape* shape);
 	};
 
 }

@@ -158,3 +158,22 @@ void Tilemap::Draw() {
 		}
 	}
 }
+
+bool Tilemap::CheckCollisionWithTileMap(Shape* shape) {
+	bool collides = false;
+	_positionInX = shape->transform.position.x + (_width / 2) * _tileWidth;
+	_positionInY = shape->transform.position.y + (_height / 2) * _tileHeight;
+
+	return collides;
+}
+
+//chequea si el shape esta colisionando el tilemap
+//bool Tilemap::TileMapCollision(Shape* shape) {
+//	if (shape->transform.position.x + shape->transform.scale.x / 2.0f < Entity2D::transform.position.x - _imageWidth / 2.0f ||
+//		shape->transform.position.x - shape->transform.scale.x / 2.0f > Entity2D::transform.position.x + _imageWidth / 2.0f ||
+//		shape->transform.position.y + shape->transform.scale.y / 2.0f < Entity2D::transform.position.y - _imageHeight / 2.0f ||
+//		shape->transform.position.y - shape->transform.scale.y / 2.0f > Entity2D::transform.position.y + _imageHeight / 2.0f)
+//		return false;
+//	else
+//		return true;
+//}
