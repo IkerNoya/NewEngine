@@ -39,7 +39,17 @@ void Engine::Tile::SetPropertiesPath(const char* path)
 
 	tinyxml2::XMLElement* Tileset = map.FirstChildElement("tileset");
 	if (Tileset) {
-		printf("value: %f", Tileset->FloatAttribute("version"));
+		for (tinyxml2::XMLElement* tile = Tileset->FirstChildElement(); tile; tile = tile->NextSiblingElement()) {
+			if (tile) {
+				const char* name = "";
+				const tinyxml2::XMLAttribute* attribute = tile->FindAttribute("type");
+				if (attribute) {
+					name = attribute->Value();
+					Utils::DebugMessage(name);
+				}
+
+			}
+		}
 	}
 }
 

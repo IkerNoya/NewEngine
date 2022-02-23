@@ -5,13 +5,11 @@
 #include <string>
 
 namespace Utils {
-	class ENGINE_API Debug {
-	public:
-		Debug();
-		~Debug();
-		static void DebugMessage(std::string mssg);
 
-	};
+	static void DebugMessage(std::string mssg)
+	{
+		std::cout << mssg << std::endl;
+	}
 
 }
 
