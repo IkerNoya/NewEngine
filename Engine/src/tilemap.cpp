@@ -4,6 +4,7 @@
 #include "xml_lib/tinyxml2.h"	
 #include <sstream>
 #include "texture_importer.h"
+#include "utils.h"
 #include "renderer.h"
 
 using namespace Engine;
@@ -98,13 +99,16 @@ void Tilemap::LoadMap(const char* path) {
 void Tilemap::LoadTilesFromMap() {
 	_texture->SetPath(imagePath);
 	_texture->LoadImage(_imageWidth, _imageHeight, true);
-	int xPos = 0;
-	int yPos = 720;
+	int xPos = 50;
+	int yPos = 700;
 	for (int l = 0; l < grid.size(); l++) {
-		xPos = 0;
-		yPos = 720;
+		xPos = 50;
+		yPos = 700;
 		for (int y = 0; y < grid[l].size(); y++) {
 			for (int x = 0; x < grid[l][y].size(); x++) {
+				if (grid[l][y][x] == 21) {
+					std::cout << grid[l][y][x] << std::endl;
+				}
 				Tile* newTile = new Tile(grid[l][y][x], false);
 				newTile->SetRenderer(_renderer);
 				newTile->SetShader(shader);
@@ -117,7 +121,7 @@ void Tilemap::LoadTilesFromMap() {
 					newTile = NULL;
 					xPos += _tileWidth + _tileWidth;
 				}
-				else {
+				else {			
 					newTile->SetPropertiesPath("res/tilemap/Ground.tsx");
 					newTile->SetUVs(GetTileFromID(newTile->GetID() - 1));
 					tiles.push_back(newTile);
@@ -126,7 +130,7 @@ void Tilemap::LoadTilesFromMap() {
 
 			}
 			yPos -= _tileHeight + _tileHeight;
-			xPos = 0;
+			xPos = 50;
 		}
 	}
 	std::cout << "Ammount of tilemap Entities: " << tiles.size() << endl;
@@ -152,8 +156,6 @@ void Tilemap::Draw() {
 		for (int i = 0; i < tiles.size(); i++) {
 			if (tiles[i] != NULL) {
 				tiles[i]->DrawSprite();
-				bool test = tiles[i]->GetIsWalkable();
-
 			}
 		}
 	}

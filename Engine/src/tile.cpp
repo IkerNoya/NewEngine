@@ -39,15 +39,17 @@ void Engine::Tile::SetPropertiesPath(const char* path)
 
 	tinyxml2::XMLElement* Tileset = map.FirstChildElement("tileset");
 	if (Tileset) {
-		for (tinyxml2::XMLElement* tile = Tileset->FirstChildElement(); tile; tile = tile->NextSiblingElement()) {
-			if (tile) {
+		for (tinyxml2::XMLNode* tile = Tileset->FirstChildElement(); tile; tile = tile->NextSiblingElement()) {
+			if (tile->ToElement() && tile->ToElement()->IntAttribute("id") && tile->ToElement()->IntAttribute("id") == _id) {
 				const char* name = "";
-				const tinyxml2::XMLAttribute* attribute = tile->FindAttribute("type");
-				if (attribute) {
-					name = attribute->Value();
-					Utils::DebugMessage(name);
+				tinyxml2::XMLElement* properties = tile->FirstChildElement("properties");
+				if (properties) {
+					tinyxml2::XMLElement* value = properties->FirstChildElement("property");
+					if (value) {
+						_isWalkable = value->BoolAttribute("value");
+						
+					}
 				}
-
 			}
 		}
 	}
