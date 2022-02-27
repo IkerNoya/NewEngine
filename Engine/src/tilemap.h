@@ -6,6 +6,7 @@
 #include <glm.hpp>
 #include "shader.h"
 #include "Entity2D.h"
+#include "collision_manager.h"
 
 namespace Engine {
 	class CollisionManager;
@@ -25,6 +26,7 @@ namespace Engine {
 		TextureImporter* _texture;
 		Renderer* _renderer;
 		const char* imagePath;
+		CollisionManager* collisionManager;
 
 		int _imageWidth=0;
 		int _imageHeight=0;
@@ -47,7 +49,7 @@ namespace Engine {
 		void LoadMap(const char* path);
 		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
-		bool CheckCollisionWithTileMap(Shape* shape);
+		void CheckCollisionWithTileMap(Shape* shape, float speed);
 	};
 
 }

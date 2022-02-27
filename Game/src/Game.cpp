@@ -35,10 +35,10 @@ Game::~Game() {
 		delete npcAnim;
 		npcAnim = NULL;
 	}
-	//if (map != NULL) {
-	//	delete map;
-	//	map = NULL;
-	//}
+	if (map != NULL) {
+		delete map;
+		map = NULL;
+	}
 }
 void Game::InitGame() {
 	_shape = new Engine::Shape(Type::triangle, GetRenderer(), basicShader);
@@ -52,8 +52,8 @@ void Game::InitGame() {
 	npc = new Engine::Sprite(true, "res/textures/spriteSheet.png", GetRenderer(), textureShader);
 	npcAnim = new Animation();
 
-	//map = new Tilemap(glm::vec2(10, 10), textureShader, "res/textures/Dungeon_Tileset.png", GetRenderer());
-	//map->LoadMap("res/tilemap/Map1.tmx");
+	map = new Tilemap(glm::vec2(10, 10), textureShader, "res/textures/Dungeon_Tileset.png", GetRenderer());
+	map->LoadMap("res/tilemap/Map1.tmx");
 
 	_sprite->Init();
 	npc->Init();
@@ -78,12 +78,12 @@ void Game::InitGame() {
 		if (shapes[i]) {
 			shapes[i]->Init();
 
-			shapes[i]->Scale(100, 100.0f, 0.0f);
+			shapes[i]->Scale(50.0f, 50.0f, 0.0f);
 		}
 	}
 
 	//ahora se pueden mover las cosas estilo unity
-	shapes[0]->transform.position = glm::vec3(600.0f, 300.0f, 0.0f);
+	shapes[0]->transform.position = glm::vec3(100.0f, 50.0f, 0.0f);
 	shapes[0]->Color(glm::vec3(0.5f,0.0f,1.0f));
 	shapes[1]->transform.position = glm::vec3(400.0f, 100.0f, 0.0f);
 	shapes[1]->Color(0.7f,0.3f,0.0f);
@@ -127,7 +127,9 @@ void Game::UpdateGame() {
 	}
 	
 
-	//map->Draw();
+	map->Draw();
+
+	map->CheckCollisionWithTileMap(shapes[0], speed * time.GetDeltaTime());
 
 	player->UpdateIndex(time);
 	npcAnim->UpdateIndex(time);
@@ -176,8 +178,8 @@ void Game::UnloadGame() {
 		delete npcAnim;
 		npcAnim = NULL;
 	}
-	//if (map != NULL) {
-	//	delete map;
-	//	map = NULL;
-	//}
+	if (map != NULL) {
+		delete map;
+		map = NULL;
+	}
 }
