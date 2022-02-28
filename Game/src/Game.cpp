@@ -129,7 +129,7 @@ void Game::UpdateGame() {
 
 	map->Draw();
 
-	map->CheckCollisionWithTileMap(shapes[0], speed * time.GetDeltaTime());
+	map->CheckCollisionWithTileMap(shapes[0], shapes[0]->transform.position, speed * time.GetDeltaTime());
 
 	player->UpdateIndex(time);
 	npcAnim->UpdateIndex(time);

@@ -49,7 +49,7 @@ namespace Engine {
 		void LoadMap(const char* path);
 		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
-		void CheckCollisionWithTileMap(Shape* shape, float speed);
+		void CheckCollisionWithTileMap(Shape* shape, glm::vec3 actualPosition, float speed);
 	};
 
 }

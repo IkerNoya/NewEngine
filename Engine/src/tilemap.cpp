@@ -161,14 +161,56 @@ void Tilemap::Draw() {
 	}
 }
 
-void Tilemap::CheckCollisionWithTileMap(Shape* shape, float speed) {
-	for (int i = 0; i < tiles.size(); i++) {
+void Tilemap::CheckCollisionWithTileMap(Shape* shape, glm::vec3 actualPosition, float speed) {
+	//obtenemos la posicion del objeto tanto en X como en Y
+	_positionInX = shape->transform.position.x + (_width / 2.0f) * _tileWidth;
+	_positionInY = shape->transform.position.y + (_height / 2.0f) * _tileHeight;
 
+	//obtenemos cuales son los tiles que estan al rededor del objeto
+	int leftTile = _positionInX / _tileWidth;
+	int rightTile = (_positionInX + shape->transform.scale.x) / _tileWidth;
+
+	int topTile = (_positionInX / _tileHeight) * -1;
+	int bottomTile = ((_positionInY - shape->transform.scale.y) / _tileHeight) * -1;
+
+	if (leftTile < 0)
+		leftTile = 0;
+
+	if (rightTile >= _width)
+		rightTile = _width - 1;
+
+	if (topTile < 0)
+		topTile = 0;
+
+	if (bottomTile >= _height)
+		bottomTile = _height - 1;
+
+	for (int i = 0; i < tiles.size(); i++) {
+		
 		if (!tiles[i]->GetIsWalkable()) {
 
-			if (collisionManager->CheckCollision(shape, tiles[i], speed)) {
-				cout << "Colisiona con tile " << i << endl;
-			}
+			if (collisionManager->CheckCollision(shape, tiles[i], speed) == rightCollision)
+				shape->transform.position -= actualPosition;
+
+			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == leftCollision)
+				shape->transform.position -= actualPosition;
+
+			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == topCollision)
+				shape->transform.position -= actualPosition;
+
+			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == bottomCollision)
+				shape->transform.position -= actualPosition;
 		}
+
 	}
+
+	//for (int i = 0; i < tiles.size(); i++) {
+	//
+	//	if (!tiles[i]->GetIsWalkable()) {
+	//
+	//		if (collisionManager->CheckCollision(shape, tiles[i], speed)) {
+	//			cout << "Colisiona con tile " << i << endl;
+	//		}
+	//	}
+	//}
 }
