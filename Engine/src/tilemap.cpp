@@ -1,4 +1,4 @@
-	#include "tilemap.h"
+#include "tilemap.h"
 #include "collision_manager.h"
 #include "tile.h"
 #include "xml_lib/tinyxml2.h"	
@@ -21,7 +21,7 @@ Tilemap::~Tilemap() {
 	if (!grid.empty()) {
 		grid.clear();
 	}
-	if (!tiles.empty()){
+	if (!tiles.empty()) {
 		for (int i = 0; i < tiles.size(); i++) {
 			if (tiles[i] != NULL) {
 				delete tiles[i];
@@ -36,7 +36,7 @@ Tilemap::~Tilemap() {
 	}
 }
 
-void Tilemap::SetImagePath(const char* imagepath){
+void Tilemap::SetImagePath(const char* imagepath) {
 	this->imagePath = imagepath;
 }
 
@@ -52,6 +52,9 @@ void Tilemap::LoadMap(const char* path) {
 	int height = mapElements->IntAttribute("height");
 	_tileWidth = mapElements->IntAttribute("tilewidth");
 	_tileHeight = mapElements->IntAttribute("tileheight");
+
+	_width = width;
+	_height = height;
 
 	int layers = 0;
 	std::vector<tinyxml2::XMLElement*>layerElement;
@@ -121,7 +124,7 @@ void Tilemap::LoadTilesFromMap() {
 					newTile = NULL;
 					xPos += _tileWidth + _tileWidth;
 				}
-				else {			
+				else {
 					newTile->SetPropertiesPath("res/tilemap/Ground.tsx");
 					newTile->SetUVs(GetTileFromID(newTile->GetID() - 1));
 					tiles.push_back(newTile);
@@ -162,47 +165,154 @@ void Tilemap::Draw() {
 }
 
 void Tilemap::CheckCollisionWithTileMap(Shape* shape, glm::vec3 actualPosition, float speed) {
-	//obtenemos la posicion del objeto tanto en X como en Y
-	_positionInX = shape->transform.position.x + (_width / 2.0f) * _tileWidth;
-	_positionInY = shape->transform.position.y + (_height / 2.0f) * _tileHeight;
+	//for (int i = 0; i < tiles.size(); i++) {
+	//
+	//	if (!tiles[i]->GetIsWalkable()) {
+	//
+	//		if (tiles[i]->transform.position.x + _tileWidth > shape->transform.position.x ||
+	//			tiles[i]->transform.position.x >= shape->transform.position.x + shape->transform.scale.x ||
+	//			tiles[i]->transform.position.y + _tileHeight <= shape->transform.position.y ||
+	//			tiles[i]->transform.position.y >= shape->transform.position.y + shape->transform.scale.y) {
+	//			cout << "ID: " << tiles[i]->GetID() << endl;
+	//			//cout << "no esta entrando todos los frames " << endl;
+	//			//collisionManager->CheckCollision(shape, tiles[i], speed);
+	//		}
+	//		else {
+	//			cout << "no colisiona" << endl;
+	//		}
+	//
+	//		//if (collisionManager->CheckCollision(shape, tiles[i], speed))
+	//		//	cout << "tile: " << tiles[i]->GetID() << endl;
+	//	}
+	//	//if (collisionManager->CheckCollision(shape, tiles[i], speed) == leftCollision && !tiles[i]->GetIsWalkable()) {
+	//	//
+	//	//	std::cout << "colisiona con el tile: " << tiles[i]->GetID() << std::endl;
+	//	//
+	//	//}
+	//	
+	//	//if (shape->transform.position.x == tiles[i]->transform.position.x && tiles[i]->GetID() != NULL)
+	//}
 
-	//obtenemos cuales son los tiles que estan al rededor del objeto
-	int leftTile = _positionInX / _tileWidth;
-	int rightTile = (_positionInX + shape->transform.scale.x) / _tileWidth;
+	////obtenemos la posicion del objeto tanto en X como en Y
+	//_positionInX = shape->transform.position.x + (_width / 2.0f) * _tileWidth;
+	//_positionInY = shape->transform.position.y + (_height / 2.0f) * _tileHeight;
+	//
+	//int leftTile = _positionInX / _tileWidth;
+	//int rightTile = (_positionInX + shape->transform.scale.x) / _tileWidth;
+	//
+	//int topTile = (_positionInX / _tileHeight);
+	//int bottomTile = ((_positionInY - shape->transform.scale.y) / _tileHeight);
+	//
+	//if (leftTile < _positionInX ||
+	//	rightTile > _positionInX ||
+	//	topTile > _positionInY ||
+	//	bottomTile < _positionInY) {
+	//
+	//	for (int i = 0; i < tiles.size(); i++) {
+	//
+	//		if (!tiles[i]->GetIsWalkable()) {
+	//			collisionManager->CheckCollision(shape, tiles[i], speed);
+	//			//cout << "chequea a full la colision" << endl;
+	//		}
+	//
+	//
+	//		//if (leftTile < shape->transform.position.x || 
+	//		//	rightTile > shape->transform.position.x ||
+	//		//	topTile > shape->transform.position.y ||
+	//		//	bottomTile < shape->transform.position.y) {
+	//		//}
+	//	}
+	//}
+	//_positionInX = shape->transform.position.x + (_width / 2.0f) * _tileWidth;
+	//_positionInY = shape->transform.position.y + (_height / 2.0f) * _tileHeight;
+	//
+	////
+	////cout << "Position en X: " << _positionInX << endl;
+	////cout << "Position en Y: " << _positionInY << endl;
+	////
+	//////obtenemos cuales son los tiles que estan al rededor del objeto
+	//int leftTile = _positionInX / _tileWidth;
+	//int rightTile = (_positionInX + shape->transform.scale.x) / _tileWidth;
+	//
+	//int topTile = (_positionInX / _tileHeight);
+	//int bottomTile = ((_positionInY - shape->transform.scale.y) / _tileHeight);
 
-	int topTile = (_positionInX / _tileHeight) * -1;
-	int bottomTile = ((_positionInY - shape->transform.scale.y) / _tileHeight) * -1;
+	//cout << "leftTile: " << leftTile << endl;
+	//cout << "rightTile: " << rightTile << endl;
+	//cout << "topTile: " << topTile << endl;
+	//cout << "bottomTile: " << bottomTile << endl;
+	//
+	//if (leftTile < 0)
+	//	leftTile = 0;
+	//
+	//if (rightTile >= _width)
+	//	rightTile = _width - 1;
+	//
+	//if (topTile < 0)
+	//	topTile = 0;
+	//
+	//if (bottomTile >= _height)
+	//	bottomTile = _height - 1;
+	//
+	////cout << "height: " << _height << endl;
+	////cout << "width: " << _width << endl;
+	//
+	//for (int i = 0; i <= rightTile; i++) {
+	//
+	//	for (int j = 0; j <= bottomTile; j++) {
+	//
+	//		if (!tiles[i]->GetIsWalkable()) {
+	//
+	//			//collisionManager->CheckCollision(shape, tiles[i], speed);
+	//			if (collisionManager->CheckCollision(shape, tiles[i], speed) == rightCollision)
+	//				cout << "Colisiona con tile " << i << endl;
+	//			////shape->transform.position -= actualPosition;
+	//			//
+	//			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == leftCollision)
+	//				cout << "Colisiona con tile " << i << endl;
+	//		}
+	//
+	//		if (!tiles[j]->GetIsWalkable()) {
+	//
+	//			//collisionManager->CheckCollision(shape, tiles[j], speed);
+	//
+	//
+	//			if (collisionManager->CheckCollision(shape, tiles[j], speed) == topCollision)
+	//				cout << "Colisiona con tile " << j << endl;
+	//			//	//shape->transform.position -= actualPosition;
+	//
+	//			//collisionManager->CheckCollision(shape, tiles[j], speed);
+	//
+	//			else if (collisionManager->CheckCollision(shape, tiles[j], speed) == bottomCollision)
+	//				cout << "Colisiona con tile " << j << endl;
+	//
+	//		}
+	//	}
+	//
+	//}
 
-	if (leftTile < 0)
-		leftTile = 0;
+	//if (leftTile < _positionInX ||
+	//	rightTile >_positionInX ||
+	//	topTile > _positionInY ||
+	//	bottomTile < _positionInY) {
+	//
+	//	for (int i = 0; i < tiles.size(); i++) {
+	//
+	//		if (!tiles[i]->GetIsWalkable()) {
+	//			collisionManager->CheckCollision(shape, tiles[i], speed);
+	//			//cout << "chequea a full la colision" << endl;
+	//		}
+	//
+	//
+	//		//if (leftTile < shape->transform.position.x || 
+	//		//	rightTile > shape->transform.position.x ||
+	//		//	topTile > shape->transform.position.y ||
+	//		//	bottomTile < shape->transform.position.y) {
+	//		//}
+	//	}
+	//}
+	//
 
-	if (rightTile >= _width)
-		rightTile = _width - 1;
-
-	if (topTile < 0)
-		topTile = 0;
-
-	if (bottomTile >= _height)
-		bottomTile = _height - 1;
-
-	for (int i = 0; i < tiles.size(); i++) {
-		
-		if (!tiles[i]->GetIsWalkable()) {
-
-			if (collisionManager->CheckCollision(shape, tiles[i], speed) == rightCollision)
-				shape->transform.position -= actualPosition;
-
-			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == leftCollision)
-				shape->transform.position -= actualPosition;
-
-			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == topCollision)
-				shape->transform.position -= actualPosition;
-
-			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == bottomCollision)
-				shape->transform.position -= actualPosition;
-		}
-
-	}
 
 	//for (int i = 0; i < tiles.size(); i++) {
 	//
