@@ -76,9 +76,9 @@ void Tilemap::LoadMap(const char* path) {
 		mapGrid = dataElement->Value();
 		std::stringstream ss(mapGrid);
 		grid[l].resize(height);
-		for (int y = 0; y < width; y++) {
+		for (int y = 0; y < height; y++) {
 			grid[l][y].resize(width);
-			for (int x = 0; x < height; x++) {
+			for (int x = 0; x < width; x++) {
 				std::string value;
 				std::getline(ss, value, ',');
 				if (!ss.good())
@@ -92,6 +92,7 @@ void Tilemap::LoadMap(const char* path) {
 			}
 		}
 	}
+	map.Clear();
 	LoadTilesFromMap();
 }
 
@@ -101,20 +102,19 @@ void Tilemap::LoadTilesFromMap() {
 	_texture->LoadImage(_imageWidth, _imageHeight, true);
 	int xPos = 50;
 	int yPos = 700;
+	float z = 0;
+	int actualID = 0;
 	for (int l = 0; l < grid.size(); l++) {
 		xPos = 50;
 		yPos = 700;
 		for (int y = 0; y < grid[l].size(); y++) {
 			for (int x = 0; x < grid[l][y].size(); x++) {
-				if (grid[l][y][x] == 21) {
-					std::cout << grid[l][y][x] << std::endl;
-				}
 				Tile* newTile = new Tile(grid[l][y][x], false);
 				newTile->SetRenderer(_renderer);
 				newTile->SetShader(shader);
 				newTile->SetPath(imagePath);
 				newTile->Init();
-				newTile->Translate(xPos, yPos, l - 0.5f);
+				newTile->Translate(xPos, yPos, z);
 				newTile->Scale(_tileWidth, _tileHeight, 1);
 				if (newTile->GetID() <= 0 && l > 0) {
 					delete newTile;
@@ -122,16 +122,20 @@ void Tilemap::LoadTilesFromMap() {
 					xPos += _tileWidth + _tileWidth;
 				}
 				else {			
+					if (newTile->GetID() > 0 && l > 0)
+						newTile->SetID(newTile->GetID() - actualID);
 					newTile->SetPropertiesPath("res/tilemap/Ground.tsx");
-					newTile->SetUVs(GetTileFromID(newTile->GetID() - 1));
+					newTile->SetUVs(GetTileFromID(newTile->GetID() ));
 					tiles.push_back(newTile);
 					xPos += newTile->transform.scale.x + _tileWidth;
 				}
 
 			}
+			z += 0.001f;
 			yPos -= _tileHeight + _tileHeight;
 			xPos = 50;
 		}
+		actualID=1;
 	}
 	std::cout << "Ammount of tilemap Entities: " << tiles.size() << endl;
 }
@@ -161,7 +165,7 @@ void Tilemap::Draw() {
 	}
 }
 
-void Tilemap::CheckCollisionWithTileMap(Shape* shape, glm::vec3 actualPosition, float speed) {
+void Tilemap::CheckCollisionWithTileMap(Entity2D* shape, glm::vec3 actualPosition, float speed) {
 	//obtenemos la posicion del objeto tanto en X como en Y
 	_positionInX = shape->transform.position.x + (_width / 2.0f) * _tileWidth;
 	_positionInY = shape->transform.position.y + (_height / 2.0f) * _tileHeight;
@@ -184,33 +188,10 @@ void Tilemap::CheckCollisionWithTileMap(Shape* shape, glm::vec3 actualPosition, 
 
 	if (bottomTile >= _height)
 		bottomTile = _height - 1;
-
 	for (int i = 0; i < tiles.size(); i++) {
-		
+
 		if (!tiles[i]->GetIsWalkable()) {
-
-			if (collisionManager->CheckCollision(shape, tiles[i], speed) == rightCollision)
-				shape->transform.position -= actualPosition;
-
-			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == leftCollision)
-				shape->transform.position -= actualPosition;
-
-			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == topCollision)
-				shape->transform.position -= actualPosition;
-
-			else if (collisionManager->CheckCollision(shape, tiles[i], speed) == bottomCollision)
-				shape->transform.position -= actualPosition;
+			collisionManager->CheckCollision(shape, tiles[i], speed);
 		}
-
 	}
-
-	//for (int i = 0; i < tiles.size(); i++) {
-	//
-	//	if (!tiles[i]->GetIsWalkable()) {
-	//
-	//		if (collisionManager->CheckCollision(shape, tiles[i], speed)) {
-	//			cout << "Colisiona con tile " << i << endl;
-	//		}
-	//	}
-	//}
 }

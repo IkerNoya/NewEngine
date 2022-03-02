@@ -43,8 +43,8 @@ namespace Engine {
 
 		void GenerateVAO();
 		void BindVAO();
-		void BindVBO(float* vertices, int AmmountOfVertices);
-		void BindEBO(unsigned int* indices, int AmmountOfIndices);
+		void BindVBO();
+		void BindEBO();
 		void UnbindBuffers();
 		void DeleteBuffer();
 		void BindBuffers();

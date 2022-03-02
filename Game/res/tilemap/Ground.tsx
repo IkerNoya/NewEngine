@@ -396,7 +396,7 @@
  </tile>
  <tile id="78" type="Floor">
   <properties>
-   <property name="walkable" type="bool" value="false"/>
+   <property name="walkable" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="79" type="Floor">
@@ -456,12 +456,12 @@
  </tile>
  <tile id="90">
   <properties>
-   <property name="walkable" type="bool" value="true"/>
+   <property name="walkable" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="91">
   <properties>
-   <property name="walkable" type="bool" value="true"/>
+   <property name="walkable" type="bool" value="false"/>
   </properties>
  </tile>
  <tile id="92">

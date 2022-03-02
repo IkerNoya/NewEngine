@@ -53,5 +53,6 @@ void Engine::Tile::SetPropertiesPath(const char* path)
 			}
 		}
 	}
+	map.Clear();
 }
 

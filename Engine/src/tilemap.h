@@ -8,6 +8,7 @@
 #include "Entity2D.h"
 #include "collision_manager.h"
 
+
 namespace Engine {
 	class CollisionManager;
 	class Tile;
@@ -49,7 +50,7 @@ namespace Engine {
 		void LoadMap(const char* path);
 		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
-		void CheckCollisionWithTileMap(Shape* shape, glm::vec3 actualPosition, float speed);
+		void CheckCollisionWithTileMap(Entity2D* shape, glm::vec3 actualPosition, float speed);
 	};
 
 }

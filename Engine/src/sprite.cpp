@@ -55,12 +55,12 @@ namespace Engine {
 		_renderer->BindVAO(_vao);
 	}
 
-	void Sprite::BindVBO(float* vertices, int AmmountOfVertices) {
-		_renderer->BindVBO(_vbo, vertices, AmmountOfVertices);
+	void Sprite::BindVBO() {
+		_renderer->BindVBO(_vbo, _vertices, 32);
 	}
 
-	void Sprite::BindEBO(unsigned int* indices, int AmmountOfVertices) {
-		_renderer->BindEBO(_ebo, indices, AmmountOfVertices);
+	void Sprite::BindEBO() {
+		_renderer->BindEBO(_ebo, _quadIndices, 6);
 	}
 
 	void Sprite::Init() {
@@ -97,8 +97,8 @@ namespace Engine {
 	void Sprite::BindBuffers() {
 		GenerateVAO();
 		BindVAO();
-		BindVBO(_vertices, 32);
-		BindEBO(_quadIndices, 6);
+		BindVBO();
+		BindEBO();
 	}
 
 	void Sprite::BindTexture() {
@@ -164,13 +164,13 @@ namespace Engine {
 		if (_transparency) {
 			BlendSprite();
 			BindTexture();
-			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, _quadIndices, 6, GetModel());
 			UnBlendSprite();
 			glDisable(GL_TEXTURE_2D);
 		}
 		else {
 			BindTexture();
-			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, _quadIndices, 6, GetModel());
 			glDisable(GL_TEXTURE_2D);
 		}
 	}
@@ -181,13 +181,13 @@ namespace Engine {
 		if (_transparency) {
 			BlendSprite();
 			BindTexture();
-			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, _quadIndices, 6, GetModel());
 			UnBlendSprite();
 			glDisable(GL_TEXTURE_2D);
 		}
 		else {
 			BindTexture();
-			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, _quadIndices, 6, GetModel());
 			glDisable(GL_TEXTURE_2D);
 		}
 	}
@@ -198,13 +198,13 @@ namespace Engine {
 		if (_transparency) {
 			BlendSprite();
 			BindTexture();
-			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, _quadIndices, 6, GetModel());
 			UnBlendSprite();
 			glDisable(GL_TEXTURE_2D);
 		}
 		else {
 			BindTexture();
-			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, GetModel());
+			_renderer->DrawSprite(shader, _vao, _vbo, _vertices, 32, _quadIndices, 6, GetModel());
 			glDisable(GL_TEXTURE_2D);
 		}
 	}

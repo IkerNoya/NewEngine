@@ -16,7 +16,7 @@ Base::~Base() {
 		delete _renderer;
 		_renderer = NULL;
 	}
-	if (_renderer != NULL)
+	if (_window != NULL)
 	{
 		delete _window;
 		_window = NULL;
@@ -79,6 +79,7 @@ void Base::Update(){
 
 void Base::Unload(){
 	UnloadGame();
+	glfwTerminate();
 }
 
 Renderer* Base::GetRenderer(){
