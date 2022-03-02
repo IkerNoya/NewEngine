@@ -50,13 +50,13 @@ void Game::PlayerInputs() {
 	if (input.GetKey(KeyCode::W)) {
 		_sprite->transform.position.y += speed * time.GetDeltaTime();
 	}
-	if (input.GetKey(KeyCode::S)) {
+	else if (input.GetKey(KeyCode::S)) {
 		_sprite->transform.position.y -= speed * time.GetDeltaTime();
 	}
-	if (input.GetKey(KeyCode::D)) {
+	else if (input.GetKey(KeyCode::D)) {
 		_sprite->transform.position.x += speed * time.GetDeltaTime();
 	}
-	if (input.GetKey(KeyCode::A)) {
+	else if (input.GetKey(KeyCode::A)) {
 		_sprite->transform.position.x -= speed * time.GetDeltaTime();
 	}
 

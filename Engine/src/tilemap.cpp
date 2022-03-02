@@ -23,9 +23,13 @@ Tilemap::~Tilemap() {
 	}
 	if (!tiles.empty()){
 		for (int i = 0; i < tiles.size(); i++) {
-			if (tiles[i] != NULL) {
-				delete tiles[i];
-				tiles[i] == NULL;
+			for (int j = 0; j < tiles[i].size(); j++) {
+				for (int k = 0; k < tiles[i][j].size(); k++) {
+					if (tiles[i][j][k]) {
+						delete tiles[i][j][k];
+						tiles[i][j][k] = nullptr;
+					}
+				}
 			}
 		}
 		tiles.clear();
@@ -94,20 +98,24 @@ void Tilemap::LoadMap(const char* path) {
 	}
 	map.Clear();
 	LoadTilesFromMap();
+	SetAdyacentTiles();
 }
 
 
 void Tilemap::LoadTilesFromMap() {
 	_texture->SetPath(imagePath);
 	_texture->LoadImage(_imageWidth, _imageHeight, true);
-	int xPos = 50;
+	int xPos = _tileWidth;
 	int yPos = 700;
 	float z = 0;
 	int actualID = 0;
+	tiles.resize(grid.size());
 	for (int l = 0; l < grid.size(); l++) {
-		xPos = 50;
+		xPos = _tileWidth;
 		yPos = 700;
+		tiles[l].resize(grid[l].size());
 		for (int y = 0; y < grid[l].size(); y++) {
+			tiles[l][y].resize(grid[l][y].size());
 			for (int x = 0; x < grid[l][y].size(); x++) {
 				Tile* newTile = new Tile(grid[l][y][x], false);
 				newTile->SetRenderer(_renderer);
@@ -126,18 +134,37 @@ void Tilemap::LoadTilesFromMap() {
 						newTile->SetID(newTile->GetID() - actualID);
 					newTile->SetPropertiesPath("res/tilemap/Ground.tsx");
 					newTile->SetUVs(GetTileFromID(newTile->GetID() ));
-					tiles.push_back(newTile);
+					tiles[l][y][x] = newTile;
 					xPos += newTile->transform.scale.x + _tileWidth;
 				}
 
 			}
 			z += 0.001f;
 			yPos -= _tileHeight + _tileHeight;
-			xPos = 50;
+			xPos = _tileWidth;
 		}
 		actualID=1;
 	}
 	std::cout << "Ammount of tilemap Entities: " << tiles.size() << endl;
+}
+
+void Engine::Tilemap::SetAdyacentTiles()
+{
+	for (int i = 0; i < tiles.size(); i++) {
+		for (int j = 0; j < tiles[i].size(); j++) {
+			for (int k = 0; k < tiles[i][j].size(); k++) {
+				if (tiles[i][j][k]) {
+					if ((k-1) >= 0 && tiles[i][j][k -1])tiles[i][j][k]->SetLeft(tiles[i][j][k -1]);
+
+					if ((j-1) >= 0 && tiles[i][j - 1][k])tiles[i][j][k]->SetTop(tiles[i][j-1][k]);
+
+					if ((k+1 < tiles[i][j].size()) && tiles[i][j][k + 1])tiles[i][j][k]->SetRight(tiles[i][j][k + 1]);
+
+					if ((j + 1 < tiles[i][j].size()) && tiles[i][j + 1][k])tiles[i][j][k]->SetBottom(tiles[i][j+1][k]);
+				}
+			}
+		}
+	}
 }
 
 glm::vec4 Tilemap::GetTileFromID(unsigned int id) {
@@ -158,40 +185,45 @@ glm::vec4 Tilemap::GetTileFromID(unsigned int id) {
 void Tilemap::Draw() {
 	if (!tiles.empty()) {
 		for (int i = 0; i < tiles.size(); i++) {
-			if (tiles[i] != NULL) {
-				tiles[i]->DrawSprite();
+			for (int j = 0; j < tiles[i].size(); j++) {
+				for (int k = 0; k < tiles[i][j].size(); k++) {
+					if (tiles[i][j][k]) {
+						tiles[i][j][k]->DrawSprite();
+					}
+				}
 			}
 		}
 	}
 }
 
-void Tilemap::CheckCollisionWithTileMap(Entity2D* shape, glm::vec3 actualPosition, float speed) {
-	//obtenemos la posicion del objeto tanto en X como en Y
-	_positionInX = shape->transform.position.x + (_width / 2.0f) * _tileWidth;
-	_positionInY = shape->transform.position.y + (_height / 2.0f) * _tileHeight;
+void Tilemap::CheckCollisionWithTileMap(Entity2D* player, glm::vec3 actualPosition, float speed) {
 
-	//obtenemos cuales son los tiles que estan al rededor del objeto
-	int leftTile = _positionInX / _tileWidth;
-	int rightTile = (_positionInX + shape->transform.scale.x) / _tileWidth;
+	Tile* currentTile = nullptr;
 
-	int topTile = (_positionInX / _tileHeight) * -1;
-	int bottomTile = ((_positionInY - shape->transform.scale.y) / _tileHeight) * -1;
+	/*for (int i = 0; i < tiles.size(); i++) {
 
-	if (leftTile < 0)
-		leftTile = 0;
-
-	if (rightTile >= _width)
-		rightTile = _width - 1;
-
-	if (topTile < 0)
-		topTile = 0;
-
-	if (bottomTile >= _height)
-		bottomTile = _height - 1;
-	for (int i = 0; i < tiles.size(); i++) {
-
-		if (!tiles[i]->GetIsWalkable()) {
-			collisionManager->CheckCollision(shape, tiles[i], speed);
+		if (tiles[i] && !tiles[i]->GetIsWalkable()) {
+			collisionManager->CheckCollision(player, tiles[i], speed);
 		}
+	}*/
+	for (int i = 0; i < tiles.size(); i++) {
+		for (int j = 0; j < tiles[i].size(); j++) {
+			for (int k = 0; k < tiles[i][j].size(); k++) {
+				if (tiles[i][j][k] && currentTile != tiles[i][j][k] && collisionManager->CheckTrigger(player, tiles[i][j][k])) {
+					currentTile = tiles[i][j][k];
+				}
+			}
+		}
+	}
+	if (currentTile!=nullptr && currentTile->GetIsWalkable()) {
+		for (Tile* tile : currentTile->GetAdyacentTiles()) {
+			if (tile && !tile->GetIsWalkable()) {
+				collisionManager->CheckCollision(player, tile, speed);
+			}
+		}
+	}
+	else {
+		if(currentTile)
+			collisionManager->CheckCollision(player, currentTile, speed);
 	}
 }

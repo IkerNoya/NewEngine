@@ -2,6 +2,7 @@
 #define TILE_H
 #include "export.h"
 #include "sprite.h"
+#include <vector>
 
 namespace Engine {
 
@@ -9,6 +10,7 @@ namespace Engine {
 	private:
 		bool _isWalkable = false;
 		unsigned int _id = 0;
+		std::vector<Tile*> _adyacentTiles;
 
 	public:
 		Tile();
@@ -19,6 +21,11 @@ namespace Engine {
 		unsigned int GetID();
 		void SetID(unsigned int value);
 		void SetPropertiesPath(const char* path);
+		void SetBottom(Tile* tile);
+		void SetTop(Tile* tile);
+		void SetLeft(Tile* tile);
+		void SetRight(Tile* tile);
+		std::vector<Tile*> GetAdyacentTiles();
 	};
 
 }

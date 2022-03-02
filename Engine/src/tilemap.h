@@ -20,7 +20,7 @@ namespace Engine {
 
 	class ENGINE_API Tilemap{
 	private:
-		std::vector<Tile*> tiles;
+		std::vector<std::vector<std::vector<Tile*>>> tiles;
 		std::vector<std::vector<std::vector<int>>> grid;
 		glm::ivec2 dims;
 		Shader shader;
@@ -42,7 +42,7 @@ namespace Engine {
 		float _positionInY;
 
 		void LoadTilesFromMap();
-
+		void SetAdyacentTiles();
 	public:
 		Tilemap(glm::ivec2 dimension, Shader shader, const char* imagePath, Renderer* renderer);
 		~Tilemap();
@@ -50,7 +50,7 @@ namespace Engine {
 		void LoadMap(const char* path);
 		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
-		void CheckCollisionWithTileMap(Entity2D* shape, glm::vec3 actualPosition, float speed);
+		void CheckCollisionWithTileMap(Entity2D* player, glm::vec3 actualPosition, float speed);
 	};
 
 }

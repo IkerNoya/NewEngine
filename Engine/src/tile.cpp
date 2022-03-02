@@ -14,6 +14,15 @@ Tile::Tile(unsigned int id, bool isWalkable) : Sprite() {
 }
 
 Tile::~Tile() {
+	if (!_adyacentTiles.empty()) {
+
+		for (int i = 0; i < _adyacentTiles.size(); i++) {
+			if (_adyacentTiles[i])
+				_adyacentTiles[i] = nullptr;
+		}
+		_adyacentTiles.clear();
+	}
+
 }
 
 void Tile::SetIsWalkable(bool value) {
@@ -54,5 +63,33 @@ void Engine::Tile::SetPropertiesPath(const char* path)
 		}
 	}
 	map.Clear();
+}
+
+void Engine::Tile::SetBottom(Tile* tile)
+{
+	_adyacentTiles.push_back(tile);
+}
+
+
+void Engine::Tile::SetTop(Tile* tile)
+{
+	_adyacentTiles.push_back(tile);
+}
+
+
+void Engine::Tile::SetLeft(Tile* tile)
+{
+	_adyacentTiles.push_back(tile);
+}
+
+void Engine::Tile::SetRight(Tile* tile)
+{
+	_adyacentTiles.push_back(tile);
+}
+
+
+std::vector<Tile*> Engine::Tile::GetAdyacentTiles()
+{
+	return _adyacentTiles;
 }
 
