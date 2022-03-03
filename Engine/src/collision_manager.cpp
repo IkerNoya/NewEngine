@@ -10,9 +10,9 @@ namespace Engine {
 	}
 
 	collisionPos CollisionManager::PartialCollision(Entity2D* entity, Entity2D* otherEntity) {
-		glm::vec2 entityScale(entity->transform.scale.x, entity->transform.scale.y);
-		glm::vec2 obstacleScale(otherEntity->transform.scale.x, otherEntity->transform.scale.y);
-		glm::vec2 entityPos(entity->transform.position.x, entity->transform.position.y);
+		glm::vec2 entityScale(entity->transform.scale.x - 20, entity->transform.scale.y);
+		glm::vec2 obstacleScale(otherEntity->transform.scale.x , otherEntity->transform.scale.y);
+		glm::vec2 entityPos(entity->transform.position.x, entity->transform.position.y-10);
 		glm::vec2 obstaclePos(otherEntity->transform.position.x, otherEntity->transform.position.y);
 		float minX = 0.0f;
 		float maxX = glm::min(entityPos.x + fabs(entityScale.x) / 2.0f, obstaclePos.x + fabs(obstacleScale.x) / 2.0f) - glm::max(entityPos.x - fabs(entityScale.x) / 2.0f, obstaclePos.x - fabs(obstacleScale.x) / 2.0f);
@@ -25,21 +25,17 @@ namespace Engine {
 		if (overlapX != 0.0f && overlapY != 0.0f) {
 			if (overlapX > overlapY) {
 				if (obstaclePos.y < 0 && entityPos.y < obstaclePos.y || entityPos.y > 0 && entityPos.y < obstaclePos.y) {
-					std::cout << "BOTTOM" << std::endl;
 					return bottomCollision;
 				}
 				else if (entityPos.y < 0 && entityPos.y > obstaclePos.y || entityPos.y > 0 && entityPos.y > obstaclePos.y) {
-					std::cout << "TOP" << std::endl;
 					return topCollision;
 				}
 			}
 			else {
 				if (entityPos.x < 0 && entityPos.x < obstaclePos.x || entityPos.x > 0 && entityPos.x < obstaclePos.x) {
-					std::cout << "LEFT" << std::endl;
 					return leftCollision;
 				}
 				else if (entityPos.x < 0 && entityPos.x > obstaclePos.x || entityPos.x > 0 && entityPos.x > obstaclePos.x) {
-					std::cout << "RIGHT" << std::endl;
 					return rightCollision;
 				}
 			}
