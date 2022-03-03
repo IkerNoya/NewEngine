@@ -198,7 +198,7 @@ void Tilemap::Draw() {
 
 void Tilemap::CheckCollisionWithTileMap(Entity2D* player, glm::vec3 actualPosition, float speed) {
 
-	Tile* currentTile = nullptr;
+
 
 	/*for (int i = 0; i < tiles.size(); i++) {
 

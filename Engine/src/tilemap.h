@@ -28,6 +28,7 @@ namespace Engine {
 		Renderer* _renderer;
 		const char* imagePath;
 		CollisionManager* collisionManager;
+		Tile* currentTile = nullptr;
 
 		int _imageWidth=0;
 		int _imageHeight=0;
