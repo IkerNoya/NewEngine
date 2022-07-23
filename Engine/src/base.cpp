@@ -16,7 +16,7 @@ Base::~Base() {
 		delete _renderer;
 		_renderer = NULL;
 	}
-	if (_renderer != NULL)
+	if (_window != NULL)
 	{
 		delete _window;
 		_window = NULL;
@@ -29,6 +29,13 @@ Base::~Base() {
 		delete collisionmanager;
 		collisionmanager = NULL;
 	}
+}
+
+void Base::Execute()
+{
+	Init();
+	Update();
+	Unload();
 }
 
 int Base::Init(){
@@ -72,6 +79,7 @@ void Base::Update(){
 
 void Base::Unload(){
 	UnloadGame();
+	glfwTerminate();
 }
 
 Renderer* Base::GetRenderer(){
