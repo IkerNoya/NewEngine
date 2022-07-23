@@ -172,15 +172,11 @@ glm::vec4 Tilemap::GetTileFromID(unsigned int id) {
 }
 
 void Tilemap::Draw() {
-	//float mapWidth = - (columns * _tileWidth) / 2;
-	//float mapHeight = (rows * _tileHeight) / 2;
 	if (!tiles.empty()) {
 		for (int i = 0; i < tiles.size(); i++) {
 			for (int j = 0; j < tiles[i].size(); j++) {
 				for (int k = 0; k < tiles[i][j].size(); k++) {
 					if (tiles[i][j][k]) {
-						//tiles[i][j][k]->transform.position.x = mapWidth + (_tileWidth * k);
-						//tiles[i][j][k]->transform.position.x = mapHeight - (_tileHeight * j);
 						tiles[i][j][k]->DrawSprite();
 					}
 				}
@@ -189,9 +185,7 @@ void Tilemap::Draw() {
 	}
 }
 
-bool Tilemap::IsTileValid(TilesIndex tile) {
-	if (tile.x < 0 || tile.y < 0 || tile.x >= tiles[0][0].size() || tile.y >= tiles[0].size())
-		return false;
+bool Tilemap::IsTileWalkable(TilesIndex tile) {
 
 	for (int i = layers - 1; i >= 0; i--) {
 		if (tiles[i][tile.y][tile.x]) {
@@ -200,6 +194,10 @@ bool Tilemap::IsTileValid(TilesIndex tile) {
 		}
 	}
 	return true;
+}
+
+bool Engine::Tilemap::IsTileValid(TilesIndex tile) {
+	return tile.x >= 0 && tile.y >= 0 && tile.x < tiles[0][0].size() && tile.y < tiles[0].size();
 }
 
 void Tilemap::CheckCollisionWithTileMap(Entity2D* player, glm::vec3 actualPosition, float speed) {
@@ -221,17 +219,15 @@ void Tilemap::CheckCollisionWithTileMap(Entity2D* player, glm::vec3 actualPositi
 	int up = static_cast<int>(yIndex) - 1;
 	int right = static_cast<int>(widthIndex) +1;
 	int down = static_cast<int>(heightIndex)+1;
-
 	for (int i = left; i <= right; i++) {
 		for (int j = up; j <= down; j++) {
-			if (!IsTileValid(TilesIndex(i, j))) {
+			if (IsTileValid(TilesIndex(i, j)) && !IsTileWalkable(TilesIndex(i, j))) {
 				collisionManager->CheckCollision(player, tiles[0][j][i], speed);
 			}
 		}
 	}
+
 	std::cout << "horizontal = (" << left << ", " << right << ")" << std::endl;
 	std::cout << "vertical = (" << up << ", " << down << ")" << std::endl;
-	//std::cout << "Origin index = (" << xIndex << ", " << yIndex << ")" << std::endl;
-	//std::cout << "player index = (" << widthIndex << ", " << heightIndex << ")" << std::endl;
 
 }

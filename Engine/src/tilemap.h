@@ -38,6 +38,7 @@ namespace Engine {
 		Renderer* _renderer;
 		const char* imagePath;
 		CollisionManager* collisionManager;
+		Tile* currentTile = nullptr;
 
 		int _tileWidth = 0;
 		int _tileHeight = 0;
@@ -57,8 +58,8 @@ namespace Engine {
 		void LoadMap(const char* path);
 		glm::vec4 GetTileFromID(unsigned int id);
 		void Draw();
+		bool IsTileWalkable(TilesIndex tile);
 		bool IsTileValid(TilesIndex tile);
-
 		void CheckCollisionWithTileMap(Entity2D* player, glm::vec3 actualPosition, float speed);
 	};
 
